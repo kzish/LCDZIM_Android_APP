@@ -16,4 +16,5 @@ public class CaseReportParentsGuardiansSpousesInformation {
     public String Occupation;
     public String Employer;
     public String MaritalStatus;
+    public String MaritalStatusOtherSpecify;
 }

@@ -1,3 +1,73 @@
 <resources>
     <string name="app_name">LCDZIM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="array_sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="array_level_of_education">
+        <item>Never been to school</item>
+        <item>Primary</item>
+        <item>Secondary</item>
+        <item>Tertiary</item>
+    </string-array>
+
+    <string-array name="array_marital_status">
+        <item>Married</item>
+        <item>Divorced</item>
+        <item>Widowed</item>
+        <item>Separated</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="array_beneficiary_status">
+        <item>Survivor/Victim/Complainant</item>
+        <item>Witness</item>
+        <item>Accused</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="array_nature_of_the_case">
+        <item>Criminal</item>
+        <item>Civil</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string-array name="array_where_does_the_beneficiary_live">
+        <item>City</item>
+        <item>Rural</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="array_who_is_taking_care_of_the_beneficiary">
+        <item>Both Parents</item>
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Siblings</item>
+        <item>Self</item>
+        <item>Relatives/guardian</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="array_yes_no">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+
+    <string-array name="array_beneficiary_well_bieng">
+        <item>Feeling Good</item>
+        <item>Feeling Bad</item>
+        <item>Sad</item>
+        <item>Happy</item>
+        <item>Other</item>
+    </string-array>
+
+
+
+
 </resources>

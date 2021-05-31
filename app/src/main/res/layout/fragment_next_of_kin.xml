@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="textPersonName" />
         </LinearLayout>
@@ -82,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="number" />
         </LinearLayout>
@@ -142,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="phone" />
         </LinearLayout>
@@ -170,6 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="textEmailAddress" />
         </LinearLayout>
@@ -198,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="textPersonName" />
         </LinearLayout>
@@ -226,6 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="textPersonName" />
         </LinearLayout>

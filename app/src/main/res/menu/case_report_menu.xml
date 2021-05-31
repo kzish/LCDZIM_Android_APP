@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/delete_case_report"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        app:showAsAction="ifRoom|withText"
+        android:title="Delete">
+    </item>
+    <item
+        android:id="@+id/upload_case_report"
+        android:icon="@drawable/ic_baseline_cloud_upload_24"
+        app:showAsAction="ifRoom|withText"
+        android:title="Upload">
+    </item>
+    <item
+        android:id="@+id/save_case_report"
+        android:icon="@drawable/ic_baseline_save_24"
+        app:showAsAction="ifRoom"
+        android:title="Save">
+    </item>
+</menu>

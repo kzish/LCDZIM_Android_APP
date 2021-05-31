@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_where_does_the_beneficiary_live"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -75,7 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Where does the beneficiary live?"
+                android:text="Who is taking care of the beneficiary?"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />
@@ -86,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_who_is_taking_care_of_the_beneficiary"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -111,6 +113,7 @@
                 android:textColor="#4d51f8"
                 android:minLines="6"
                 android:gravity="top|left"
+                android:visibility="gone"
                 android:hint="Who is taking care of the beneficiary...?"
                 android:maxLines="10"
                 android:inputType="textMultiLine" />
@@ -140,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="number" />
         </LinearLayout>
@@ -168,6 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:textColor="#4d51f8"
                 android:inputType="textPersonName" />
         </LinearLayout>
@@ -192,11 +197,12 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/txt_Sex"
+                android:id="@+id/IsTheBeneficiaryAbleToVerballyCommunicate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_yes_no"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -204,6 +210,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_cannot_communicate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff"
@@ -211,6 +218,7 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:paddingRight="5dp"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="142dp"
             tools:layout_editor_absoluteY="84dp">
 
@@ -260,6 +268,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_yes_no"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -310,6 +319,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_beneficiary_well_bieng"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -322,6 +332,7 @@
                 android:textColor="#4d51f8"
                 android:minLines="6"
                 android:maxLines="10"
+                android:visibility="gone"
                 android:gravity="top|left"
                 android:hint="Beneficiary well-being (at the point of intake)?... Specify"
                 android:inputType="textMultiLine" />

@@ -20,4 +20,5 @@ public class CaseReport {
     public String ForceNumber;
     public String CompiledBy;
     public Date DateCompiled;
+    public boolean SavedAtLeastOnce;//saved at least once then wont be deleted
 }

@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -82,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="number"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -142,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="phone"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -170,6 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="textEmailAddress"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -198,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -226,6 +231,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:height="57dp"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -255,6 +261,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_marital_status"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -270,6 +277,7 @@
                 android:inputType="textMultiLine"
                 android:maxLines="10"
                 android:minLines="6"
+                android:visibility="invisible"
                 android:textColor="#4d51f8" />
 
         </LinearLayout>

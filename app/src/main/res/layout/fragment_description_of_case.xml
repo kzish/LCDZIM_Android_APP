@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"
             android:drawSelectorOnTop="true"
             android:ems="10"
+            android:minHeight="57dp"
             android:entries="@array/array_beneficiary_status"
             android:inputType="textPersonName"
             android:textColor="#4d51f8" />
@@ -68,6 +69,7 @@
             android:gravity="top|left"
             android:hint="Other Beneficiary Status Specify..."
             android:inputType="textMultiLine"
+            android:visibility="gone"
             android:minLines="6"
             android:maxLines="10"
             android:textColor="#4d51f8" />
@@ -186,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
                 android:ems="10"
+                android:minHeight="57dp"
                 android:entries="@array/array_nature_of_the_case"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
@@ -199,6 +202,7 @@
                 android:maxLines="10"
                 android:gravity="top|left"
                 android:hint="Nature of the matter specify..."
+                android:visibility="gone"
                 android:inputType="textMultiLine"
                 android:textColor="#4d51f8" />
 

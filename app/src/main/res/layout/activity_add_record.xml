@@ -10,17 +10,21 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:elevation="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         app:tabMode="scrollable"
+        app:tabSelectedTextColor="#fff"
+        android:background="#fc68d0"
         android:layout_width="match_parent"
+        android:elevation="12dp"
         android:layout_height="wrap_content">
     </com.google.android.material.tabs.TabLayout>
 

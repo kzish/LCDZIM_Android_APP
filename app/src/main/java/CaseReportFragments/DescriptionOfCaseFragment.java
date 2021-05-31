@@ -1,5 +1,6 @@
 package CaseReportFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.lcdzim.R;
+
+import Database.AppDatabase;
+import Models.CaseReportClientInformation;
+import Models.CaseReportDescriptionOfTheCaseProblem;
 
 public class DescriptionOfCaseFragment extends Fragment {
 
@@ -81,6 +86,13 @@ public class DescriptionOfCaseFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        //
+        Intent intent = getActivity().getIntent();
+        long case_id = intent.getLongExtra("case_id",0);
+        AppDatabase db = AppDatabase.getAppDatabase(getContext());
+        //
+        CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
+
 
         return view;
     }

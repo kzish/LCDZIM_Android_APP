@@ -7,9 +7,14 @@ import java.util.Date;
 
 @Entity
 public class CaseReportClientInformation {
+
+    public CaseReportClientInformation(long caseId) {
+        CaseId = caseId;
+    }
+
     @PrimaryKey(autoGenerate = true)
-    public int Id;
-    public int CaseId;
+    public long Id;
+    public long CaseId;
     public String NameOfClient;
     public Date Dob;
     public int Age;

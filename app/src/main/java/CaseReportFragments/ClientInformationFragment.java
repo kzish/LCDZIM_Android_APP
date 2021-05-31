@@ -1,6 +1,7 @@
 package CaseReportFragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import Database.AppDatabase;
+import Models.CaseReport;
+import Models.CaseReportClientInformation;
 
 public class ClientInformationFragment extends Fragment {
 
@@ -94,6 +99,12 @@ public class ClientInformationFragment extends Fragment {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        //
+        Intent intent = getActivity().getIntent();
+        long case_id = intent.getLongExtra("case_id",0);
+        AppDatabase db = AppDatabase.getAppDatabase(getContext());
+        //
+        CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
 
         return view;
     }

@@ -1,6 +1,7 @@
 package CaseReportFragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,9 @@ import com.example.lcdzim.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import Database.AppDatabase;
+import Models.CaseReport;
 
 public class BasicInformationFragment extends Fragment {
 
@@ -98,6 +102,22 @@ public class BasicInformationFragment extends Fragment {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        Intent intent = getActivity().getIntent();
+        long case_id = intent.getLongExtra("case_id",0);
+        AppDatabase db = AppDatabase.getAppDatabase(getContext());
+
+        CaseReport caseReport = db.caseReportDao().find(case_id);
+        txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
+        txt_PoliceStation.setText(caseReport.PoliceStation);
+        txt_CrRef.setText(caseReport.CrRef);
+        txt_NameOfInvestigatingOfficer.setText(caseReport.NameOfInvestigatingOfficer);
+        txt_MobileNumber.setText(caseReport.MobileNumber);
+        txt_CourtHandlingTheCase.setText(caseReport.CourtHandlingTheCase);
+        txt_DateCaseWasReported.setText(caseReport.DateCaseWasReported + "");
+        txt_ForceNumber.setText(caseReport.ForceNumber);
+        txt_CompiledBy.setText(caseReport.CompiledBy);
+        txt_DateCompiled.setText(caseReport.DateCompiled+"");
         //
         return view;
     }

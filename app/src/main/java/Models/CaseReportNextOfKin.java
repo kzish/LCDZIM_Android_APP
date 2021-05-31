@@ -5,9 +5,13 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class CaseReportNextOfKin {
+
+    public CaseReportNextOfKin(long caseId) {
+        CaseId = caseId;
+    }
     @PrimaryKey(autoGenerate = true)
-    public int Id;
-    public int CaseId;
+    public long Id;
+    public long CaseId;
     public String Name;
     public int Age;
     public String Address;

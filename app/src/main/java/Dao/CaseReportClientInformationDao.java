@@ -2,8 +2,10 @@ package Dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
+import Models.CaseReport;
 import Models.CaseReportClientInformation;
 
 @Dao
@@ -16,4 +18,6 @@ public interface CaseReportClientInformationDao {
     void delete(CaseReportClientInformation item);
     @Delete
     void delete(CaseReportClientInformation... items);
+    @Query("select * from casereportclientinformation where caseid = :case_id")
+    CaseReportClientInformation findByCaseId(long case_id);
 }

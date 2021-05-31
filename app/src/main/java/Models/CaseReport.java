@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 public class CaseReport {
     @PrimaryKey(autoGenerate = true)
-    public int Id;
+    public long Id;
     public Date date;
     public String ReferredByNameAndInstitution;
     public String PoliceStation;

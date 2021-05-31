@@ -5,9 +5,14 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class CaseReportNeedsAssesment {
+
+    public CaseReportNeedsAssesment(long caseId) {
+        CaseId = caseId;
+    }
+
     @PrimaryKey(autoGenerate = true)
-    public int Id;
-    public int CaseId;
+    public long Id;
+    public long CaseId;
     public String WhereDoesTheBeneficiaryLive;
     public String WhoIsTakingCareOfTheBeneficiary;
     public String WhoIsTakingCareOfTheBeneficiaryOtherSpecify;

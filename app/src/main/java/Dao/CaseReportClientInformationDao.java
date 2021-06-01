@@ -16,7 +16,7 @@ public interface CaseReportClientInformationDao {
     void update(CaseReportClientInformation item);
     @Delete
     void delete(CaseReportClientInformation item);
-    @Delete
+    @Insert
     void delete(CaseReportClientInformation... items);
     @Query("select * from casereportclientinformation where caseid = :case_id")
     CaseReportClientInformation findByCaseId(long case_id);

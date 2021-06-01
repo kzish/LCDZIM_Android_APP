@@ -15,7 +15,7 @@ public interface CaseReportDao {
     void update(CaseReport item);
     @Delete
     void delete(CaseReport item);
-    @Delete
+    @Insert
     long[] delete(CaseReport... items);
     @Query("select * from casereport where id = :id")
     CaseReport find(long id);

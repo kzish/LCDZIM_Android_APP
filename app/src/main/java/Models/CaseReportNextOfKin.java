@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class CaseReportNextOfKin {
 
+    public CaseReportNextOfKin(){}
     public CaseReportNextOfKin(long caseId) {
         CaseId = caseId;
     }

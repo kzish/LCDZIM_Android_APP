@@ -8,6 +8,10 @@ import java.util.Date;
 @Entity
 public class CaseReportClientInformation {
 
+    public CaseReportClientInformation() {
+
+    }
+
     public CaseReportClientInformation(long caseId) {
         CaseId = caseId;
     }

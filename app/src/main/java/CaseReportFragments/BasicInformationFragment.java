@@ -1,21 +1,25 @@
 package CaseReportFragments;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.example.lcdzim.AddRecordActivity;
 import com.example.lcdzim.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import Database.AppDatabase;
@@ -37,16 +41,18 @@ public class BasicInformationFragment extends Fragment {
 
     }
 
-    EditText txt_ReferredByNameAndInstitution;
-    EditText txt_PoliceStation;
-    EditText txt_CrRef;
-    EditText txt_NameOfInvestigatingOfficer;
-    EditText txt_MobileNumber;
-    EditText txt_CourtHandlingTheCase;
-    EditText txt_DateCaseWasReported;
-    EditText txt_ForceNumber;
-    EditText txt_CompiledBy;
-    EditText txt_DateCompiled;
+    static EditText txt_ReferredByNameAndInstitution;
+    static EditText txt_PoliceStation;
+    static EditText txt_CrRef;
+    static EditText txt_NameOfInvestigatingOfficer;
+    static EditText txt_MobileNumber;
+    static EditText txt_CourtHandlingTheCase;
+    static EditText txt_DateCaseWasReported;
+    static EditText txt_ForceNumber;
+    static EditText txt_CompiledBy;
+    static EditText txt_DateCompiled;
+    static CaseReport caseReport = null;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,10 +110,26 @@ public class BasicInformationFragment extends Fragment {
         });
 
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id",0);
+        long case_id = intent.getLongExtra("case_id", 0);
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
 
-        CaseReport caseReport = db.caseReportDao().find(case_id);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+        try {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    caseReport = db.caseReportDao().find(case_id);
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("ex", ex.getMessage());
+        }
+        progressDialog.hide();
+
         txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
         txt_PoliceStation.setText(caseReport.PoliceStation);
         txt_CrRef.setText(caseReport.CrRef);
@@ -117,8 +139,50 @@ public class BasicInformationFragment extends Fragment {
         txt_DateCaseWasReported.setText(caseReport.DateCaseWasReported + "");
         txt_ForceNumber.setText(caseReport.ForceNumber);
         txt_CompiledBy.setText(caseReport.CompiledBy);
-        txt_DateCompiled.setText(caseReport.DateCompiled+"");
+        txt_DateCompiled.setText(caseReport.DateCompiled + "");
         //
         return view;
+    }
+
+    public static void saveRecord() {
+        if (caseReport == null) return;
+        caseReport.date = Calendar.getInstance().getTime();
+        caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
+        caseReport.PoliceStation = txt_PoliceStation.getText().toString();
+        caseReport.CrRef = txt_CrRef.getText().toString();
+        caseReport.NameOfInvestigatingOfficer = txt_NameOfInvestigatingOfficer.getText().toString();
+        caseReport.MobileNumber = txt_MobileNumber.getText().toString();
+        caseReport.CourtHandlingTheCase = txt_CourtHandlingTheCase.getText().toString();
+        try {
+            caseReport.DateCaseWasReported = new SimpleDateFormat("yyyy-MM-dd").parse(txt_DateCaseWasReported.getText().toString());
+        } catch (Exception ex) {
+        }
+        caseReport.ForceNumber = txt_ForceNumber.getText().toString();
+        caseReport.CompiledBy = txt_CompiledBy.getText().toString();
+        try {
+            caseReport.DateCompiled = new SimpleDateFormat("yyyy-MM-dd").parse(txt_DateCompiled.getText().toString());
+        } catch (Exception ex) {
+        }
+        caseReport.SavedAtLeastOnce = true;
+
+        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        try {
+            pd.setTitle("Saving...");
+            pd.show();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
+                    db.caseReportDao().update(caseReport);
+                }
+            });
+            t.start();
+            t.join();
+        }catch (Exception ex){
+            Log.e("ex",ex.getMessage());
+        }finally {
+            pd.hide();
+        }
+
     }
 }

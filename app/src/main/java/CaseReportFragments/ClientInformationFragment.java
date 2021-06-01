@@ -1,21 +1,25 @@
 package CaseReportFragments;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.anurag.multiselectionspinner.MultiSelectionSpinnerDialog;
 import com.anurag.multiselectionspinner.MultiSpinner;
+import com.example.lcdzim.AddRecordActivity;
 import com.example.lcdzim.R;
 
 import java.text.SimpleDateFormat;
@@ -43,20 +47,24 @@ public class ClientInformationFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    EditText txt_NameOfClient;
-    EditText txt_Dob;
-    EditText txt_Age;
-    Spinner txt_Sex;
-    Spinner txt_LevelOfEducation;
-    EditText txt_ClientsAddress;
-    EditText txt_PhoneNumberHome;
-    EditText txt_Mobile;
-    List<String> chosen_disability_items;
-    CheckBox chk_disability_hi;
-    CheckBox chk_disability_mr;
-    CheckBox chk_disability_vi;
-    CheckBox chk_disability_physical;
-    CheckBox chk_disability_cosmetic;
+    static EditText txt_NameOfClient;
+    static EditText txt_Dob;
+    static EditText txt_Age;
+    static Spinner txt_Sex;
+    static Spinner txt_LevelOfEducation;
+    static EditText txt_ClientsAddress;
+    static EditText txt_PhoneNumberHome;
+    static EditText txt_Mobile;
+    static List<String> chosen_disability_items;
+    static CheckBox chk_disability_hi;
+    static CheckBox chk_disability_mr;
+    static CheckBox chk_disability_vi;
+    static CheckBox chk_disability_physical;
+    static CheckBox chk_disability_cosmetic;
+    static EditText txt_GiveDetailsOfTheDisability;
+
+    static CaseReportClientInformation caseReportClientInformation = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,19 +75,69 @@ public class ClientInformationFragment extends Fragment {
 
         //
         chosen_disability_items = new ArrayList<>();
-        txt_NameOfClient = (EditText)view.findViewById(R.id.txt_NameOfClient);
-        txt_Dob = (EditText)view.findViewById(R.id.txt_Dob);
-        txt_Age = (EditText)view.findViewById(R.id.txt_Age);
+        txt_NameOfClient = (EditText) view.findViewById(R.id.txt_NameOfClient);
+        txt_Dob = (EditText) view.findViewById(R.id.txt_Dob);
+        txt_Age = (EditText) view.findViewById(R.id.txt_Age);
         txt_Sex = (Spinner) view.findViewById(R.id.txt_Sex);
-        txt_LevelOfEducation = (Spinner)view.findViewById(R.id.txt_LevelOfEducation);
-        txt_ClientsAddress = (EditText)view.findViewById(R.id.txt_ClientsAddress);
-        txt_PhoneNumberHome = (EditText)view.findViewById(R.id.txt_PhoneNumberHome);
-        txt_Mobile = (EditText)view.findViewById(R.id.txt_Mobile);
-        chk_disability_hi = (CheckBox)view .findViewById(R.id.chk_disability_hi);
-        chk_disability_mr = (CheckBox)view .findViewById(R.id.chk_disability_mr);
-        chk_disability_vi = (CheckBox)view .findViewById(R.id.chk_disability_vi);
-        chk_disability_physical = (CheckBox)view .findViewById(R.id.chk_disability_physical);
-        chk_disability_cosmetic = (CheckBox)view .findViewById(R.id.chk_disability_cosmetic);
+        txt_LevelOfEducation = (Spinner) view.findViewById(R.id.txt_LevelOfEducation);
+        txt_ClientsAddress = (EditText) view.findViewById(R.id.txt_ClientsAddress);
+        txt_PhoneNumberHome = (EditText) view.findViewById(R.id.txt_PhoneNumberHome);
+        txt_Mobile = (EditText) view.findViewById(R.id.txt_Mobile);
+        chk_disability_hi = (CheckBox) view.findViewById(R.id.chk_disability_hi);
+        chk_disability_mr = (CheckBox) view.findViewById(R.id.chk_disability_mr);
+        chk_disability_vi = (CheckBox) view.findViewById(R.id.chk_disability_vi);
+        chk_disability_physical = (CheckBox) view.findViewById(R.id.chk_disability_physical);
+        chk_disability_cosmetic = (CheckBox) view.findViewById(R.id.chk_disability_cosmetic);
+        txt_GiveDetailsOfTheDisability = (EditText) view.findViewById(R.id.txt_GiveDetailsOfTheDisability);
+
+        chk_disability_hi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosen_disability_items.add("hi");
+                } else {
+                    chosen_disability_items.remove("hi");
+                }
+            }
+        });
+        chk_disability_mr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosen_disability_items.add("mr");
+                } else {
+                    chosen_disability_items.remove("mr");
+                }
+            }
+        });
+        chk_disability_vi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosen_disability_items.add("vi");
+                }
+            }
+        });
+        chk_disability_physical.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosen_disability_items.add("physical");
+                } else {
+                    chosen_disability_items.remove("physical");
+                }
+            }
+        });
+        chk_disability_cosmetic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chosen_disability_items.add("cosmetic");
+                } else{
+                    chosen_disability_items.remove("cosmetic");
+                }
+            }
+        });
 
         txt_Dob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,11 +159,94 @@ public class ClientInformationFragment extends Fragment {
         });
         //
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id",0);
+        long case_id = intent.getLongExtra("case_id", 0);
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
         //
-        CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+        try {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("ex", ex.getMessage());
+        }
+        txt_NameOfClient.setText(caseReportClientInformation.NameOfClient);
+        txt_Dob.setText(caseReportClientInformation.Dob + "");
+        txt_Age.setText(caseReportClientInformation.Age + "");
+
+        txt_ClientsAddress.setText(caseReportClientInformation.NameOfClient);
+        txt_PhoneNumberHome.setText(caseReportClientInformation.NameOfClient);
+        txt_Mobile.setText(caseReportClientInformation.NameOfClient);
+        try {
+            chk_disability_hi.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("hi"));
+            chk_disability_mr.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("mr"));
+            chk_disability_vi.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("vi"));
+            chk_disability_physical.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("physical"));
+            chk_disability_cosmetic.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("cosmetic"));
+        } catch (Exception ex) {
+
+        }
+
+        for (int i = 0; i < txt_Sex.getAdapter().getCount(); i++) {
+            String val = txt_Sex.getAdapter().getItem(i).toString();
+            if (val.equals(caseReportClientInformation.Sex)) {
+                txt_Sex.setSelection(i);
+            }
+        }
+        for (int i = 0; i < txt_LevelOfEducation.getAdapter().getCount(); i++) {
+            String val = txt_LevelOfEducation.getAdapter().getItem(i).toString();
+            if (val.equals(caseReportClientInformation.LevelOfEducation)) {
+                txt_LevelOfEducation.setSelection(i);
+            }
+        }
 
         return view;
+    }
+
+    public static void saveRecord() {
+        if (caseReportClientInformation == null) return;
+        caseReportClientInformation.CaseId = AddRecordActivity.case_id;
+        caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
+        try {
+            caseReportClientInformation.Dob = new SimpleDateFormat("yyyy-MM-dd").parse(txt_Dob.getText().toString());
+        } catch (Exception ex) {
+
+        }
+        caseReportClientInformation.Age = Integer.parseInt(txt_Age.getText().toString());
+        caseReportClientInformation.Sex = txt_Sex.getSelectedItem().toString();
+        caseReportClientInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
+        caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
+        caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
+        caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
+        for (String item:chosen_disability_items
+             ) {
+            caseReportClientInformation.DescriptionOfDisability += (item + ",");
+
+        }
+        caseReportClientInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
+
+        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        try {
+            pd.setTitle("Saving...");
+            pd.show();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
+                    db.caseReportClientInformationDao().update(caseReportClientInformation);
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("ex", ex.getMessage());
+        } finally {
+            pd.hide();
+        }
+
     }
 }

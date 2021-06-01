@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey;
 @Entity
 public class CaseReportNeedsAssesment {
 
+    public CaseReportNeedsAssesment() {
+    }
+
     public CaseReportNeedsAssesment(long caseId) {
         CaseId = caseId;
     }

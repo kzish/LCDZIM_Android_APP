@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class CaseReportParentsGuardiansSpousesInformation {
 
+    public CaseReportParentsGuardiansSpousesInformation(){}
     public CaseReportParentsGuardiansSpousesInformation(long caseId) {
         CaseId = caseId;
     }

@@ -5,6 +5,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.List;
+
 import Models.CaseReport;
 
 @Dao
@@ -19,4 +21,6 @@ public interface CaseReportDao {
     long[] delete(CaseReport... items);
     @Query("select * from casereport where id = :id")
     CaseReport find(long id);
+    @Query("select * from casereport")
+    List<CaseReport> findAll();
 }

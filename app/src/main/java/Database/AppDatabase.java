@@ -29,7 +29,7 @@ import Dao.CaseReportParentsGuardiansSpousesInformationDao;
         CaseReportNeedsAssesment.class,
         CaseReportNextOfKin.class,
         CaseReportParentsGuardiansSpousesInformation.class,
-}, version = 1)
+}, version = 2)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();
@@ -50,6 +50,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "LCDZIM")
                     //.allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return INSTANCE;

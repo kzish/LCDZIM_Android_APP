@@ -7,12 +7,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.lcdzim.AddRecordActivity;
 import com.example.lcdzim.R;
@@ -145,7 +147,11 @@ public class BasicInformationFragment extends Fragment {
     }
 
     public static void saveRecord() {
-        if (caseReport == null) return;
+        Log.e("ex","called");
+        if (caseReport == null) {
+            Toast.makeText(AddRecordActivity.context,"case Report null",Toast.LENGTH_SHORT).show();
+            return;
+        }
         caseReport.date = Calendar.getInstance().getTime();
         caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
         caseReport.PoliceStation = txt_PoliceStation.getText().toString();
@@ -174,11 +180,13 @@ public class BasicInformationFragment extends Fragment {
                 public void run() {
                     AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
                     db.caseReportDao().update(caseReport);
+                    Log.e("ex","saved");
                 }
             });
             t.start();
             t.join();
         }catch (Exception ex){
+            Toast.makeText(AddRecordActivity.context,"error here",Toast.LENGTH_SHORT).show();
             Log.e("ex",ex.getMessage());
         }finally {
             pd.hide();

@@ -34,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
         img_add_record = (ImageView) findViewById(R.id.img_add_record);
         img_manage_records = (ImageView) findViewById(R.id.img_manage_records);
 
+        img_manage_records.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewCasesIntent = new Intent(MainActivity.this, ListCasesActivity.class);
+                startActivity(viewCasesIntent);
+            }
+        });
+
         AppDatabase db = AppDatabase.getAppDatabase(MainActivity.this);
 
 

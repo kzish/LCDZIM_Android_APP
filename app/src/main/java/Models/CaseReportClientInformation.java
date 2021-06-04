@@ -17,7 +17,7 @@ public class CaseReportClientInformation {
     }
 
     @PrimaryKey(autoGenerate = true)
-    public long Id;
+    public long IdAtClient;
     public long CaseId;
     public String NameOfClient;
     public Date Dob;

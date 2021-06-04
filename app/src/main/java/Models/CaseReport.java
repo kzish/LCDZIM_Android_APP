@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 public class CaseReport {
     @PrimaryKey(autoGenerate = true)
-    public long Id;
+    public long IdAtClient;
     public Date date;
     public String ReferredByNameAndInstitution;
     public String PoliceStation;
@@ -21,4 +21,5 @@ public class CaseReport {
     public String CompiledBy;
     public Date DateCompiled;
     public boolean SavedAtLeastOnce;//saved at least once then wont be deleted
+    public boolean Uploaded;//is this case uploaded or not
 }

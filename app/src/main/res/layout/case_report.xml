@@ -10,22 +10,26 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="12dp">
+        android:layout_margin="10dp"
+        android:elevation="12dp"
+        app:cardBackgroundColor="@color/light_gray">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/cardview_dark_background"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:paddingRight="5dp"
+                android:weightSum="5"
                 tools:layout_editor_absoluteX="142dp"
                 tools:layout_editor_absoluteY="84dp">
 
@@ -34,11 +38,18 @@
                     android:id="@+id/txt_ReferredByNameAndInstitution"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:text="Referred By (Name &amp; Institution)"
                     android:textColor="#000"
                     android:textSize="10dp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/img_uploaded"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_done_all_24" />
 
             </LinearLayout>
 

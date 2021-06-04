@@ -17,8 +17,6 @@ public interface CaseReportNextOfKinDao {
     void update(CaseReportNextOfKin item);
     @Delete
     void delete(CaseReportNextOfKin item);
-    @Insert
-    long[] insert(CaseReportNextOfKin... items);
     @Query("select * from casereportnextofkin where caseid = :case_id")
     CaseReportNextOfKin findByCaseId(long case_id);
 }

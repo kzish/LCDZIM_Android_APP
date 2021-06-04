@@ -17,8 +17,6 @@ public interface CaseReportDescriptionOfTheCaseProblemDao {
     void update(CaseReportDescriptionOfTheCaseProblem item);
     @Delete
     void delete(CaseReportDescriptionOfTheCaseProblem item);
-    @Insert
-    long[] insert(CaseReportDescriptionOfTheCaseProblem... items);
     @Query("select * from casereportdescriptionofthecaseproblem where caseid = :case_id")
     CaseReportDescriptionOfTheCaseProblem findByCaseId(long case_id);
 }

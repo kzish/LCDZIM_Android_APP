@@ -138,18 +138,20 @@ public class BasicInformationFragment extends Fragment {
         txt_NameOfInvestigatingOfficer.setText(caseReport.NameOfInvestigatingOfficer);
         txt_MobileNumber.setText(caseReport.MobileNumber);
         txt_CourtHandlingTheCase.setText(caseReport.CourtHandlingTheCase);
-        txt_DateCaseWasReported.setText(caseReport.DateCaseWasReported + "");
+        if(caseReport.DateCaseWasReported!=null) {
+            txt_DateCaseWasReported.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReport.DateCaseWasReported));
+        }
         txt_ForceNumber.setText(caseReport.ForceNumber);
         txt_CompiledBy.setText(caseReport.CompiledBy);
-        txt_DateCompiled.setText(caseReport.DateCompiled + "");
+        if(caseReport.DateCompiled!=null) {
+            txt_DateCompiled.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReport.DateCompiled));
+        }
         //
         return view;
     }
 
     public static void saveRecord() {
-        Log.e("ex","called");
         if (caseReport == null) {
-            Toast.makeText(AddRecordActivity.context,"case Report null",Toast.LENGTH_SHORT).show();
             return;
         }
         caseReport.date = Calendar.getInstance().getTime();
@@ -180,13 +182,11 @@ public class BasicInformationFragment extends Fragment {
                 public void run() {
                     AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
                     db.caseReportDao().update(caseReport);
-                    Log.e("ex","saved");
                 }
             });
             t.start();
             t.join();
         }catch (Exception ex){
-            Toast.makeText(AddRecordActivity.context,"error here",Toast.LENGTH_SHORT).show();
             Log.e("ex",ex.getMessage());
         }finally {
             pd.hide();

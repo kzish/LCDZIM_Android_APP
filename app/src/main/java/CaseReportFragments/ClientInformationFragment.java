@@ -133,7 +133,7 @@ public class ClientInformationFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     chosen_disability_items.add("cosmetic");
-                } else{
+                } else {
                     chosen_disability_items.remove("cosmetic");
                 }
             }
@@ -175,7 +175,9 @@ public class ClientInformationFragment extends Fragment {
             Log.e("ex", ex.getMessage());
         }
         txt_NameOfClient.setText(caseReportClientInformation.NameOfClient);
-        txt_Dob.setText(caseReportClientInformation.Dob + "");
+        if (caseReportClientInformation.Dob != null) {
+            txt_Dob.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReportClientInformation.Dob));
+        }
         txt_Age.setText(caseReportClientInformation.Age + "");
 
         txt_ClientsAddress.setText(caseReportClientInformation.NameOfClient);
@@ -222,8 +224,8 @@ public class ClientInformationFragment extends Fragment {
         caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
         caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
         caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
-        for (String item:chosen_disability_items
-             ) {
+        for (String item : chosen_disability_items
+        ) {
             caseReportClientInformation.DescriptionOfDisability += (item + ",");
 
         }

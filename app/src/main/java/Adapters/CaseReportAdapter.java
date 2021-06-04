@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -24,7 +25,7 @@ import Models.CaseReport;
 
 public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.ViewHolder> {
 
-    private List<CaseReport> caseReports;
+    public static List<CaseReport> caseReports;
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -33,6 +34,7 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         private final TextView txt_PoliceStation;
         private final TextView txt_ReferredByNameAndInstitution;
         private final CardView card_view;
+        private final ImageView img_uploaded;
 
         public ViewHolder(View view) {
             super(view);
@@ -43,6 +45,7 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
             txt_PoliceStation = (TextView) view.findViewById(R.id.txt_PoliceStation);
             txt_ReferredByNameAndInstitution = (TextView) view.findViewById(R.id.txt_ReferredByNameAndInstitution);
             card_view = (CardView) view.findViewById(R.id.card_view);
+            img_uploaded = (ImageView) view.findViewById(R.id.img_uploaded);
         }
 
 
@@ -75,19 +78,24 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         }
         viewHolder.txt_PoliceStation.setText(caseReport.PoliceStation);
         viewHolder.txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
+        if(caseReport.Uploaded) {
+            viewHolder.img_uploaded.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.img_uploaded.setVisibility(View.INVISIBLE);
+        }
 
         if (position % 2 == 0) {
-            viewHolder.card_view.setCardBackgroundColor(context.getResources().getColor(R.color.light_blue));
+            viewHolder.card_view.setCardBackgroundColor(0xFFFEFEFE);
         } else {
-            viewHolder.card_view.setCardBackgroundColor(context.getResources().getColor(R.color.light_gray));
+            viewHolder.card_view.setCardBackgroundColor(0xFFFFFFFF);
         }
 
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddRecordActivity.case_id = caseReport.Id;
+                AddRecordActivity.case_id = caseReport.IdAtClient;
                 Intent intent = new Intent(context, AddRecordActivity.class);
-                intent.putExtra("case_id", caseReport.Id);
+                intent.putExtra("case_id", caseReport.IdAtClient);
                 context.startActivity(intent);
             }
         });

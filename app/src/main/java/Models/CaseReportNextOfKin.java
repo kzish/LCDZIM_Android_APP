@@ -11,7 +11,7 @@ public class CaseReportNextOfKin {
         CaseId = caseId;
     }
     @PrimaryKey(autoGenerate = true)
-    public long Id;
+    public long IdAtClient;
     public long CaseId;
     public String Name;
     public int Age;

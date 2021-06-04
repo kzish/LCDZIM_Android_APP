@@ -17,8 +17,6 @@ public interface CaseReportParentsGuardiansSpousesInformationDao {
     void update(CaseReportParentsGuardiansSpousesInformation item);
     @Delete
     void delete(CaseReportParentsGuardiansSpousesInformation item);
-    @Insert
-    long[] insert(CaseReportParentsGuardiansSpousesInformation... items);
     @Query("select * from casereportparentsguardiansspousesinformation where caseid = :case_id")
     CaseReportParentsGuardiansSpousesInformation findByCaseId(long case_id);
 }

@@ -14,7 +14,7 @@ public class CaseReportNeedsAssesment {
     }
 
     @PrimaryKey(autoGenerate = true)
-    public long Id;
+    public long IdAtClient;
     public long CaseId;
     public String WhereDoesTheBeneficiaryLive;
     public String WhoIsTakingCareOfTheBeneficiary;

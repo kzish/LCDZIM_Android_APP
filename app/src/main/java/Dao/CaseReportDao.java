@@ -17,10 +17,8 @@ public interface CaseReportDao {
     void update(CaseReport item);
     @Delete
     void delete(CaseReport item);
-    @Insert
-    long[] delete(CaseReport... items);
-    @Query("select * from casereport where id = :id")
-    CaseReport find(long id);
+    @Query("select * from casereport where IdAtClient = :IdAtClient")
+    CaseReport find(long IdAtClient);
     @Query("select * from casereport")
     List<CaseReport> findAll();
 }

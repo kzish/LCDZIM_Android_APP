@@ -29,7 +29,7 @@ import Dao.CaseReportParentsGuardiansSpousesInformationDao;
         CaseReportNeedsAssesment.class,
         CaseReportNextOfKin.class,
         CaseReportParentsGuardiansSpousesInformation.class,
-}, version = 8)
+}, version = 10)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();

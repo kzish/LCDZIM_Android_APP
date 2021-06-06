@@ -14,14 +14,16 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.lcdzim.AddRecordActivity;
+import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
+import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class DescriptionOfCaseFragment extends Fragment {
+
+    public static boolean fragment_can_save; //is this fragment active yet?
 
     public DescriptionOfCaseFragment() {
     }
@@ -34,6 +36,7 @@ public class DescriptionOfCaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     static EditText txt_BeneficiaryStatusOtherSpecify;
@@ -44,10 +47,11 @@ public class DescriptionOfCaseFragment extends Fragment {
     static EditText txt_DetailsOfCaseAndCharge;
     static Spinner txt_BeneficiaryStatus;
     static Spinner txt_NatureOfTheMatterCase;
-    static CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem=null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragment_can_save = true;
         View view = inflater.inflate(R.layout.fragment_description_of_case, container, false);
         //
         txt_BeneficiaryStatusOtherSpecify = (EditText) view.findViewById(R.id.txt_BeneficiaryStatusOtherSpecify);
@@ -57,7 +61,7 @@ public class DescriptionOfCaseFragment extends Fragment {
         txt_DetailsOfCaseAndCharge = (EditText) view.findViewById(R.id.txt_DetailsOfCaseAndCharge);
         txt_BeneficiaryStatus = (Spinner) view.findViewById(R.id.txt_BeneficiaryStatus);
         txt_NatureOfTheMatterCase = (Spinner) view.findViewById(R.id.txt_NatureOfTheMatterCase);
-        txt_NatureOfTheMatterCaseOtherSpecify =(EditText)view.findViewById(R.id.txt_NatureOfTheMatterCaseOtherSpecify);
+        txt_NatureOfTheMatterCaseOtherSpecify = (EditText) view.findViewById(R.id.txt_NatureOfTheMatterCaseOtherSpecify);
         //
         txt_NatureOfTheMatterCase.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -89,77 +93,58 @@ public class DescriptionOfCaseFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-        //
-        Intent intent = getActivity().getIntent();
-        String case_id = intent.getStringExtra("case_id");
-        AppDatabase db = AppDatabase.getAppDatabase(getContext());
-        //
-        try {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
-                }
-            });
-            t.start();
-            t.join();
-        }catch (Exception ex)
-        {
-            Log.e("kzzex",ex.getMessage());
-        }
 
-        txt_BeneficiaryStatusOtherSpecify.setText(caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify);
-        txt_RelationshipClientAndAccused.setText(caseReportDescriptionOfTheCaseProblem.RelationshipClientAndAccused);
-        txt_RelationshipClientAndWitness.setText(caseReportDescriptionOfTheCaseProblem.RelationshipClientAndWitness);
-        txt_RelationshipClientAndSurvivorVictimComplainant.setText(caseReportDescriptionOfTheCaseProblem.RelationshipClientAndSurvivorVictimComplainant);
-        txt_DetailsOfCaseAndCharge.setText(caseReportDescriptionOfTheCaseProblem.DetailsOfCaseAndCharge);
-        txt_NatureOfTheMatterCaseOtherSpecify.setText(caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCaseOtherSpecify);
+        txt_BeneficiaryStatusOtherSpecify.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify);
+        txt_RelationshipClientAndAccused.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndAccused);
+        txt_RelationshipClientAndWitness.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndWitness);
+        txt_RelationshipClientAndSurvivorVictimComplainant.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndSurvivorVictimComplainant);
+        txt_DetailsOfCaseAndCharge.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.DetailsOfCaseAndCharge);
+        txt_NatureOfTheMatterCaseOtherSpecify.setText(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCaseOtherSpecify);
 
-        for(int i = 0 ; i<txt_BeneficiaryStatus.getAdapter().getCount();i ++){
-            String val =txt_BeneficiaryStatus.getAdapter().getItem(i).toString();
-            if(val.equals(caseReportDescriptionOfTheCaseProblem.BeneficiaryStatus)){
+        for (int i = 0; i < txt_BeneficiaryStatus.getAdapter().getCount(); i++) {
+            String val = txt_BeneficiaryStatus.getAdapter().getItem(i).toString();
+            if (val.equals(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatus)) {
                 txt_BeneficiaryStatus.setSelection(i);
             }
         }
-        for(int i = 0 ; i<txt_NatureOfTheMatterCase.getAdapter().getCount();i ++){
-            String val =txt_NatureOfTheMatterCase.getAdapter().getItem(i).toString();
-            if(val.equals(caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCase)){
+        for (int i = 0; i < txt_NatureOfTheMatterCase.getAdapter().getCount(); i++) {
+            String val = txt_NatureOfTheMatterCase.getAdapter().getItem(i).toString();
+            if (val.equals(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCase)) {
                 txt_NatureOfTheMatterCase.setSelection(i);
             }
         }
 
-
         return view;
     }
 
-    public static void saveRecord(){
-        if (caseReportDescriptionOfTheCaseProblem == null) return;
-        caseReportDescriptionOfTheCaseProblem.CaseId=AddRecordActivity.case_id;
-        caseReportDescriptionOfTheCaseProblem.BeneficiaryStatus=txt_BeneficiaryStatus.getSelectedItem().toString();
-        caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify=txt_BeneficiaryStatusOtherSpecify.getText().toString();
-        caseReportDescriptionOfTheCaseProblem.RelationshipClientAndAccused=txt_RelationshipClientAndAccused.getText().toString();
-        caseReportDescriptionOfTheCaseProblem.RelationshipClientAndWitness=txt_RelationshipClientAndWitness.getText().toString();
-        caseReportDescriptionOfTheCaseProblem.RelationshipClientAndSurvivorVictimComplainant=txt_RelationshipClientAndSurvivorVictimComplainant.getText().toString();
-        caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCase=txt_NatureOfTheMatterCase.getSelectedItem().toString();
-        caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCaseOtherSpecify=txt_NatureOfTheMatterCaseOtherSpecify.getText().toString();
-        caseReportDescriptionOfTheCaseProblem.DetailsOfCaseAndCharge=txt_DetailsOfCaseAndCharge.getText().toString();
+    public static void saveRecord() {
 
-        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        if(!fragment_can_save)return;
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatus = txt_BeneficiaryStatus.getSelectedItem().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify = txt_BeneficiaryStatusOtherSpecify.getText().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndAccused = txt_RelationshipClientAndAccused.getText().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndWitness = txt_RelationshipClientAndWitness.getText().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndSurvivorVictimComplainant = txt_RelationshipClientAndSurvivorVictimComplainant.getText().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCase = txt_NatureOfTheMatterCase.getSelectedItem().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCaseOtherSpecify = txt_NatureOfTheMatterCaseOtherSpecify.getText().toString();
+        CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem.DetailsOfCaseAndCharge = txt_DetailsOfCaseAndCharge.getText().toString();
+
+        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
-                    db.caseReportDescriptionOfTheCaseProblemDao().update(caseReportDescriptionOfTheCaseProblem);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
+                    db.caseReportDescriptionOfTheCaseProblemDao().update(CreateEditRecordActivity.caseReportDescriptionOfTheCaseProblem);
                 }
             });
             t.start();
             t.join();
-        }catch (Exception ex){
-            Log.e("kzzex",ex.getMessage());
-        }finally {
+        } catch (Exception ex) {
+            Log.e("kzzex", ex.getMessage());
+        } finally {
             pd.hide();
         }
     }

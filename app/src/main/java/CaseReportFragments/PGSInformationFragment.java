@@ -14,15 +14,15 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.lcdzim.AddRecordActivity;
+import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReport;
-import Models.CaseReportClientInformation;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class PGSInformationFragment extends Fragment {
+
+    public static boolean fragment_can_save; //is this fragment active yet?
 
     public PGSInformationFragment() {
     }
@@ -41,7 +41,6 @@ public class PGSInformationFragment extends Fragment {
     static EditText txt_Employer;
     static EditText txt_MaritalStatusOtherSpecify;
     static Spinner txt_MaritalStatus;
-    static CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,7 @@ public class PGSInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragment_can_save = true;
         View view = inflater.inflate(R.layout.fragment_pgs_information, container, false);
         txt_Name = (EditText) view.findViewById(R.id.txt_Name);
         txt_MaritalStatus = (Spinner) view.findViewById(R.id.txt_MaritalStatus);
@@ -77,36 +77,19 @@ public class PGSInformationFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-        //
-        Intent intent = getActivity().getIntent();
-        String case_id = intent.getStringExtra("case_id");
-        AppDatabase db = AppDatabase.getAppDatabase(getContext());
-        //
-        try {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
-                }
-            });
-            t.start();
-            t.join();
-        } catch (Exception ex) {
-            Log.e("kzzex", ex.getMessage());
-        }
 
-        txt_Name.setText(caseReportParentsGuardiansSpousesInformation.Name);
-        txt_Age.setText(caseReportParentsGuardiansSpousesInformation.Age + "");
-        txt_Address.setText(caseReportParentsGuardiansSpousesInformation.Address);
-        txt_PhoneNumber.setText(caseReportParentsGuardiansSpousesInformation.PhoneNumber);
-        txt_Email.setText(caseReportParentsGuardiansSpousesInformation.Email);
-        txt_Occupation.setText(caseReportParentsGuardiansSpousesInformation.Occupation);
-        txt_Employer.setText(caseReportParentsGuardiansSpousesInformation.Employer);
-        txt_MaritalStatusOtherSpecify.setText(caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify);
+        txt_Name.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Name);
+        txt_Age.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Age + "");
+        txt_Address.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Address);
+        txt_PhoneNumber.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber);
+        txt_Email.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Email);
+        txt_Occupation.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Occupation);
+        txt_Employer.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Employer);
+        txt_MaritalStatusOtherSpecify.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify);
 
         for (int i = 0; i < txt_MaritalStatus.getAdapter().getCount(); i++) {
             String val = txt_MaritalStatus.getAdapter().getItem(i).toString();
-            if (val.equals(caseReportParentsGuardiansSpousesInformation.MaritalStatus)) {
+            if (val.equals(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus)) {
                 txt_MaritalStatus.setSelection(i);
             }
         }
@@ -116,27 +99,26 @@ public class PGSInformationFragment extends Fragment {
     }
 
     public static void saveRecord() {
-        if (caseReportParentsGuardiansSpousesInformation == null) return;
-        caseReportParentsGuardiansSpousesInformation.CaseId = AddRecordActivity.case_id;
-        caseReportParentsGuardiansSpousesInformation.Name = txt_Name.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.Age = Integer.parseInt(txt_Age.getText().toString());
-        caseReportParentsGuardiansSpousesInformation.Address = txt_Address.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.PhoneNumber = txt_PhoneNumber.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.Email = txt_Email.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.Occupation = txt_Occupation.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.Employer = txt_Employer.getText().toString();
-        caseReportParentsGuardiansSpousesInformation.MaritalStatus = txt_MaritalStatus.getSelectedItem().toString();
-        caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify = txt_MaritalStatusOtherSpecify.getText().toString();
+        if(!fragment_can_save)return;
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Name = txt_Name.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Age = Integer.parseInt(txt_Age.getText().toString());
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Address = txt_Address.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber = txt_PhoneNumber.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Email = txt_Email.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Occupation = txt_Occupation.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Employer = txt_Employer.getText().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus = txt_MaritalStatus.getSelectedItem().toString();
+        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify = txt_MaritalStatusOtherSpecify.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
-                    db.caseReportParentsGuardiansSpousesInformationDao().update(caseReportParentsGuardiansSpousesInformation);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
+                    db.caseReportParentsGuardiansSpousesInformationDao().update(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation);
                 }
             });
             t.start();

@@ -2,7 +2,7 @@ package Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +12,9 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lcdzim.AddRecordActivity;
-import com.example.lcdzim.MainActivity;
+import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import Models.CaseReport;
@@ -70,14 +66,29 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         CaseReport caseReport = caseReports.get(position);
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.txt_CrRef.setText(caseReport.CrRef);
-        if (caseReport.DateCompiled != null) {
-            viewHolder.txt_Date.setText(caseReport.DateCompiled);
-        }else{
-            viewHolder.txt_Date.setText("...");
+
+
+        if(caseReport.PoliceStation.equals("")){
+            viewHolder.txt_PoliceStation.setText("Empty...");
+        } else {
+            viewHolder.txt_PoliceStation.setText(caseReport.PoliceStation);
         }
-        viewHolder.txt_PoliceStation.setText(caseReport.PoliceStation);
-        viewHolder.txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
+        if(caseReport.ReferredByNameAndInstitution.equals("")){
+            viewHolder.txt_ReferredByNameAndInstitution.setText("Empty...");
+        } else {
+            viewHolder.txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
+        }
+        if(caseReport.CrRef.equals("")){
+            viewHolder.txt_CrRef.setText("Empty...");
+        } else {
+            viewHolder.txt_CrRef.setText(caseReport.CrRef);
+        }
+        if(caseReport.DateCompiled.equals("")){
+            viewHolder.txt_Date.setText("Empty...");
+        } else {
+            viewHolder.txt_Date.setText(caseReport.DateCompiled);
+        }
+
         if(caseReport.Uploaded) {
             viewHolder.img_uploaded.setVisibility(View.VISIBLE);
         }else {
@@ -93,9 +104,8 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddRecordActivity.case_id = caseReport.Id;
-                Intent intent = new Intent(context, AddRecordActivity.class);
-                intent.putExtra("case_id", caseReport.Id);
+                CreateEditRecordActivity.case_id = caseReport.Id;
+                Intent intent = new Intent(context, CreateEditRecordActivity.class);
                 context.startActivity(intent);
             }
         });

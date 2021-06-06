@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.lcdzim.AddRecordActivity;
+import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReport;
-import Models.CaseReportClientInformation;
 import Models.CaseReportNextOfKin;
+import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class NextOfKinFragment extends Fragment {
+
+    public static boolean fragment_can_save; //is this fragment active yet?
 
     public NextOfKinFragment() {
     }
@@ -42,11 +43,11 @@ public class NextOfKinFragment extends Fragment {
     static EditText txt_Email;
     static EditText txt_Occupation;
     static EditText txt_Employer;
-    static CaseReportNextOfKin caseReportNextOfKin = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragment_can_save = true;
         View view = inflater.inflate(R.layout.fragment_next_of_kin, container, false);
 
         txt_Name = (EditText) view.findViewById(R.id.txt_Name);
@@ -57,55 +58,37 @@ public class NextOfKinFragment extends Fragment {
         txt_Occupation = (EditText) view.findViewById(R.id.txt_Occupation);
         txt_Employer = (EditText) view.findViewById(R.id.txt_Employer);
 
-        //
-        Intent intent = getActivity().getIntent();
-        String case_id = intent.getStringExtra("case_id");
-        AppDatabase db = AppDatabase.getAppDatabase(getContext());
-        //
-        try {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
-                }
-            });
-            t.start();
-            t.join();
-        } catch (Exception ex) {
-            Log.e("kzzex", ex.getMessage());
-        }
 
-        txt_Name.setText(caseReportNextOfKin.Name);
-        txt_Age.setText(caseReportNextOfKin.Age + "");
-        txt_Address.setText(caseReportNextOfKin.Address);
-        txt_PhoneNumber.setText(caseReportNextOfKin.PhoneNumber);
-        txt_Email.setText(caseReportNextOfKin.Email);
-        txt_Occupation.setText(caseReportNextOfKin.Occupation);
-        txt_Employer.setText(caseReportNextOfKin.Employer);
+        txt_Name.setText(CreateEditRecordActivity.caseReportNextOfKin.Name);
+        txt_Age.setText(CreateEditRecordActivity.caseReportNextOfKin.Age + "");
+        txt_Address.setText(CreateEditRecordActivity.caseReportNextOfKin.Address);
+        txt_PhoneNumber.setText(CreateEditRecordActivity.caseReportNextOfKin.PhoneNumber);
+        txt_Email.setText(CreateEditRecordActivity.caseReportNextOfKin.Email);
+        txt_Occupation.setText(CreateEditRecordActivity.caseReportNextOfKin.Occupation);
+        txt_Employer.setText(CreateEditRecordActivity.caseReportNextOfKin.Employer);
         //
         return view;
     }
 
     public static void saveRecord() {
-        if (caseReportNextOfKin == null) return;
-        caseReportNextOfKin.CaseId = AddRecordActivity.case_id;
-        caseReportNextOfKin.Name = txt_Name.getText().toString();
-        caseReportNextOfKin.Age = Integer.parseInt(txt_Age.getText().toString());
-        caseReportNextOfKin.Address = txt_Address.getText().toString();
-        caseReportNextOfKin.PhoneNumber = txt_PhoneNumber.getText().toString();
-        caseReportNextOfKin.Email = txt_Email.getText().toString();
-        caseReportNextOfKin.Occupation = txt_Occupation.getText().toString();
-        caseReportNextOfKin.Employer = txt_Employer.getText().toString();
+        if(!fragment_can_save)return;
+        CreateEditRecordActivity.caseReportNextOfKin.Name = txt_Name.getText().toString();
+        CreateEditRecordActivity.caseReportNextOfKin.Age = Integer.parseInt(txt_Age.getText().toString());
+        CreateEditRecordActivity.caseReportNextOfKin.Address = txt_Address.getText().toString();
+        CreateEditRecordActivity.caseReportNextOfKin.PhoneNumber = txt_PhoneNumber.getText().toString();
+        CreateEditRecordActivity.caseReportNextOfKin.Email = txt_Email.getText().toString();
+        CreateEditRecordActivity.caseReportNextOfKin.Occupation = txt_Occupation.getText().toString();
+        CreateEditRecordActivity.caseReportNextOfKin.Employer = txt_Employer.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
-                    db.caseReportNextOfKinDao().update(caseReportNextOfKin);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
+                    db.caseReportNextOfKinDao().update(CreateEditRecordActivity.caseReportNextOfKin);
                 }
             });
             t.start();

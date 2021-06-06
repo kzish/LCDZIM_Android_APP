@@ -53,7 +53,7 @@ public class ListCasesActivity extends AppCompatActivity {
                     for (CaseReport caseReport : _caseReports
                     ) {
                         if (!caseReport.SavedAtLeastOnce) {
-                            //remove this case report
+                            //remove this case report, so that no blanks are showing up
                             db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(caseReport.Id));
                             db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(caseReport.Id));
                             db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(caseReport.Id));
@@ -63,7 +63,7 @@ public class ListCasesActivity extends AppCompatActivity {
                         } else {
                             caseReports.add(caseReport);
                         }
-
+//                        caseReports.add(caseReport);
                     }
                 }
             });

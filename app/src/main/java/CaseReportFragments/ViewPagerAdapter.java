@@ -15,6 +15,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
+
         if (position == 0)
             fragment = new BasicInformationFragment();
         else if (position == 1)

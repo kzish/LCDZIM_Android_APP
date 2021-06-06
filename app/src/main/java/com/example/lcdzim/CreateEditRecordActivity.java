@@ -12,20 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.CalendarView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.json.JSONObject;
-
-import java.util.List;
 
 import CaseReportFragments.BasicInformationFragment;
 import CaseReportFragments.ClientInformationFragment;
@@ -43,16 +38,23 @@ import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-public class AddRecordActivity extends AppCompatActivity {
+public class CreateEditRecordActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
     Toolbar toolbar;
 
-    public static String case_id;//current case id, always set this
+    public static String case_id;//current case id, always set this before calling this activity
     public static Context context;
     AppDatabase db;
     ProgressDialog pd;
+
+    public static CaseReport caseReport;
+    public static CaseReportClientInformation caseReportClientInformation;
+    public static CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem;
+    public static CaseReportNextOfKin caseReportNextOfKin;
+    public static CaseReportNeedsAssesment caseReportNeedsAssesment;
+    public static CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation;
 
     String __caseReport;
     String __caseReportClientInformation;
@@ -65,8 +67,42 @@ public class AddRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         setContentView(R.layout.activity_add_record);
         context = this;
+
+        pd = new ProgressDialog(this);
+        pd.setTitle("Loading...");
+        pd.show();
+        db = AppDatabase.getAppDatabase(this);
+        try {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //pull fresh from db
+                    caseReport = db.caseReportDao().findByCaseId(case_id);
+                    caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                    caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
+                    caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
+                    caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                    caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
+                    if (
+                            caseReport == null ||
+                                    caseReportClientInformation == null ||
+                                    caseReportDescriptionOfTheCaseProblem == null ||
+                                    caseReportNeedsAssesment == null ||
+                                    caseReportNextOfKin == null ||
+                                    caseReportParentsGuardiansSpousesInformation == null
+                    )
+                        Log.e("critical", "there is a null value");
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("kzzex", "error fetching casereport: " + ex.getMessage());
+        }
+        pd.hide();
 
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
@@ -80,7 +116,6 @@ public class AddRecordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         db = AppDatabase.getAppDatabase(this);
-        pd = new ProgressDialog(this);
 
     }
 
@@ -141,7 +176,7 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void upLoadRecord() {
-        //save then upload
+        //ansure save first then upload
         BasicInformationFragment.saveRecord();
         ClientInformationFragment.saveRecord();
         DescriptionOfCaseFragment.saveRecord();
@@ -153,22 +188,30 @@ public class AddRecordActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
-                    CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
-                    CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
-                    CaseReportNeedsAssesment caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
-                    CaseReportNextOfKin caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
-                    CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
-
-                    ObjectMapper jsonMapper = new ObjectMapper();
-
                     try {
+                        //pull fresh from db
+                        caseReport = db.caseReportDao().findByCaseId(case_id);
+                        caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                        caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
+                        caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
+                        caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                        caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
+
+                        ObjectMapper jsonMapper = new ObjectMapper();
+
                         __caseReport = jsonMapper.writeValueAsString(caseReport);
                         __caseReportClientInformation = jsonMapper.writeValueAsString(caseReportClientInformation);
                         __caseReportDescriptionOfTheCaseProblem = jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem);
                         __caseReportNeedsAssesment = jsonMapper.writeValueAsString(caseReportNeedsAssesment);
                         __caseReportNextOfKin = jsonMapper.writeValueAsString(caseReportNextOfKin);
                         __caseReportParentsGuardiansSpousesInformation = jsonMapper.writeValueAsString(caseReportParentsGuardiansSpousesInformation);
+
+                        Log.e("nkz: caseReport", __caseReport);
+                        Log.e("nkz: clientInfo", __caseReportClientInformation);
+                        Log.e("nkz: description", __caseReportDescriptionOfTheCaseProblem);
+                        Log.e("nkz: Needs", __caseReportNeedsAssesment);
+                        Log.e("nkz: Nextofkin", __caseReportNextOfKin);
+                        Log.e("nkz: PGS", __caseReportParentsGuardiansSpousesInformation);
                     } catch (Exception ex) {
                         Log.e("kzzex", ex.getMessage());
                     }
@@ -193,11 +236,11 @@ public class AddRecordActivity extends AppCompatActivity {
                 .asString()
                 .setCallback((e, result) -> {
                     if (e != null) {
-                        Toast.makeText(AddRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateEditRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
                         Log.e("kzzex", e.getMessage());
                     }
                     if (result == null) {
-                        Toast.makeText(AddRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateEditRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
                         Log.e("kzzex", "result is null");
                     } else {
                         try {
@@ -205,10 +248,9 @@ public class AddRecordActivity extends AppCompatActivity {
                             String res = jresult.get("res").toString();
                             String msg = jresult.get("msg").toString();
                             if (res.equals("ok")) {
-                                Thread t= new Thread(new Runnable() {
+                                Thread t = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
                                         caseReport.Uploaded = true;
                                         caseReport.SavedAtLeastOnce = true;
                                         db.caseReportDao().update(caseReport);
@@ -216,9 +258,9 @@ public class AddRecordActivity extends AppCompatActivity {
                                 });
                                 t.start();
                                 t.join();
-                                Toast.makeText(AddRecordActivity.this, "Record Uploaded", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateEditRecordActivity.this, "Record Uploaded", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(AddRecordActivity.this, "Error: " + msg, Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateEditRecordActivity.this, "Error: " + msg, Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception ex) {
                             Log.e("kzzex", ex.getMessage());
@@ -235,12 +277,34 @@ public class AddRecordActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(case_id));
-                    db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id));
-                    db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(case_id));
-                    db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(case_id));
-                    db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id));
-                    db.caseReportDao().delete(db.caseReportDao().findByCaseId(case_id));
+                    CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                    if (caseReportClientInformation != null) {
+                        db.caseReportClientInformationDao().delete(caseReportClientInformation);
+                    }
+
+                    CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
+                    if (caseReportDescriptionOfTheCaseProblem != null) {
+                        db.caseReportDescriptionOfTheCaseProblemDao().delete(caseReportDescriptionOfTheCaseProblem);
+                    }
+                    CaseReportNeedsAssesment caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
+                    if (caseReportNeedsAssesment != null) {
+                        db.caseReportNeedsAssesmentDao().delete(caseReportNeedsAssesment);
+                    }
+
+                    CaseReportNextOfKin caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                    if (caseReportNextOfKin != null) {
+                        db.caseReportNextOfKinDao().delete(caseReportNextOfKin);
+                    }
+
+                    CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
+                    if (caseReportParentsGuardiansSpousesInformation != null) {
+                        db.caseReportParentsGuardiansSpousesInformationDao().delete(caseReportParentsGuardiansSpousesInformation);
+                    }
+
+                    CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
+                    if (caseReport != null) {
+                        db.caseReportDao().delete(db.caseReportDao().findByCaseId(case_id));
+                    }
                 }
             });
             t.start();

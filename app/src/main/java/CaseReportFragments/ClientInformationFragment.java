@@ -17,9 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.anurag.multiselectionspinner.MultiSelectionSpinnerDialog;
-import com.anurag.multiselectionspinner.MultiSpinner;
-import com.example.lcdzim.AddRecordActivity;
+import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
 import java.text.SimpleDateFormat;
@@ -29,10 +27,12 @@ import java.util.List;
 import java.util.Locale;
 
 import Database.AppDatabase;
-import Models.CaseReport;
 import Models.CaseReportClientInformation;
+import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class ClientInformationFragment extends Fragment {
+
+    public static boolean fragment_can_save; //is this fragment active yet?
 
     public ClientInformationFragment() {
     }
@@ -62,8 +62,6 @@ public class ClientInformationFragment extends Fragment {
     static CheckBox chk_disability_physical;
     static CheckBox chk_disability_cosmetic;
     static EditText txt_GiveDetailsOfTheDisability;
-
-    static CaseReportClientInformation caseReportClientInformation = null;
 
     private void setChosen_disability_items() {
         if (chk_disability_cosmetic.isChecked()) {
@@ -111,6 +109,7 @@ public class ClientInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragment_can_save = true;
         View view = inflater.inflate(R.layout.fragment_client_information, container, false);
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -180,35 +179,21 @@ public class ClientInformationFragment extends Fragment {
             }
         });
         //
-        Intent intent = getActivity().getIntent();
-        String case_id = intent.getStringExtra("case_id");
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
-        //
-        try {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
-                }
-            });
-            t.start();
-            t.join();
-        } catch (Exception ex) {
-            Log.e("kzzex", ex.getMessage());
-        }
-        txt_NameOfClient.setText(caseReportClientInformation.NameOfClient);
-        txt_Dob.setText(caseReportClientInformation.Dob);
-        txt_Age.setText(caseReportClientInformation.Age + "");
 
-        txt_ClientsAddress.setText(caseReportClientInformation.NameOfClient);
-        txt_PhoneNumberHome.setText(caseReportClientInformation.NameOfClient);
-        txt_Mobile.setText(caseReportClientInformation.NameOfClient);
+        txt_NameOfClient.setText(CreateEditRecordActivity.caseReportClientInformation.NameOfClient);
+        txt_Dob.setText(CreateEditRecordActivity.caseReportClientInformation.Dob);
+        txt_Age.setText(CreateEditRecordActivity.caseReportClientInformation.Age + "");
+
+        txt_ClientsAddress.setText(CreateEditRecordActivity.caseReportClientInformation.NameOfClient);
+        txt_PhoneNumberHome.setText(CreateEditRecordActivity.caseReportClientInformation.NameOfClient);
+        txt_Mobile.setText(CreateEditRecordActivity.caseReportClientInformation.NameOfClient);
         try {
-            chk_disability_hi.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("hi"));
-            chk_disability_mr.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("mr"));
-            chk_disability_vi.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("vi"));
-            chk_disability_physical.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("physical"));
-            chk_disability_cosmetic.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("cosmetic"));
+            chk_disability_hi.setChecked(CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability.contains("hi"));
+            chk_disability_mr.setChecked(CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability.contains("mr"));
+            chk_disability_vi.setChecked(CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability.contains("vi"));
+            chk_disability_physical.setChecked(CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability.contains("physical"));
+            chk_disability_cosmetic.setChecked(CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability.contains("cosmetic"));
 
             if (chk_disability_hi.isChecked() && !chosen_disability_items.contains("hi"))
                 chosen_disability_items.add("hi");
@@ -227,13 +212,13 @@ public class ClientInformationFragment extends Fragment {
 
         for (int i = 0; i < txt_Sex.getAdapter().getCount(); i++) {
             String val = txt_Sex.getAdapter().getItem(i).toString();
-            if (val.equals(caseReportClientInformation.Sex)) {
+            if (val.equals(CreateEditRecordActivity.caseReportClientInformation.Sex)) {
                 txt_Sex.setSelection(i);
             }
         }
         for (int i = 0; i < txt_LevelOfEducation.getAdapter().getCount(); i++) {
             String val = txt_LevelOfEducation.getAdapter().getItem(i).toString();
-            if (val.equals(caseReportClientInformation.LevelOfEducation)) {
+            if (val.equals(CreateEditRecordActivity.caseReportClientInformation.LevelOfEducation)) {
                 txt_LevelOfEducation.setSelection(i);
             }
         }
@@ -242,37 +227,32 @@ public class ClientInformationFragment extends Fragment {
     }
 
     public static void saveRecord() {
-        if (caseReportClientInformation == null) return;
-        caseReportClientInformation.CaseId = AddRecordActivity.case_id;
-        caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
-        try {
-            caseReportClientInformation.Dob = txt_Dob.getText().toString();
-        } catch (Exception ex) {
-
-        }
-        caseReportClientInformation.Age = Integer.parseInt(txt_Age.getText().toString());
-        caseReportClientInformation.Sex = txt_Sex.getSelectedItem().toString();
-        caseReportClientInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
-        caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
-        caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
-        caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
-        caseReportClientInformation.DescriptionOfDisability = "";//clear old and save
+        if(!fragment_can_save)return;
+        CreateEditRecordActivity.caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.Dob = txt_Dob.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.Age = Integer.parseInt(txt_Age.getText().toString());
+        CreateEditRecordActivity.caseReportClientInformation.Sex = txt_Sex.getSelectedItem().toString();
+        CreateEditRecordActivity.caseReportClientInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
+        CreateEditRecordActivity.caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability = "";//clear old and save
         for (String item : chosen_disability_items
         ) {
-            caseReportClientInformation.DescriptionOfDisability += (item + ",");
+            CreateEditRecordActivity.caseReportClientInformation.DescriptionOfDisability += (item + ",");
 
         }
-        caseReportClientInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
+        CreateEditRecordActivity.caseReportClientInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(AddRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(AddRecordActivity.context);
-                    db.caseReportClientInformationDao().update(caseReportClientInformation);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
+                    db.caseReportClientInformationDao().update(CreateEditRecordActivity.caseReportClientInformation);
                 }
             });
             t.start();

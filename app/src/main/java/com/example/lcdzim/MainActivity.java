@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import Dao.CaseReportDao;
 import Database.AppDatabase;
-import Globals.globals;
 import Models.CaseReport;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
@@ -19,13 +17,12 @@ import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-import static com.example.lcdzim.AddRecordActivity.case_id;
+import static com.example.lcdzim.CreateEditRecordActivity.case_id;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView img_add_record;
     ImageView img_manage_records;
-    long case_report_id;
     ProgressDialog pd;
 
     @Override
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            case_report_id = db.caseReportDao().insert(new CaseReport());
+                            long case_report_id = db.caseReportDao().insert(new CaseReport());
                             CaseReport caseReport = db.caseReportDao().findById(case_report_id);
                             String case_id = caseReport.Id;
                             db.caseReportClientInformationDao().insert(new CaseReportClientInformation(case_id));
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             db.caseReportNeedsAssesmentDao().insert(new CaseReportNeedsAssesment(case_id));
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
                             db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
-                            AddRecordActivity.case_id = case_id;
+                            CreateEditRecordActivity.case_id = case_id;
                         }
                     });
                     t.start();
@@ -77,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(MainActivity.this, AddRecordActivity.class);
-                intent.putExtra("case_id", case_id);
+                Intent intent = new Intent(MainActivity.this, CreateEditRecordActivity.class);
                 startActivity(intent);
             }
         });

@@ -19,11 +19,13 @@ import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
+import static com.example.lcdzim.AddRecordActivity.case_id;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView img_add_record;
     ImageView img_manage_records;
-    long case_id;
+    long case_report_id;
     ProgressDialog pd;
 
     @Override
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase db = AppDatabase.getAppDatabase(MainActivity.this);
 
 
-        pd=new ProgressDialog(this);
+        pd = new ProgressDialog(this);
 
         img_add_record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,19 +59,21 @@ public class MainActivity extends AppCompatActivity {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            case_id = db.caseReportDao().insert(new CaseReport());
+                            case_report_id = db.caseReportDao().insert(new CaseReport());
+                            CaseReport caseReport = db.caseReportDao().findById(case_report_id);
+                            String case_id = caseReport.Id;
                             db.caseReportClientInformationDao().insert(new CaseReportClientInformation(case_id));
                             db.caseReportDescriptionOfTheCaseProblemDao().insert(new CaseReportDescriptionOfTheCaseProblem(case_id));
                             db.caseReportNeedsAssesmentDao().insert(new CaseReportNeedsAssesment(case_id));
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
                             db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
-                            AddRecordActivity.case_id=case_id;
+                            AddRecordActivity.case_id = case_id;
                         }
                     });
                     t.start();
                     t.join();
                 } catch (Exception ex) {
-                    Log.e("ex", ex.getLocalizedMessage());
+                    Log.e("kzzex", ex.getLocalizedMessage());
                 }
                 pd.hide();
 

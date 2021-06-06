@@ -11,11 +11,11 @@ import Models.CaseReportClientInformation;
 @Dao
 public interface CaseReportClientInformationDao {
     @Insert
-    void insert(CaseReportClientInformation item);
+    long insert(CaseReportClientInformation item);
     @Update
     void update(CaseReportClientInformation item);
     @Delete
     void delete(CaseReportClientInformation item);
     @Query("select * from casereportclientinformation where caseid = :case_id")
-    CaseReportClientInformation findByCaseId(long case_id);
+    CaseReportClientInformation findByCaseId(String case_id);
 }

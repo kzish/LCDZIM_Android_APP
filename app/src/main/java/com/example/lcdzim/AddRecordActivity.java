@@ -3,8 +3,10 @@ package com.example.lcdzim;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +22,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -45,10 +49,17 @@ public class AddRecordActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
     Toolbar toolbar;
 
-    public static long case_id;//current case id, always set this
+    public static String case_id;//current case id, always set this
     public static Context context;
     AppDatabase db;
     ProgressDialog pd;
+
+    String __caseReport;
+    String __caseReportClientInformation;
+    String __caseReportDescriptionOfTheCaseProblem;
+    String __caseReportNeedsAssesment;
+    String __caseReportNextOfKin;
+    String __caseReportParentsGuardiansSpousesInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,68 +98,32 @@ public class AddRecordActivity extends AppCompatActivity {
             case R.id.delete_case_report:
                 //delete case report and close activity
 
-                try {
-                    pd.setTitle("Please wait...");
-                    pd.show();
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(case_id));
-                            db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id));
-                            db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(case_id));
-                            db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(case_id));
-                            db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id));
-                            db.caseReportDao().delete(db.caseReportDao().find(case_id));
-                        }
-                    });
-                    t.start();
-                    t.join();
-                } catch (Exception ex) {
-                    Log.e("ex", ex.getMessage());
-                }
+                new AlertDialog.Builder(this)
+                        .setTitle("Confirmation")
+                        .setMessage("Delete record?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                pd.hide();
-                Toast.makeText(this, "Record Deleted", Toast.LENGTH_LONG).show();
-                this.finish();
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                deleteRecord();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+
                 break;
             case R.id.upload_case_report:
-                CaseReport caseReport = db.caseReportDao().find(case_id);
-                CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
-                CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
-                CaseReportNeedsAssesment caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
-                CaseReportNextOfKin caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
-                CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
 
-                ObjectMapper jsonMapper = new ObjectMapper();
+                new AlertDialog.Builder(this)
+                        .setTitle("Confirmation")
+                        .setMessage("Upload record?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                JsonObject json = new JsonObject();
-                try {
-                    json.addProperty("caseReport", jsonMapper.writeValueAsString(caseReport));
-                    json.addProperty("caseReportClientInformation", jsonMapper.writeValueAsString(caseReportClientInformation));
-                    json.addProperty("caseReportDescriptionOfTheCaseProblem", jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem));
-                    json.addProperty("caseReportNeedsAssesment", jsonMapper.writeValueAsString(caseReportNeedsAssesment));
-                    json.addProperty("caseReportNextOfKin", jsonMapper.writeValueAsString(caseReportNextOfKin));
-                    json.addProperty("caseReportParentsGuardiansSpousesInformation", jsonMapper.writeValueAsString(caseReportParentsGuardiansSpousesInformation));
-                }catch (Exception ex){
-                   Log.e("ex",ex.getMessage());
-                }
-
-                pd.setTitle("Please wait...");
-                pd.show();
-                Log.e("json",json.toString());
-                Ion.with(context)
-                        .load(globals.api_end_point+"/mobile_api/v1/UpdateCaseReport")
-                        .setJsonObjectBody(json)
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                Log.e("res",result.getAsString());
-
-                                Toast.makeText(AddRecordActivity.this, "upload", Toast.LENGTH_LONG).show();
-                                pd.hide();
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                upLoadRecord();
                             }
-                        });
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
                 break;
             case R.id.save_case_report:
                 BasicInformationFragment.saveRecord();
@@ -163,6 +138,120 @@ public class AddRecordActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void upLoadRecord() {
+        //save then upload
+        BasicInformationFragment.saveRecord();
+        ClientInformationFragment.saveRecord();
+        DescriptionOfCaseFragment.saveRecord();
+        NeedsAssesmentFragment.saveRecord();
+        NextOfKinFragment.saveRecord();
+        PGSInformationFragment.saveRecord();
+
+        try {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
+                    CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                    CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
+                    CaseReportNeedsAssesment caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
+                    CaseReportNextOfKin caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                    CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
+
+                    ObjectMapper jsonMapper = new ObjectMapper();
+
+                    try {
+                        __caseReport = jsonMapper.writeValueAsString(caseReport);
+                        __caseReportClientInformation = jsonMapper.writeValueAsString(caseReportClientInformation);
+                        __caseReportDescriptionOfTheCaseProblem = jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem);
+                        __caseReportNeedsAssesment = jsonMapper.writeValueAsString(caseReportNeedsAssesment);
+                        __caseReportNextOfKin = jsonMapper.writeValueAsString(caseReportNextOfKin);
+                        __caseReportParentsGuardiansSpousesInformation = jsonMapper.writeValueAsString(caseReportParentsGuardiansSpousesInformation);
+                    } catch (Exception ex) {
+                        Log.e("kzzex", ex.getMessage());
+                    }
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("kzzex", ex.getMessage());
+        }
+
+        pd.setTitle("Please wait...");
+        pd.show();
+        Ion.with(context)
+                .load("POST", globals.api_end_point + "/mobile_api/v1/UpdateCaseReport")
+                .setBodyParameter("__caseReport", __caseReport)
+                .setBodyParameter("__caseReportClientInformation", __caseReportClientInformation)
+                .setBodyParameter("__caseReportDescriptionOfTheCaseProblem", __caseReportDescriptionOfTheCaseProblem)
+                .setBodyParameter("__caseReportNeedsAssesment", __caseReportNeedsAssesment)
+                .setBodyParameter("__caseReportNextOfKin", __caseReportNextOfKin)
+                .setBodyParameter("__caseReportParentsGuardiansSpousesInformation", __caseReportParentsGuardiansSpousesInformation)
+                .asString()
+                .setCallback((e, result) -> {
+                    if (e != null) {
+                        Toast.makeText(AddRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Log.e("kzzex", e.getMessage());
+                    }
+                    if (result == null) {
+                        Toast.makeText(AddRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Log.e("kzzex", "result is null");
+                    } else {
+                        try {
+                            JSONObject jresult = new JSONObject(result);
+                            String res = jresult.get("res").toString();
+                            String msg = jresult.get("msg").toString();
+                            if (res.equals("ok")) {
+                                Thread t= new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
+                                        caseReport.Uploaded = true;
+                                        caseReport.SavedAtLeastOnce = true;
+                                        db.caseReportDao().update(caseReport);
+                                    }
+                                });
+                                t.start();
+                                t.join();
+                                Toast.makeText(AddRecordActivity.this, "Record Uploaded", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(AddRecordActivity.this, "Error: " + msg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception ex) {
+                            Log.e("kzzex", ex.getMessage());
+                        }
+                    }
+                    pd.hide();
+                });
+    }
+
+    private void deleteRecord() {
+        try {
+            pd.setTitle("Please wait...");
+            pd.show();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(case_id));
+                    db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id));
+                    db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(case_id));
+                    db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(case_id));
+                    db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id));
+                    db.caseReportDao().delete(db.caseReportDao().findByCaseId(case_id));
+                }
+            });
+            t.start();
+            t.join();
+        } catch (Exception ex) {
+            Log.e("kzzex", ex.getMessage());
+        }
+
+        pd.hide();
+        Toast.makeText(this, "Record Deleted", Toast.LENGTH_LONG).show();
+        this.finish();
     }
 
 }

@@ -17,5 +17,5 @@ public interface CaseReportNeedsAssesmentDao {
     @Delete
     void delete(CaseReportNeedsAssesment item);
     @Query("select * from casereportneedsassesment where caseid = :case_id")
-    CaseReportNeedsAssesment findByCaseId(long case_id);
+    CaseReportNeedsAssesment findByCaseId(String case_id);
 }

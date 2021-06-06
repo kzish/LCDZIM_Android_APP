@@ -91,7 +91,7 @@ public class DescriptionOfCaseFragment extends Fragment {
         });
         //
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id",0);
+        String case_id = intent.getStringExtra("case_id");
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
         //
         try {
@@ -105,7 +105,7 @@ public class DescriptionOfCaseFragment extends Fragment {
             t.join();
         }catch (Exception ex)
         {
-            Log.e("ex",ex.getMessage());
+            Log.e("kzzex",ex.getMessage());
         }
 
         txt_BeneficiaryStatusOtherSpecify.setText(caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify);
@@ -158,7 +158,7 @@ public class DescriptionOfCaseFragment extends Fragment {
             t.start();
             t.join();
         }catch (Exception ex){
-            Log.e("ex",ex.getMessage());
+            Log.e("kzzex",ex.getMessage());
         }finally {
             pd.hide();
         }

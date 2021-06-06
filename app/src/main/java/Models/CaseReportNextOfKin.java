@@ -1,18 +1,28 @@
 package Models;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.UUID;
 
 @Entity
 public class CaseReportNextOfKin {
 
-    public CaseReportNextOfKin(){}
-    public CaseReportNextOfKin(long caseId) {
-        CaseId = caseId;
+    public CaseReportNextOfKin() {
+        Id = UUID.randomUUID().toString();
     }
+
+    public CaseReportNextOfKin(String caseId) {
+        CaseId = caseId;
+        Id = UUID.randomUUID().toString();
+    }
+
     @PrimaryKey(autoGenerate = true)
-    public long IdAtClient;
-    public long CaseId;
+    @NonNull
+    public long _Id;
+    public String Id;
+    public String CaseId;
     public String Name;
     public int Age;
     public String Address;

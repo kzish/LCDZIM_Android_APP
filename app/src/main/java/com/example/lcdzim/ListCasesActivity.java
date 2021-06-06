@@ -54,11 +54,11 @@ public class ListCasesActivity extends AppCompatActivity {
                     ) {
                         if (!caseReport.SavedAtLeastOnce) {
                             //remove this case report
-                            db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(caseReport.IdAtClient));
-                            db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(caseReport.IdAtClient));
-                            db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(caseReport.IdAtClient));
-                            db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(caseReport.IdAtClient));
-                            db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(caseReport.IdAtClient));
+                            db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(caseReport.Id));
+                            db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(caseReport.Id));
+                            db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(caseReport.Id));
+                            db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(caseReport.Id));
+                            db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(caseReport.Id));
                             db.caseReportDao().delete(caseReport);
                         } else {
                             caseReports.add(caseReport);
@@ -70,7 +70,7 @@ public class ListCasesActivity extends AppCompatActivity {
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
 
         }
         pd.hide();

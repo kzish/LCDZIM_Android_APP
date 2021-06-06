@@ -112,7 +112,7 @@ public class BasicInformationFragment extends Fragment {
         });
 
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id", 0);
+        String case_id = intent.getStringExtra("case_id");
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
 
         progressDialog = new ProgressDialog(getActivity());
@@ -122,13 +122,13 @@ public class BasicInformationFragment extends Fragment {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    caseReport = db.caseReportDao().find(case_id);
+                    caseReport = db.caseReportDao().findByCaseId(case_id);
                 }
             });
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
         }
         progressDialog.hide();
 
@@ -138,13 +138,13 @@ public class BasicInformationFragment extends Fragment {
         txt_NameOfInvestigatingOfficer.setText(caseReport.NameOfInvestigatingOfficer);
         txt_MobileNumber.setText(caseReport.MobileNumber);
         txt_CourtHandlingTheCase.setText(caseReport.CourtHandlingTheCase);
-        if(caseReport.DateCaseWasReported!=null) {
-            txt_DateCaseWasReported.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReport.DateCaseWasReported));
+        if (caseReport.DateCaseWasReported != null) {
+            txt_DateCaseWasReported.setText(caseReport.DateCaseWasReported);
         }
         txt_ForceNumber.setText(caseReport.ForceNumber);
         txt_CompiledBy.setText(caseReport.CompiledBy);
-        if(caseReport.DateCompiled!=null) {
-            txt_DateCompiled.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReport.DateCompiled));
+        if (caseReport.DateCompiled != null) {
+            txt_DateCompiled.setText(caseReport.DateCompiled);
         }
         //
         return view;
@@ -154,7 +154,7 @@ public class BasicInformationFragment extends Fragment {
         if (caseReport == null) {
             return;
         }
-        caseReport.date = Calendar.getInstance().getTime();
+        caseReport.date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
         caseReport.PoliceStation = txt_PoliceStation.getText().toString();
         caseReport.CrRef = txt_CrRef.getText().toString();
@@ -162,13 +162,13 @@ public class BasicInformationFragment extends Fragment {
         caseReport.MobileNumber = txt_MobileNumber.getText().toString();
         caseReport.CourtHandlingTheCase = txt_CourtHandlingTheCase.getText().toString();
         try {
-            caseReport.DateCaseWasReported = new SimpleDateFormat("yyyy-MM-dd").parse(txt_DateCaseWasReported.getText().toString());
+            caseReport.DateCaseWasReported = txt_DateCaseWasReported.getText().toString();
         } catch (Exception ex) {
         }
         caseReport.ForceNumber = txt_ForceNumber.getText().toString();
         caseReport.CompiledBy = txt_CompiledBy.getText().toString();
         try {
-            caseReport.DateCompiled = new SimpleDateFormat("yyyy-MM-dd").parse(txt_DateCompiled.getText().toString());
+            caseReport.DateCompiled = txt_DateCompiled.getText().toString();
         } catch (Exception ex) {
         }
         caseReport.SavedAtLeastOnce = true;
@@ -186,9 +186,9 @@ public class BasicInformationFragment extends Fragment {
             });
             t.start();
             t.join();
-        }catch (Exception ex){
-            Log.e("ex",ex.getMessage());
-        }finally {
+        } catch (Exception ex) {
+            Log.e("kzzex", ex.getMessage());
+        } finally {
             pd.hide();
         }
 

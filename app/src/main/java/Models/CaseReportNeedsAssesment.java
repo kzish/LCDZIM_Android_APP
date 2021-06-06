@@ -1,21 +1,28 @@
 package Models;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.UUID;
 
 @Entity
 public class CaseReportNeedsAssesment {
 
     public CaseReportNeedsAssesment() {
+        Id = UUID.randomUUID().toString();
     }
 
-    public CaseReportNeedsAssesment(long caseId) {
+    public CaseReportNeedsAssesment(String caseId) {
         CaseId = caseId;
+        Id = UUID.randomUUID().toString();
     }
 
     @PrimaryKey(autoGenerate = true)
-    public long IdAtClient;
-    public long CaseId;
+    @NonNull
+    public long _Id;
+    public String Id;
+    public String CaseId;
     public String WhereDoesTheBeneficiaryLive;
     public String WhoIsTakingCareOfTheBeneficiary;
     public String WhoIsTakingCareOfTheBeneficiaryOtherSpecify;

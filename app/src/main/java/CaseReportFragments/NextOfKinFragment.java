@@ -59,7 +59,7 @@ public class NextOfKinFragment extends Fragment {
 
         //
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id", 0);
+        String case_id = intent.getStringExtra("case_id");
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
         //
         try {
@@ -72,7 +72,7 @@ public class NextOfKinFragment extends Fragment {
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
         }
 
         txt_Name.setText(caseReportNextOfKin.Name);
@@ -111,7 +111,7 @@ public class NextOfKinFragment extends Fragment {
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
         } finally {
             pd.hide();
         }

@@ -55,7 +55,7 @@ public class ClientInformationFragment extends Fragment {
     static EditText txt_ClientsAddress;
     static EditText txt_PhoneNumberHome;
     static EditText txt_Mobile;
-    static List<String> chosen_disability_items;
+    static List<String> chosen_disability_items = new ArrayList<>();
     static CheckBox chk_disability_hi;
     static CheckBox chk_disability_mr;
     static CheckBox chk_disability_vi;
@@ -65,6 +65,48 @@ public class ClientInformationFragment extends Fragment {
 
     static CaseReportClientInformation caseReportClientInformation = null;
 
+    private void setChosen_disability_items() {
+        if (chk_disability_cosmetic.isChecked()) {
+            if (!chosen_disability_items.contains("cosmetic")) {
+                chosen_disability_items.add("cosmetic");
+            }
+        } else {
+            chosen_disability_items.remove("cosmetic");
+        }
+
+        if (chk_disability_physical.isChecked()) {
+            if (!chosen_disability_items.contains("physical")) {
+                chosen_disability_items.add("physical");
+            }
+        } else {
+            chosen_disability_items.remove("physical");
+        }
+
+        if (chk_disability_vi.isChecked()) {
+            if (!chosen_disability_items.contains("vi")) {
+                chosen_disability_items.add("vi");
+            }
+        } else {
+            chosen_disability_items.remove("vi");
+        }
+
+        if (chk_disability_hi.isChecked()) {
+            if (!chosen_disability_items.contains("hi")) {
+                chosen_disability_items.add("hi");
+            }
+        } else {
+            chosen_disability_items.remove("hi");
+        }
+
+        if (chk_disability_mr.isChecked()) {
+            if (!chosen_disability_items.contains("mr")) {
+                chosen_disability_items.add("mr");
+            }
+        } else {
+            chosen_disability_items.remove("mr");
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,9 +114,7 @@ public class ClientInformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_client_information, container, false);
 
         final Calendar myCalendar = Calendar.getInstance();
-
         //
-        chosen_disability_items = new ArrayList<>();
         txt_NameOfClient = (EditText) view.findViewById(R.id.txt_NameOfClient);
         txt_Dob = (EditText) view.findViewById(R.id.txt_Dob);
         txt_Age = (EditText) view.findViewById(R.id.txt_Age);
@@ -93,49 +133,31 @@ public class ClientInformationFragment extends Fragment {
         chk_disability_hi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    chosen_disability_items.add("hi");
-                } else {
-                    chosen_disability_items.remove("hi");
-                }
+                setChosen_disability_items();
             }
         });
         chk_disability_mr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    chosen_disability_items.add("mr");
-                } else {
-                    chosen_disability_items.remove("mr");
-                }
+                setChosen_disability_items();
             }
         });
         chk_disability_vi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    chosen_disability_items.add("vi");
-                }
+                setChosen_disability_items();
             }
         });
         chk_disability_physical.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    chosen_disability_items.add("physical");
-                } else {
-                    chosen_disability_items.remove("physical");
-                }
+                setChosen_disability_items();
             }
         });
         chk_disability_cosmetic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    chosen_disability_items.add("cosmetic");
-                } else {
-                    chosen_disability_items.remove("cosmetic");
-                }
+                setChosen_disability_items();
             }
         });
 
@@ -159,7 +181,7 @@ public class ClientInformationFragment extends Fragment {
         });
         //
         Intent intent = getActivity().getIntent();
-        long case_id = intent.getLongExtra("case_id", 0);
+        String case_id = intent.getStringExtra("case_id");
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
         //
         try {
@@ -172,12 +194,10 @@ public class ClientInformationFragment extends Fragment {
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
         }
         txt_NameOfClient.setText(caseReportClientInformation.NameOfClient);
-        if (caseReportClientInformation.Dob != null) {
-            txt_Dob.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReportClientInformation.Dob));
-        }
+        txt_Dob.setText(caseReportClientInformation.Dob);
         txt_Age.setText(caseReportClientInformation.Age + "");
 
         txt_ClientsAddress.setText(caseReportClientInformation.NameOfClient);
@@ -189,8 +209,20 @@ public class ClientInformationFragment extends Fragment {
             chk_disability_vi.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("vi"));
             chk_disability_physical.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("physical"));
             chk_disability_cosmetic.setChecked(caseReportClientInformation.DescriptionOfDisability.contains("cosmetic"));
-        } catch (Exception ex) {
 
+            if (chk_disability_hi.isChecked() && !chosen_disability_items.contains("hi"))
+                chosen_disability_items.add("hi");
+            if (chk_disability_vi.isChecked() && !chosen_disability_items.contains("vi"))
+                chosen_disability_items.add("vi");
+            if (chk_disability_mr.isChecked() && !chosen_disability_items.contains("mr"))
+                chosen_disability_items.add("mr");
+            if (chk_disability_physical.isChecked() && !chosen_disability_items.contains("physical"))
+                chosen_disability_items.add("physical");
+            if (chk_disability_cosmetic.isChecked() && !chosen_disability_items.contains("cosmetic"))
+                chosen_disability_items.add("cosmetic");
+
+        } catch (Exception ex) {
+            Log.e("kzzex", ex.getMessage());
         }
 
         for (int i = 0; i < txt_Sex.getAdapter().getCount(); i++) {
@@ -214,7 +246,7 @@ public class ClientInformationFragment extends Fragment {
         caseReportClientInformation.CaseId = AddRecordActivity.case_id;
         caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
         try {
-            caseReportClientInformation.Dob = new SimpleDateFormat("yyyy-MM-dd").parse(txt_Dob.getText().toString());
+            caseReportClientInformation.Dob = txt_Dob.getText().toString();
         } catch (Exception ex) {
 
         }
@@ -224,6 +256,7 @@ public class ClientInformationFragment extends Fragment {
         caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
         caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
         caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
+        caseReportClientInformation.DescriptionOfDisability = "";//clear old and save
         for (String item : chosen_disability_items
         ) {
             caseReportClientInformation.DescriptionOfDisability += (item + ",");
@@ -245,7 +278,7 @@ public class ClientInformationFragment extends Fragment {
             t.start();
             t.join();
         } catch (Exception ex) {
-            Log.e("ex", ex.getMessage());
+            Log.e("kzzex", ex.getMessage());
         } finally {
             pd.hide();
         }

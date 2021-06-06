@@ -72,7 +72,7 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         // contents of the view with that element
         viewHolder.txt_CrRef.setText(caseReport.CrRef);
         if (caseReport.DateCompiled != null) {
-            viewHolder.txt_Date.setText(new SimpleDateFormat("yyyy-MM-dd").format(caseReport.DateCompiled));
+            viewHolder.txt_Date.setText(caseReport.DateCompiled);
         }else{
             viewHolder.txt_Date.setText("...");
         }
@@ -93,9 +93,9 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddRecordActivity.case_id = caseReport.IdAtClient;
+                AddRecordActivity.case_id = caseReport.Id;
                 Intent intent = new Intent(context, AddRecordActivity.class);
-                intent.putExtra("case_id", caseReport.IdAtClient);
+                intent.putExtra("case_id", caseReport.Id);
                 context.startActivity(intent);
             }
         });

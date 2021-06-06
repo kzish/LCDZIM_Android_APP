@@ -18,5 +18,5 @@ public interface CaseReportNextOfKinDao {
     @Delete
     void delete(CaseReportNextOfKin item);
     @Query("select * from casereportnextofkin where caseid = :case_id")
-    CaseReportNextOfKin findByCaseId(long case_id);
+    CaseReportNextOfKin findByCaseId(String case_id);
 }

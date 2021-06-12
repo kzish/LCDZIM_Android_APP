@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import Database.AppDatabase;
 import Models.CaseReport;
+import Models.CaseReportCareGiver;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportNeedsAssesment;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             db.caseReportDescriptionOfTheCaseProblemDao().insert(new CaseReportDescriptionOfTheCaseProblem(case_id));
                             db.caseReportNeedsAssesmentDao().insert(new CaseReportNeedsAssesment(case_id));
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
+                            db.caseReportCareGiverDao().insert(new CaseReportCareGiver(case_id));
                             db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
                             CreateEditRecordActivity.case_id = case_id;
                         }

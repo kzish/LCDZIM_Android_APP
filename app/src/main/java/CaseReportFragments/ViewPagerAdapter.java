@@ -19,14 +19,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         if (position == 0)
             fragment = new BasicInformationFragment();
         else if (position == 1)
-            fragment = new ClientInformationFragment();
+            fragment = new ClientInformationFragment();//renamed to beneficiary
         else if (position == 2)
             fragment = new PGSInformationFragment();
         else if (position == 3)
             fragment = new NextOfKinFragment();
         else if (position == 4)
-            fragment = new DescriptionOfCaseFragment();
+            fragment = new CareGiverInformationFragment();
         else if (position == 5)
+            fragment = new DescriptionOfCaseFragment();
+        else if (position == 6)
             fragment = new NeedsAssesmentFragment();
 
         return fragment;
@@ -34,7 +36,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -43,14 +45,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         if (position == 0)
             title = "Basic Information";
         else if (position == 1)
-            title = "Client Information";
+            title = "Beneficiary Information";
         else if (position == 2)
             title = "P/G/S Information";
         else if (position == 3)
             title = "Next of kin";
         else if (position == 4)
-            title = "Description of Case";
+            title = "Care Giver";
         else if (position == 5)
+            title = "Description of Case";
+        else if (position == 6)
             title = "Needs Assesment";
 
         return title;

@@ -6,68 +6,53 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.CaseReportAdapter;
-import CaseReportFragments.BasicInformationFragment;
-import CaseReportFragments.CareGiverInformationFragment;
-import CaseReportFragments.ClientInformationFragment;
-import CaseReportFragments.DescriptionOfCaseFragment;
-import CaseReportFragments.NeedsAssesmentFragment;
-import CaseReportFragments.NextOfKinFragment;
-import CaseReportFragments.PGSInformationFragment;
+import Adapters.CaseReportJustificationReportAdapter;
 import Database.AppDatabase;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
+import Models.CaseReportJustificationReportForAttendedCases;
 import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-public class ListCasesActivity extends AppCompatActivity {
+public class ListJustificationReportsActivity extends AppCompatActivity {
 
     public static RecyclerView list_case_reports;
-    public static List<CaseReport> caseReports;
+    public static List<CaseReportJustificationReportForAttendedCases> caseReportJustificationReportForAttendedCasess;
     ProgressDialog pd;
-    public static CaseReportAdapter adapter;
+    public static CaseReportJustificationReportAdapter adapter;
     Toolbar toolbar;
     LinearLayout ll_empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_cases);
-
+        setContentView(R.layout.activity_list_justification_reports);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         setSupportActionBar(toolbar);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        caseReports = new ArrayList<>();
+        caseReportJustificationReportForAttendedCasess = new ArrayList<>();
         pd = new ProgressDialog(this);
         pd.setTitle("Loading...");
         pd.show();
@@ -76,22 +61,15 @@ public class ListCasesActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    List<CaseReport> _caseReports = db.caseReportDao().findAll();
-                    for (CaseReport caseReport : _caseReports
+                    List<CaseReportJustificationReportForAttendedCases> _caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAll();
+                    for (CaseReportJustificationReportForAttendedCases caseReportJustificationReportForAttendedCases :_caseReportJustificationReportForAttendedCases
                     ) {
-                        if (!caseReport.SavedAtLeastOnce) {
+                        if (!caseReportJustificationReportForAttendedCases.SavedAtLeastOnce) {
                             //remove this case report, so that no blanks are showing up
-                            db.caseReportClientInformationDao().delete(db.caseReportClientInformationDao().findByCaseId(caseReport.Id));
-                            db.caseReportDescriptionOfTheCaseProblemDao().delete(db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(caseReport.Id));
-                            db.caseReportNeedsAssesmentDao().delete(db.caseReportNeedsAssesmentDao().findByCaseId(caseReport.Id));
-                            db.caseReportNextOfKinDao().delete(db.caseReportNextOfKinDao().findByCaseId(caseReport.Id));
-                            db.caseReportCareGiverDao().delete(db.caseReportCareGiverDao().findByCaseId(caseReport.Id));
-                            db.caseReportParentsGuardiansSpousesInformationDao().delete(db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(caseReport.Id));
-                            db.caseReportDao().delete(caseReport);
+                            db.caseReportJustificationReportForAttendedCasesDao().delete(db.caseReportJustificationReportForAttendedCasesDao().findByCaseId(CreateEditRecordActivity.case_id));
                         } else {
-                            caseReports.add(caseReport);
+                            caseReportJustificationReportForAttendedCasess.add(caseReportJustificationReportForAttendedCases);
                         }
-//                        caseReports.add(caseReport);
                     }
                 }
             });
@@ -103,13 +81,13 @@ public class ListCasesActivity extends AppCompatActivity {
         }
         pd.hide();
 
-        if(caseReports.size()==0){
+        if(caseReportJustificationReportForAttendedCasess.size()==0){
             ll_empty.setVisibility(View.VISIBLE);
         }else {
             ll_empty.setVisibility(View.GONE);
         }
 
-        adapter = new CaseReportAdapter(caseReports, this);
+        adapter = new CaseReportJustificationReportAdapter(caseReportJustificationReportForAttendedCasess, this);
         list_case_reports = (RecyclerView) findViewById(R.id.list_case_reports);
         list_case_reports.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         list_case_reports.setHasFixedSize(true);
@@ -137,7 +115,7 @@ public class ListCasesActivity extends AppCompatActivity {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            AppDatabase db = AppDatabase.getAppDatabase(ListCasesActivity.this);
+                            AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
                             long case_report_id = db.caseReportDao().insert(new CaseReport());
                             CaseReport caseReport = db.caseReportDao().findById(case_report_id);
                             String case_id = caseReport.Id;
@@ -158,7 +136,7 @@ public class ListCasesActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(ListCasesActivity.this, CreateEditRecordActivity.class);
+                Intent intent = new Intent(CreateEditRecordActivity.context, ListCasesActivity.class);
                 startActivity(intent);
 
                 break;

@@ -2,11 +2,11 @@ package Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -26,10 +26,12 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txt_Date;
+        private final TextView txt_CaseNumber;
         private final TextView txt_CrRef;
         private final TextView txt_PoliceStation;
         private final TextView txt_ReferredByNameAndInstitution;
         private final CardView card_view;
+        private final LinearLayout lv;
         private final ImageView img_uploaded;
 
         public ViewHolder(View view) {
@@ -37,10 +39,12 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
             // Define click listener for the ViewHolder's View
 
             txt_Date = (TextView) view.findViewById(R.id.txt_Date);
+            txt_CaseNumber = (TextView) view.findViewById(R.id.txt_CaseNumber);
             txt_CrRef = (TextView) view.findViewById(R.id.txt_CrRef);
             txt_PoliceStation = (TextView) view.findViewById(R.id.txt_PoliceStation);
             txt_ReferredByNameAndInstitution = (TextView) view.findViewById(R.id.txt_ReferredByNameAndInstitution);
             card_view = (CardView) view.findViewById(R.id.card_view);
+            lv = (LinearLayout) view.findViewById(R.id.lv);
             img_uploaded = (ImageView) view.findViewById(R.id.img_uploaded);
         }
 
@@ -55,7 +59,7 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.case_report, viewGroup, false);
+                .inflate(R.layout.case_report_view_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -67,38 +71,44 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
+        if (caseReport.CaseNumber.equals("")) {
+            viewHolder.txt_CaseNumber.setText("Case Number...");
+        } else {
+            viewHolder.txt_CaseNumber.setText(caseReport.CaseNumber);
+        }
 
-        if(caseReport.PoliceStation.equals("")){
+
+        if (caseReport.PoliceStation.equals("")) {
             viewHolder.txt_PoliceStation.setText("Empty...");
         } else {
             viewHolder.txt_PoliceStation.setText(caseReport.PoliceStation);
         }
-        if(caseReport.ReferredByNameAndInstitution.equals("")){
+        if (caseReport.ReferredByNameAndInstitution.equals("")) {
             viewHolder.txt_ReferredByNameAndInstitution.setText("Empty...");
         } else {
             viewHolder.txt_ReferredByNameAndInstitution.setText(caseReport.ReferredByNameAndInstitution);
         }
-        if(caseReport.CrRef.equals("")){
+        if (caseReport.CrRef.equals("")) {
             viewHolder.txt_CrRef.setText("Empty...");
         } else {
             viewHolder.txt_CrRef.setText(caseReport.CrRef);
         }
-        if(caseReport.DateCompiled.equals("")){
+        if (caseReport.DateCompiled.equals("")) {
             viewHolder.txt_Date.setText("Empty...");
         } else {
             viewHolder.txt_Date.setText(caseReport.DateCompiled);
         }
 
-        if(caseReport.Uploaded) {
+        if (caseReport.Uploaded) {
             viewHolder.img_uploaded.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             viewHolder.img_uploaded.setVisibility(View.INVISIBLE);
         }
 
         if (position % 2 == 0) {
-            viewHolder.card_view.setCardBackgroundColor(0xFFFEFEFE);
+            viewHolder.lv.setBackgroundColor(0xFFFEFEFE);
         } else {
-            viewHolder.card_view.setCardBackgroundColor(0xFFFFFFFF);
+            viewHolder.lv.setBackgroundColor(0xFFFFFFFF);
         }
 
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {

@@ -63,21 +63,6 @@ public class DescriptionOfCaseFragment extends Fragment {
         txt_NatureOfTheMatterCase = (Spinner) view.findViewById(R.id.txt_NatureOfTheMatterCase);
         txt_NatureOfTheMatterCaseOtherSpecify = (EditText) view.findViewById(R.id.txt_NatureOfTheMatterCaseOtherSpecify);
         //
-        txt_NatureOfTheMatterCase.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selected = txt_NatureOfTheMatterCase.getSelectedItem().toString();
-                if (selected.equals("Other")) {
-                    txt_NatureOfTheMatterCaseOtherSpecify.setVisibility(View.VISIBLE);
-                } else {
-                    txt_NatureOfTheMatterCaseOtherSpecify.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
         txt_BeneficiaryStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {

@@ -17,6 +17,7 @@ public class CaseReport {
     @NonNull
     public long _Id;//db identity column
     public String Id;//shared guid id client and server
+    public String CaseNumber;
     public String date;
     public String ReferredByNameAndInstitution;
     public String PoliceStation;

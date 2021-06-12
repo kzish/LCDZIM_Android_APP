@@ -44,6 +44,7 @@ public class BasicInformationFragment extends Fragment {
     }
 
     static EditText txt_ReferredByNameAndInstitution;
+    static EditText txt_CaseNumber;
     static EditText txt_PoliceStation;
     static EditText txt_CrRef;
     static EditText txt_NameOfInvestigatingOfficer;
@@ -62,6 +63,7 @@ public class BasicInformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_basic_information, container, false);
         //
         txt_ReferredByNameAndInstitution = (EditText) view.findViewById(R.id.txt_ReferredByNameAndInstitution);
+        txt_CaseNumber = (EditText) view.findViewById(R.id.txt_CaseNumber);
         txt_PoliceStation = (EditText) view.findViewById(R.id.txt_PoliceStation);
         txt_CrRef = (EditText) view.findViewById(R.id.txt_CrRef);
         txt_NameOfInvestigatingOfficer = (EditText) view.findViewById(R.id.txt_NameOfInvestigatingOfficer);
@@ -117,6 +119,7 @@ public class BasicInformationFragment extends Fragment {
 
         //load data into the view
         txt_ReferredByNameAndInstitution.setText(CreateEditRecordActivity.caseReport.ReferredByNameAndInstitution);
+        txt_CaseNumber.setText(CreateEditRecordActivity.caseReport.CaseNumber);
         txt_PoliceStation.setText(CreateEditRecordActivity.caseReport.PoliceStation);
         txt_CrRef.setText(CreateEditRecordActivity.caseReport.CrRef);
         txt_NameOfInvestigatingOfficer.setText(CreateEditRecordActivity.caseReport.NameOfInvestigatingOfficer);
@@ -141,6 +144,7 @@ public class BasicInformationFragment extends Fragment {
         CreateEditRecordActivity.caseReport.SavedAtLeastOnce = true;
         CreateEditRecordActivity.caseReport.date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         CreateEditRecordActivity.caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
+        CreateEditRecordActivity.caseReport.CaseNumber = txt_CaseNumber.getText().toString();
         CreateEditRecordActivity.caseReport.PoliceStation = txt_PoliceStation.getText().toString();
         CreateEditRecordActivity.caseReport.CrRef = txt_CrRef.getText().toString();
         CreateEditRecordActivity.caseReport.NameOfInvestigatingOfficer = txt_NameOfInvestigatingOfficer.getText().toString();

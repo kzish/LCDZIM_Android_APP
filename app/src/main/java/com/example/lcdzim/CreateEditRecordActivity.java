@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONObject;
 
 import CaseReportFragments.BasicInformationFragment;
+import CaseReportFragments.CareGiverInformationFragment;
 import CaseReportFragments.ClientInformationFragment;
 import CaseReportFragments.DescriptionOfCaseFragment;
 import CaseReportFragments.NeedsAssesmentFragment;
@@ -32,6 +34,7 @@ import CaseReportFragments.ViewPagerAdapter;
 import Database.AppDatabase;
 import Globals.globals;
 import Models.CaseReport;
+import Models.CaseReportCareGiver;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportNeedsAssesment;
@@ -53,6 +56,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
     public static CaseReportClientInformation caseReportClientInformation;
     public static CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem;
     public static CaseReportNextOfKin caseReportNextOfKin;
+    public static CaseReportCareGiver caseReportCareGiver;
     public static CaseReportNeedsAssesment caseReportNeedsAssesment;
     public static CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation;
 
@@ -61,6 +65,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
     String __caseReportDescriptionOfTheCaseProblem;
     String __caseReportNeedsAssesment;
     String __caseReportNextOfKin;
+    String __caseReportCareGiver;
     String __caseReportParentsGuardiansSpousesInformation;
 
     @Override
@@ -85,6 +90,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                     caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
                     caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
                     caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                    caseReportCareGiver = db.caseReportCareGiverDao().findByCaseId(case_id);
                     caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
                     if (
                             caseReport == null ||
@@ -92,6 +98,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                                     caseReportDescriptionOfTheCaseProblem == null ||
                                     caseReportNeedsAssesment == null ||
                                     caseReportNextOfKin == null ||
+                                    caseReportCareGiver == null ||
                                     caseReportParentsGuardiansSpousesInformation == null
                     )
                         Log.e("critical", "there is a null value");
@@ -166,8 +173,13 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                 DescriptionOfCaseFragment.saveRecord();
                 NeedsAssesmentFragment.saveRecord();
                 NextOfKinFragment.saveRecord();
+                CareGiverInformationFragment.saveRecord();
                 PGSInformationFragment.saveRecord();
                 Toast.makeText(this, "Record Saved", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.open_justification_reports:
+                Intent showListJustificationReports = new Intent(CreateEditRecordActivity.context, ListJustificationReportsActivity.class);
+                startActivity(showListJustificationReports);
                 break;
             default:
                 break;
@@ -182,6 +194,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
         DescriptionOfCaseFragment.saveRecord();
         NeedsAssesmentFragment.saveRecord();
         NextOfKinFragment.saveRecord();
+        CareGiverInformationFragment.saveRecord();
         PGSInformationFragment.saveRecord();
 
         try {
@@ -195,6 +208,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                         caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
                         caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
                         caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
+                        caseReportCareGiver = db.caseReportCareGiverDao().findByCaseId(case_id);
                         caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
 
                         ObjectMapper jsonMapper = new ObjectMapper();
@@ -204,14 +218,9 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                         __caseReportDescriptionOfTheCaseProblem = jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem);
                         __caseReportNeedsAssesment = jsonMapper.writeValueAsString(caseReportNeedsAssesment);
                         __caseReportNextOfKin = jsonMapper.writeValueAsString(caseReportNextOfKin);
+                        __caseReportCareGiver = jsonMapper.writeValueAsString(caseReportCareGiver);
                         __caseReportParentsGuardiansSpousesInformation = jsonMapper.writeValueAsString(caseReportParentsGuardiansSpousesInformation);
 
-                        Log.e("nkz: caseReport", __caseReport);
-                        Log.e("nkz: clientInfo", __caseReportClientInformation);
-                        Log.e("nkz: description", __caseReportDescriptionOfTheCaseProblem);
-                        Log.e("nkz: Needs", __caseReportNeedsAssesment);
-                        Log.e("nkz: Nextofkin", __caseReportNextOfKin);
-                        Log.e("nkz: PGS", __caseReportParentsGuardiansSpousesInformation);
                     } catch (Exception ex) {
                         Log.e("kzzex", ex.getMessage());
                     }
@@ -232,6 +241,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                 .setBodyParameter("__caseReportDescriptionOfTheCaseProblem", __caseReportDescriptionOfTheCaseProblem)
                 .setBodyParameter("__caseReportNeedsAssesment", __caseReportNeedsAssesment)
                 .setBodyParameter("__caseReportNextOfKin", __caseReportNextOfKin)
+                .setBodyParameter("__caseReportCareGiver", __caseReportCareGiver)
                 .setBodyParameter("__caseReportParentsGuardiansSpousesInformation", __caseReportParentsGuardiansSpousesInformation)
                 .asString()
                 .setCallback((e, result) -> {

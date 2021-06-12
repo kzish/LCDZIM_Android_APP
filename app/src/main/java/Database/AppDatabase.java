@@ -8,9 +8,13 @@ import androidx.room.Database;
 import androidx.room.TypeConverters;
 
 import Converters.Converters;
+import Dao.CaseReportCareGiverDao;
+import Dao.CaseReportJustificationReportForAttendedCasesDao;
 import Models.CaseReport;
+import Models.CaseReportCareGiver;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
+import Models.CaseReportJustificationReportForAttendedCases;
 import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
@@ -28,8 +32,10 @@ import Dao.CaseReportParentsGuardiansSpousesInformationDao;
         CaseReportDescriptionOfTheCaseProblem.class,
         CaseReportNeedsAssesment.class,
         CaseReportNextOfKin.class,
+        CaseReportCareGiver.class,
         CaseReportParentsGuardiansSpousesInformation.class,
-}, version = 10)
+        CaseReportJustificationReportForAttendedCases.class,
+}, version = 14)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();
@@ -42,7 +48,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract CaseReportNextOfKinDao caseReportNextOfKinDao();
 
+    public abstract CaseReportCareGiverDao caseReportCareGiverDao();
+
     public abstract CaseReportParentsGuardiansSpousesInformationDao caseReportParentsGuardiansSpousesInformationDao();
+
+    public abstract CaseReportJustificationReportForAttendedCasesDao caseReportJustificationReportForAttendedCasesDao();
 
     private static AppDatabase INSTANCE;
 

@@ -202,7 +202,6 @@
                 android:maxLines="10"
                 android:gravity="top|left"
                 android:hint="Nature of the matter specify..."
-                android:visibility="gone"
                 android:inputType="textMultiLine"
                 android:textColor="#4d51f8" />
 

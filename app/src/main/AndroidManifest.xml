@@ -13,7 +13,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ListJustificationReportsActivity"></activity>
+        <activity android:name=".CreateEditJustificationReportActivity"></activity>
+        <activity android:name=".ListJustificationReportsActivity" />
         <activity
             android:name=".ListCasesActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -26,7 +27,7 @@
         <activity
             android:name=".CreateEditRecordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

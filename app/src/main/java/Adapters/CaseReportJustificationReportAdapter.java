@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lcdzim.CreateEditJustificationReportActivity;
 import com.example.lcdzim.CreateEditRecordActivity;
 import com.example.lcdzim.R;
 
@@ -91,7 +92,8 @@ public class CaseReportJustificationReportAdapter extends RecyclerView.Adapter<C
             @Override
             public void onClick(View v) {
                 CreateEditRecordActivity.case_id = caseReportJustificationReportForAttendedCases.CaseId;
-                Intent intent = new Intent(context, CreateEditRecordActivity.class);
+                Intent intent = new Intent(context, CreateEditJustificationReportActivity.class);
+                intent.putExtra("created_item_id",caseReportJustificationReportForAttendedCases._Id);
                 context.startActivity(intent);
             }
         });

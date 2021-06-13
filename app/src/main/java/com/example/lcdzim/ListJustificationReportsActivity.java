@@ -14,6 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +42,44 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
     public static CaseReportJustificationReportAdapter adapter;
     Toolbar toolbar;
     LinearLayout ll_empty;
+    TextView txt_CaseNumber;
+    String toolbar_title = "";
+    Long created_item_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_justification_reports);
+        pd =  new ProgressDialog(this);
+        txt_CaseNumber  = (TextView)findViewById(R.id.txt_CaseNumber);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         setSupportActionBar(toolbar);
+        pd.setTitle("Loading...");
+        pd.show();
+        try {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
+                    CaseReport caseReport  = db.caseReportDao().findByCaseId(CreateEditRecordActivity.case_id);
+                    if(!caseReport.CaseNumber.equals("")){
+                        toolbar_title+= "Case Number: (" + caseReport.CaseNumber + ")";
+                    }
+                    else{
+                        toolbar_title ="";
+                    }
+                }
+            });
+            t.start();
+            t.join();
+            pd.hide();
+        }catch (Exception ex)
+        {
+            Log.e("kzzex",ex.getMessage());
+        }
+        txt_CaseNumber.setText(toolbar_title);
+        getSupportActionBar().setTitle("Justification Reports");
     }
 
     @Override
@@ -61,12 +95,12 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    List<CaseReportJustificationReportForAttendedCases> _caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAll();
+                    List<CaseReportJustificationReportForAttendedCases> _caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAllByCaseId(CreateEditRecordActivity.case_id);
                     for (CaseReportJustificationReportForAttendedCases caseReportJustificationReportForAttendedCases :_caseReportJustificationReportForAttendedCases
                     ) {
                         if (!caseReportJustificationReportForAttendedCases.SavedAtLeastOnce) {
                             //remove this case report, so that no blanks are showing up
-                            db.caseReportJustificationReportForAttendedCasesDao().delete(db.caseReportJustificationReportForAttendedCasesDao().findByCaseId(CreateEditRecordActivity.case_id));
+                            db.caseReportJustificationReportForAttendedCasesDao().delete(db.caseReportJustificationReportForAttendedCasesDao().findById(caseReportJustificationReportForAttendedCases._Id));
                         } else {
                             caseReportJustificationReportForAttendedCasess.add(caseReportJustificationReportForAttendedCases);
                         }
@@ -99,14 +133,14 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_case_report_menu, menu);
+        getMenuInflater().inflate(R.menu.list_case_report_justification_records_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.create_case_report:
+            case R.id.create_case_report_justification_report:
 
                 pd.setTitle("Loading...");
                 pd.show();
@@ -116,17 +150,8 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                            long case_report_id = db.caseReportDao().insert(new CaseReport());
-                            CaseReport caseReport = db.caseReportDao().findById(case_report_id);
-                            String case_id = caseReport.Id;
-                            db.caseReportClientInformationDao().insert(new CaseReportClientInformation(case_id));
-                            db.caseReportDescriptionOfTheCaseProblemDao().insert(new CaseReportDescriptionOfTheCaseProblem(case_id));
-                            db.caseReportNeedsAssesmentDao().insert(new CaseReportNeedsAssesment(case_id));
-                            db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
-                            db.caseReportCareGiverDao().insert(new CaseReportCareGiver(case_id));
-                            db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
-                            CreateEditRecordActivity.case_id = case_id;
-                            db = null;
+                            CaseReportJustificationReportForAttendedCases caseReportJustificationReportForAttendedCases = new CaseReportJustificationReportForAttendedCases(CreateEditRecordActivity.case_id);
+                            created_item_id = db.caseReportJustificationReportForAttendedCasesDao().insert(caseReportJustificationReportForAttendedCases);
                         }
                     });
                     t.start();
@@ -136,9 +161,9 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(CreateEditRecordActivity.context, ListCasesActivity.class);
+                Intent intent = new Intent(ListJustificationReportsActivity.this, CreateEditJustificationReportActivity.class);
+                intent.putExtra("created_item_id",created_item_id);
                 startActivity(intent);
-
                 break;
 
             default:
@@ -146,4 +171,5 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

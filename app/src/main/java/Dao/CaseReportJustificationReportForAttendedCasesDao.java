@@ -18,8 +18,10 @@ public interface CaseReportJustificationReportForAttendedCasesDao {
     void update(CaseReportJustificationReportForAttendedCases item);
     @Delete
     void delete(CaseReportJustificationReportForAttendedCases item);
-    @Query("select * from casereportjustificationreportforattendedcases where caseid = :case_id")
-    CaseReportJustificationReportForAttendedCases findByCaseId(String case_id);
+    @Query("select * from casereportjustificationreportforattendedcases where _id = :id")
+    CaseReportJustificationReportForAttendedCases findById(long id);
     @Query("select * from casereportjustificationreportforattendedcases")
     List<CaseReportJustificationReportForAttendedCases> findAll();
+    @Query("select * from casereportjustificationreportforattendedcases where caseid=:case_id")
+    List<CaseReportJustificationReportForAttendedCases> findAllByCaseId(String case_id);
 }

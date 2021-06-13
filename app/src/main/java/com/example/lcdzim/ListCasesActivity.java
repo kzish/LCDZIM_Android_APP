@@ -60,6 +60,7 @@ public class ListCasesActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Case Reports");
 
     }
 

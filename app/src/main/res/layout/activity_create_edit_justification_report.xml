@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateEditJustificationReportActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="20dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name Of Beneficiary"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_NameOfBeneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Place Of Origin/Residence"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_PlaceOfOriginResidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Place Of Activity"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_PlaceOfActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date When The Beneficiary Was Assisted"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_DateWhenTheBeneficiaryWasAssisted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Type of Assistance"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Logistical Support"
+                            android:textColor="#000"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/chk_TypeOfAssistanceLogisticalSupport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:layout_marginLeft="20dp">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Home Visit"
+                            android:textColor="#000"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/chk_TypeOfAssistanceHomeVisit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:layout_marginLeft="20dp">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Disability Expert"
+                            android:textColor="#000"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/chk_TypeOfAssistanceDisabilityExpert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Summary of Activity"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_SummaryOfActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:minLines="4"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Outcome"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_Outcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:minLines="4"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date Of Court Hearing"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_DateOfCourtHearing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prepared By"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_PreparedBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prepared By Date"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_PreparedByDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Approved By"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_ApprovedBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Approved By Date"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_ApprovedByDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="57dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:textColor="#4d51f8" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

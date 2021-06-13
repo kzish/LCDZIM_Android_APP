@@ -2,7 +2,6 @@ package CaseReportFragments;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,8 +26,6 @@ import java.util.List;
 import java.util.Locale;
 
 import Database.AppDatabase;
-import Models.CaseReportClientInformation;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class ClientInformationFragment extends Fragment {
 
@@ -110,7 +107,7 @@ public class ClientInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragment_can_save = true;
-        View view = inflater.inflate(R.layout.fragment_client_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_beneficiary_information, container, false);
 
         final Calendar myCalendar = Calendar.getInstance();
         //

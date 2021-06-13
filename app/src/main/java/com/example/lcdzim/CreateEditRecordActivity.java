@@ -121,7 +121,7 @@ public class CreateEditRecordActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Case Report");
         db = AppDatabase.getAppDatabase(this);
 
     }

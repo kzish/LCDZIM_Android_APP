@@ -43,6 +43,13 @@ public class CreateEditPaymentsToBeneficiaryActivity extends AppCompatActivity {
     TextView txt_PerDiem;
     TextView txt_Other;
     TextView txt_ExpenseCode;
+    TextView txt_PaidByName;
+    TextView txt_PaidByDate;
+    TextView txt_CheckedByName;
+    TextView txt_CheckedByDate;
+    TextView txt_AuthorisedByName;
+    TextView txt_AuthorisedByDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,12 @@ public class CreateEditPaymentsToBeneficiaryActivity extends AppCompatActivity {
         txt_PerDiem = (TextView) findViewById(R.id.txt_PerDiem);
         txt_Other = (TextView) findViewById(R.id.txt_Other);
         txt_ExpenseCode = (TextView) findViewById(R.id.txt_ExpenseCode);
+        txt_PaidByName = (TextView) findViewById(R.id.txt_PaidByName);
+        txt_PaidByDate = (TextView) findViewById(R.id.txt_PaidByDate);
+        txt_CheckedByName = (TextView) findViewById(R.id.txt_CheckedByName);
+        txt_CheckedByDate = (TextView) findViewById(R.id.txt_CheckedByDate);
+        txt_AuthorisedByName = (TextView) findViewById(R.id.txt_AuthorisedByName);
+        txt_AuthorisedByDate = (TextView) findViewById(R.id.txt_AuthorisedByDate);
 
         final Calendar myCalendar = Calendar.getInstance();
         txt_Date.setOnClickListener(new View.OnClickListener() {
@@ -102,17 +115,87 @@ public class CreateEditPaymentsToBeneficiaryActivity extends AppCompatActivity {
             }
         });
 
+        txt_PaidByDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(CreateEditPaymentsToBeneficiaryActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        String myFormat = "yyyy-MM-dd"; //In which you need put here
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                        txt_PaidByDate.setText(sdf.format(myCalendar.getTime()));
+                    }
+                }, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        txt_CheckedByDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(CreateEditPaymentsToBeneficiaryActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        String myFormat = "yyyy-MM-dd"; //In which you need put here
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                        txt_CheckedByDate.setText(sdf.format(myCalendar.getTime()));
+                    }
+                }, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        txt_AuthorisedByDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(CreateEditPaymentsToBeneficiaryActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        String myFormat = "yyyy-MM-dd"; //In which you need put here
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                        txt_AuthorisedByDate.setText(sdf.format(myCalendar.getTime()));
+                    }
+                }, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         txt_Date.setText(caseReportPaymentsToBeneficiaries.Date);
         txt_Name.setText(caseReportPaymentsToBeneficiaries.Name);
         txt_IdNumber.setText(caseReportPaymentsToBeneficiaries.IdNumber);
-        if(caseReportPaymentsToBeneficiaries.BusFare!=null)txt_BusFare.setText(caseReportPaymentsToBeneficiaries.BusFare+"");
-        if(caseReportPaymentsToBeneficiaries.Breakfast!=null)txt_BreakFast.setText(caseReportPaymentsToBeneficiaries.Breakfast+"");
-        if(caseReportPaymentsToBeneficiaries.Lunch!=null)txt_Lunch .setText(caseReportPaymentsToBeneficiaries.Lunch+"");
-        if(caseReportPaymentsToBeneficiaries.Dinner!=null)txt_Dinner.setText(caseReportPaymentsToBeneficiaries.Dinner+"");
-        if(caseReportPaymentsToBeneficiaries.Accomodation!=null)txt_Accomodation.setText(caseReportPaymentsToBeneficiaries.Accomodation+"");
-        if(caseReportPaymentsToBeneficiaries.PerDiem!=null)txt_PerDiem.setText(caseReportPaymentsToBeneficiaries.PerDiem+"");
-        if(caseReportPaymentsToBeneficiaries.Other!=null)txt_Other.setText(caseReportPaymentsToBeneficiaries.Other +"");
+        if (caseReportPaymentsToBeneficiaries.BusFare != null)
+            txt_BusFare.setText(caseReportPaymentsToBeneficiaries.BusFare + "");
+        if (caseReportPaymentsToBeneficiaries.Breakfast != null)
+            txt_BreakFast.setText(caseReportPaymentsToBeneficiaries.Breakfast + "");
+        if (caseReportPaymentsToBeneficiaries.Lunch != null)
+            txt_Lunch.setText(caseReportPaymentsToBeneficiaries.Lunch + "");
+        if (caseReportPaymentsToBeneficiaries.Dinner != null)
+            txt_Dinner.setText(caseReportPaymentsToBeneficiaries.Dinner + "");
+        if (caseReportPaymentsToBeneficiaries.Accomodation != null)
+            txt_Accomodation.setText(caseReportPaymentsToBeneficiaries.Accomodation + "");
+        if (caseReportPaymentsToBeneficiaries.PerDiem != null)
+            txt_PerDiem.setText(caseReportPaymentsToBeneficiaries.PerDiem + "");
+        if (caseReportPaymentsToBeneficiaries.Other != null)
+            txt_Other.setText(caseReportPaymentsToBeneficiaries.Other + "");
         txt_ExpenseCode.setText(caseReportPaymentsToBeneficiaries.ExpenseCode);
+        txt_CheckedByDate.setText(caseReportPaymentsToBeneficiaries.CheckedByDate);
+        txt_CheckedByName.setText(caseReportPaymentsToBeneficiaries.CheckedByName);
+        txt_PaidByDate.setText(caseReportPaymentsToBeneficiaries.PaidByDate);
+        txt_PaidByName.setText(caseReportPaymentsToBeneficiaries.PaidByName);
+        txt_AuthorisedByDate.setText(caseReportPaymentsToBeneficiaries.AuthorisedByDate);
+        txt_AuthorisedByName.setText(caseReportPaymentsToBeneficiaries.AuthorisedByName);
 
     }
 
@@ -149,6 +232,12 @@ public class CreateEditPaymentsToBeneficiaryActivity extends AppCompatActivity {
                             caseReportPaymentsToBeneficiaries.PerDiem = Double.parseDouble(txt_PerDiem.getText().toString());
                             caseReportPaymentsToBeneficiaries.Other = Double.parseDouble(txt_Other.getText().toString());
                             caseReportPaymentsToBeneficiaries.ExpenseCode = txt_ExpenseCode.getText().toString();
+                            caseReportPaymentsToBeneficiaries.CheckedByDate = txt_CheckedByDate.getText().toString();
+                            caseReportPaymentsToBeneficiaries.CheckedByName = txt_CheckedByName.getText().toString();
+                            caseReportPaymentsToBeneficiaries.AuthorisedByDate = txt_AuthorisedByDate.getText().toString();
+                            caseReportPaymentsToBeneficiaries.AuthorisedByName = txt_AuthorisedByName.getText().toString();
+                            caseReportPaymentsToBeneficiaries.PaidByName = txt_PaidByName.getText().toString();
+                            caseReportPaymentsToBeneficiaries.PaidByDate = txt_PaidByDate.getText().toString();
                             db.caseReportPaymentsToBeneficiariesDao().update(caseReportPaymentsToBeneficiaries);
                             db = null;
                         }

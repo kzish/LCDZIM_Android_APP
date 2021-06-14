@@ -2,7 +2,6 @@ package CaseReportFragments;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import java.text.SimpleDateFormat;
@@ -22,8 +21,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import Database.AppDatabase;
-import Models.CaseReport;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class BasicInformationFragment extends Fragment {
 
@@ -118,20 +115,20 @@ public class BasicInformationFragment extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
 
         //load data into the view
-        txt_ReferredByNameAndInstitution.setText(CreateEditRecordActivity.caseReport.ReferredByNameAndInstitution);
-        txt_CaseNumber.setText(CreateEditRecordActivity.caseReport.CaseNumber);
-        txt_PoliceStation.setText(CreateEditRecordActivity.caseReport.PoliceStation);
-        txt_CrRef.setText(CreateEditRecordActivity.caseReport.CrRef);
-        txt_NameOfInvestigatingOfficer.setText(CreateEditRecordActivity.caseReport.NameOfInvestigatingOfficer);
-        txt_MobileNumber.setText(CreateEditRecordActivity.caseReport.MobileNumber);
-        txt_CourtHandlingTheCase.setText(CreateEditRecordActivity.caseReport.CourtHandlingTheCase);
-        if (CreateEditRecordActivity.caseReport.DateCaseWasReported != null) {
-            txt_DateCaseWasReported.setText(CreateEditRecordActivity.caseReport.DateCaseWasReported);
+        txt_ReferredByNameAndInstitution.setText(CreateEditCaseReportActivity.caseReport.ReferredByNameAndInstitution);
+        txt_CaseNumber.setText(CreateEditCaseReportActivity.caseReport.CaseNumber);
+        txt_PoliceStation.setText(CreateEditCaseReportActivity.caseReport.PoliceStation);
+        txt_CrRef.setText(CreateEditCaseReportActivity.caseReport.CrRef);
+        txt_NameOfInvestigatingOfficer.setText(CreateEditCaseReportActivity.caseReport.NameOfInvestigatingOfficer);
+        txt_MobileNumber.setText(CreateEditCaseReportActivity.caseReport.MobileNumber);
+        txt_CourtHandlingTheCase.setText(CreateEditCaseReportActivity.caseReport.CourtHandlingTheCase);
+        if (CreateEditCaseReportActivity.caseReport.DateCaseWasReported != null) {
+            txt_DateCaseWasReported.setText(CreateEditCaseReportActivity.caseReport.DateCaseWasReported);
         }
-        txt_ForceNumber.setText(CreateEditRecordActivity.caseReport.ForceNumber);
-        txt_CompiledBy.setText(CreateEditRecordActivity.caseReport.CompiledBy);
-        if (CreateEditRecordActivity.caseReport.DateCompiled != null) {
-            txt_DateCompiled.setText(CreateEditRecordActivity.caseReport.DateCompiled);
+        txt_ForceNumber.setText(CreateEditCaseReportActivity.caseReport.ForceNumber);
+        txt_CompiledBy.setText(CreateEditCaseReportActivity.caseReport.CompiledBy);
+        if (CreateEditCaseReportActivity.caseReport.DateCompiled != null) {
+            txt_DateCompiled.setText(CreateEditCaseReportActivity.caseReport.DateCompiled);
         }
         //
         return view;
@@ -140,30 +137,30 @@ public class BasicInformationFragment extends Fragment {
     public static void saveRecord() {
 
         if(!fragment_can_save)return;
-        CreateEditRecordActivity.caseReport.Uploaded=false;
-        CreateEditRecordActivity.caseReport.SavedAtLeastOnce = true;
-        CreateEditRecordActivity.caseReport.date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        CreateEditRecordActivity.caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
-        CreateEditRecordActivity.caseReport.CaseNumber = txt_CaseNumber.getText().toString();
-        CreateEditRecordActivity.caseReport.PoliceStation = txt_PoliceStation.getText().toString();
-        CreateEditRecordActivity.caseReport.CrRef = txt_CrRef.getText().toString();
-        CreateEditRecordActivity.caseReport.NameOfInvestigatingOfficer = txt_NameOfInvestigatingOfficer.getText().toString();
-        CreateEditRecordActivity.caseReport.MobileNumber = txt_MobileNumber.getText().toString();
-        CreateEditRecordActivity.caseReport.CourtHandlingTheCase = txt_CourtHandlingTheCase.getText().toString();
-        CreateEditRecordActivity.caseReport.DateCaseWasReported = txt_DateCaseWasReported.getText().toString();
-        CreateEditRecordActivity.caseReport.ForceNumber = txt_ForceNumber.getText().toString();
-        CreateEditRecordActivity.caseReport.CompiledBy = txt_CompiledBy.getText().toString();
-        CreateEditRecordActivity.caseReport.DateCompiled = txt_DateCompiled.getText().toString();
+        CreateEditCaseReportActivity.caseReport.Uploaded=false;
+        CreateEditCaseReportActivity.caseReport.SavedAtLeastOnce = true;
+        CreateEditCaseReportActivity.caseReport.date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        CreateEditCaseReportActivity.caseReport.ReferredByNameAndInstitution = txt_ReferredByNameAndInstitution.getText().toString();
+        CreateEditCaseReportActivity.caseReport.CaseNumber = txt_CaseNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReport.PoliceStation = txt_PoliceStation.getText().toString();
+        CreateEditCaseReportActivity.caseReport.CrRef = txt_CrRef.getText().toString();
+        CreateEditCaseReportActivity.caseReport.NameOfInvestigatingOfficer = txt_NameOfInvestigatingOfficer.getText().toString();
+        CreateEditCaseReportActivity.caseReport.MobileNumber = txt_MobileNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReport.CourtHandlingTheCase = txt_CourtHandlingTheCase.getText().toString();
+        CreateEditCaseReportActivity.caseReport.DateCaseWasReported = txt_DateCaseWasReported.getText().toString();
+        CreateEditCaseReportActivity.caseReport.ForceNumber = txt_ForceNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReport.CompiledBy = txt_CompiledBy.getText().toString();
+        CreateEditCaseReportActivity.caseReport.DateCompiled = txt_DateCompiled.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                    db.caseReportDao().update(CreateEditRecordActivity.caseReport);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
+                    db.caseReportDao().update(CreateEditCaseReportActivity.caseReport);
                 }
             });
             t.start();

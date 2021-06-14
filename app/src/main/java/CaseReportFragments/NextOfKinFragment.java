@@ -1,7 +1,6 @@
 package CaseReportFragments;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,12 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReportNextOfKin;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class NextOfKinFragment extends Fragment {
 
@@ -59,36 +56,36 @@ public class NextOfKinFragment extends Fragment {
         txt_Employer = (EditText) view.findViewById(R.id.txt_Employer);
 
 
-        txt_Name.setText(CreateEditRecordActivity.caseReportNextOfKin.Name);
-        txt_Age.setText(CreateEditRecordActivity.caseReportNextOfKin.Age + "");
-        txt_Address.setText(CreateEditRecordActivity.caseReportNextOfKin.Address);
-        txt_PhoneNumber.setText(CreateEditRecordActivity.caseReportNextOfKin.PhoneNumber);
-        txt_Email.setText(CreateEditRecordActivity.caseReportNextOfKin.Email);
-        txt_Occupation.setText(CreateEditRecordActivity.caseReportNextOfKin.Occupation);
-        txt_Employer.setText(CreateEditRecordActivity.caseReportNextOfKin.Employer);
+        txt_Name.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Name);
+        txt_Age.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Age + "");
+        txt_Address.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Address);
+        txt_PhoneNumber.setText(CreateEditCaseReportActivity.caseReportNextOfKin.PhoneNumber);
+        txt_Email.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Email);
+        txt_Occupation.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Occupation);
+        txt_Employer.setText(CreateEditCaseReportActivity.caseReportNextOfKin.Employer);
         //
         return view;
     }
 
     public static void saveRecord() {
         if(!fragment_can_save)return;
-        CreateEditRecordActivity.caseReportNextOfKin.Name = txt_Name.getText().toString();
-        CreateEditRecordActivity.caseReportNextOfKin.Age = Integer.parseInt(txt_Age.getText().toString());
-        CreateEditRecordActivity.caseReportNextOfKin.Address = txt_Address.getText().toString();
-        CreateEditRecordActivity.caseReportNextOfKin.PhoneNumber = txt_PhoneNumber.getText().toString();
-        CreateEditRecordActivity.caseReportNextOfKin.Email = txt_Email.getText().toString();
-        CreateEditRecordActivity.caseReportNextOfKin.Occupation = txt_Occupation.getText().toString();
-        CreateEditRecordActivity.caseReportNextOfKin.Employer = txt_Employer.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.Name = txt_Name.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.Age = Integer.parseInt(txt_Age.getText().toString());
+        CreateEditCaseReportActivity.caseReportNextOfKin.Address = txt_Address.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.PhoneNumber = txt_PhoneNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.Email = txt_Email.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.Occupation = txt_Occupation.getText().toString();
+        CreateEditCaseReportActivity.caseReportNextOfKin.Employer = txt_Employer.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                    db.caseReportNextOfKinDao().update(CreateEditRecordActivity.caseReportNextOfKin);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
+                    db.caseReportNextOfKinDao().update(CreateEditCaseReportActivity.caseReportNextOfKin);
                 }
             });
             t.start();

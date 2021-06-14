@@ -5,20 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lcdzim.CreateEditJustificationReportActivity;
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import java.util.List;
 
-import Models.CaseReport;
 import Models.CaseReportJustificationReportForAttendedCases;
 
 public class CaseReportJustificationReportAdapter extends RecyclerView.Adapter<CaseReportJustificationReportAdapter.ViewHolder> {
@@ -91,7 +88,7 @@ public class CaseReportJustificationReportAdapter extends RecyclerView.Adapter<C
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateEditRecordActivity.case_id = caseReportJustificationReportForAttendedCases.CaseId;
+                CreateEditCaseReportActivity.case_id = caseReportJustificationReportForAttendedCases.CaseId;
                 Intent intent = new Intent(context, CreateEditJustificationReportActivity.class);
                 intent.putExtra("created_item_id",caseReportJustificationReportForAttendedCases._Id);
                 context.startActivity(intent);

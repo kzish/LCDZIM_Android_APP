@@ -1,7 +1,6 @@
 package CaseReportFragments;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,12 +14,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReportNeedsAssesment;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class NeedsAssesmentFragment extends Fragment {
 
@@ -142,42 +139,42 @@ public class NeedsAssesmentFragment extends Fragment {
         txt_IsTheBeneficiaryAbleToMoveIndependently = (Spinner) view.findViewById(R.id.txt_IsTheBeneficiaryAbleToMoveIndependently);
         txt_BeneficiaryWellBeingAtThePointOfIntake = (Spinner) view.findViewById(R.id.txt_BeneficiaryWellBeingAtThePointOfIntake);
 
-        txt_IfNotWhatAssistanceIsNeededMovement.setText(CreateEditRecordActivity.caseReportNeedsAssesment.IfNotWhatAssistanceIsNeededMovement);
-        txt_BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify.setText(CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify);
-        txt_BeneficiaryImmediateConcerns.setText(CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryImmediateConcerns);
-        txt_OtherRelevantIssues.setText(CreateEditRecordActivity.caseReportNeedsAssesment.OtherRelevantIssues);
-        txt_WhoIsTakingCareOfTheBeneficiaryOtherSpecify.setText(CreateEditRecordActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiaryOtherSpecify);
-        txt_HowManyPeopleLiveWithTheBeneficiary.setText(CreateEditRecordActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiary + "");
-        txt_HowManyPeopleLiveWithTheBeneficiaryRelation.setText(CreateEditRecordActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiaryRelation);
-        txt_IfNoHowDoesHeSheCommunicate.setText(CreateEditRecordActivity.caseReportNeedsAssesment.IfNoHowDoesHeSheCommunicate);
+        txt_IfNotWhatAssistanceIsNeededMovement.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.IfNotWhatAssistanceIsNeededMovement);
+        txt_BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify);
+        txt_BeneficiaryImmediateConcerns.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryImmediateConcerns);
+        txt_OtherRelevantIssues.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.OtherRelevantIssues);
+        txt_WhoIsTakingCareOfTheBeneficiaryOtherSpecify.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiaryOtherSpecify);
+        txt_HowManyPeopleLiveWithTheBeneficiary.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiary + "");
+        txt_HowManyPeopleLiveWithTheBeneficiaryRelation.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiaryRelation);
+        txt_IfNoHowDoesHeSheCommunicate.setText(CreateEditCaseReportActivity.caseReportNeedsAssesment.IfNoHowDoesHeSheCommunicate);
 
         for (int i = 0; i < txt_WhereDoesTheBeneficiaryLive.getAdapter().getCount(); i++) {
             String val = txt_WhereDoesTheBeneficiaryLive.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportNeedsAssesment.WhereDoesTheBeneficiaryLive)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportNeedsAssesment.WhereDoesTheBeneficiaryLive)) {
                 txt_WhereDoesTheBeneficiaryLive.setSelection(i);
             }
         }
         for (int i = 0; i < txt_WhoIsTakingCareOfTheBeneficiary.getAdapter().getCount(); i++) {
             String val = txt_WhoIsTakingCareOfTheBeneficiary.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiary)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiary)) {
                 txt_WhoIsTakingCareOfTheBeneficiary.setSelection(i);
             }
         }
         for (int i = 0; i < IsTheBeneficiaryAbleToVerballyCommunicate.getAdapter().getCount(); i++) {
             String val = IsTheBeneficiaryAbleToVerballyCommunicate.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToVerballyCommunicate)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToVerballyCommunicate)) {
                 IsTheBeneficiaryAbleToVerballyCommunicate.setSelection(i);
             }
         }
         for (int i = 0; i < txt_IsTheBeneficiaryAbleToMoveIndependently.getAdapter().getCount(); i++) {
             String val = txt_IsTheBeneficiaryAbleToMoveIndependently.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToMoveIndependently)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToMoveIndependently)) {
                 txt_IsTheBeneficiaryAbleToMoveIndependently.setSelection(i);
             }
         }
         for (int i = 0; i < txt_BeneficiaryWellBeingAtThePointOfIntake.getAdapter().getCount(); i++) {
             String val = txt_BeneficiaryWellBeingAtThePointOfIntake.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntake)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntake)) {
                 txt_BeneficiaryWellBeingAtThePointOfIntake.setSelection(i);
             }
         }
@@ -189,29 +186,29 @@ public class NeedsAssesmentFragment extends Fragment {
 
     public static void saveRecord() {
         if(!fragment_can_save)return;
-        CreateEditRecordActivity.caseReportNeedsAssesment.WhereDoesTheBeneficiaryLive = txt_WhereDoesTheBeneficiaryLive.getSelectedItem().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiary = txt_WhoIsTakingCareOfTheBeneficiary.getSelectedItem().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiaryOtherSpecify = txt_WhoIsTakingCareOfTheBeneficiaryOtherSpecify.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiary = Integer.parseInt(txt_HowManyPeopleLiveWithTheBeneficiary.getText().toString());
-        CreateEditRecordActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiaryRelation = txt_HowManyPeopleLiveWithTheBeneficiaryRelation.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToVerballyCommunicate = IsTheBeneficiaryAbleToVerballyCommunicate.getSelectedItem().toString().equals("Yes");
-        CreateEditRecordActivity.caseReportNeedsAssesment.IfNoHowDoesHeSheCommunicate = txt_IfNoHowDoesHeSheCommunicate.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToMoveIndependently = txt_IsTheBeneficiaryAbleToMoveIndependently.getSelectedItem().toString().equals("Yes");
-        CreateEditRecordActivity.caseReportNeedsAssesment.IfNotWhatAssistanceIsNeededMovement = txt_IfNotWhatAssistanceIsNeededMovement.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntake = txt_BeneficiaryWellBeingAtThePointOfIntake.getSelectedItem().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify = txt_BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.BeneficiaryImmediateConcerns = txt_BeneficiaryImmediateConcerns.getText().toString();
-        CreateEditRecordActivity.caseReportNeedsAssesment.OtherRelevantIssues = txt_OtherRelevantIssues.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.WhereDoesTheBeneficiaryLive = txt_WhereDoesTheBeneficiaryLive.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiary = txt_WhoIsTakingCareOfTheBeneficiary.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.WhoIsTakingCareOfTheBeneficiaryOtherSpecify = txt_WhoIsTakingCareOfTheBeneficiaryOtherSpecify.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiary = Integer.parseInt(txt_HowManyPeopleLiveWithTheBeneficiary.getText().toString());
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.HowManyPeopleLiveWithTheBeneficiaryRelation = txt_HowManyPeopleLiveWithTheBeneficiaryRelation.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToVerballyCommunicate = IsTheBeneficiaryAbleToVerballyCommunicate.getSelectedItem().toString().equals("Yes");
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.IfNoHowDoesHeSheCommunicate = txt_IfNoHowDoesHeSheCommunicate.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.IsTheBeneficiaryAbleToMoveIndependently = txt_IsTheBeneficiaryAbleToMoveIndependently.getSelectedItem().toString().equals("Yes");
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.IfNotWhatAssistanceIsNeededMovement = txt_IfNotWhatAssistanceIsNeededMovement.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntake = txt_BeneficiaryWellBeingAtThePointOfIntake.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify = txt_BeneficiaryWellBeingAtThePointOfIntakeOtherSpecify.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryImmediateConcerns = txt_BeneficiaryImmediateConcerns.getText().toString();
+        CreateEditCaseReportActivity.caseReportNeedsAssesment.OtherRelevantIssues = txt_OtherRelevantIssues.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                    db.caseReportNeedsAssesmentDao().update(CreateEditRecordActivity.caseReportNeedsAssesment);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
+                    db.caseReportNeedsAssesmentDao().update(CreateEditCaseReportActivity.caseReportNeedsAssesment);
                 }
             });
             t.start();

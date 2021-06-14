@@ -10,6 +10,7 @@ import androidx.room.TypeConverters;
 import Converters.Converters;
 import Dao.CaseReportCareGiverDao;
 import Dao.CaseReportJustificationReportForAttendedCasesDao;
+import Dao.CaseReportPaymentsToBeneficiariesDao;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
 import Models.CaseReportClientInformation;
@@ -25,6 +26,7 @@ import Dao.CaseReportDescriptionOfTheCaseProblemDao;
 import Dao.CaseReportNeedsAssesmentDao;
 import Dao.CaseReportNextOfKinDao;
 import Dao.CaseReportParentsGuardiansSpousesInformationDao;
+import Models.CaseReportPaymentsToBeneficiaries;
 
 @Database(entities = {
         CaseReport.class,
@@ -35,7 +37,8 @@ import Dao.CaseReportParentsGuardiansSpousesInformationDao;
         CaseReportCareGiver.class,
         CaseReportParentsGuardiansSpousesInformation.class,
         CaseReportJustificationReportForAttendedCases.class,
-}, version = 15)
+        CaseReportPaymentsToBeneficiaries.class,
+}, version = 16)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();
@@ -53,6 +56,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportParentsGuardiansSpousesInformationDao caseReportParentsGuardiansSpousesInformationDao();
 
     public abstract CaseReportJustificationReportForAttendedCasesDao caseReportJustificationReportForAttendedCasesDao();
+
+    public abstract CaseReportPaymentsToBeneficiariesDao caseReportPaymentsToBeneficiariesDao();
 
     private static AppDatabase INSTANCE;
 

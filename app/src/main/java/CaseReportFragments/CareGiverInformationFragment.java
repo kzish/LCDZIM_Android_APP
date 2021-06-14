@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import java.text.SimpleDateFormat;
@@ -87,14 +86,14 @@ public class CareGiverInformationFragment extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
 
         //load data into the view
-        txt_CareGiverName.setText(CreateEditRecordActivity.caseReportCareGiver.CareGiverName);
-        txt_CareGiverDob.setText(CreateEditRecordActivity.caseReportCareGiver.CareGiverDob);
-        txt_CareGiverAddress.setText(CreateEditRecordActivity.caseReportCareGiver.CareGiverAddress);
-        txt_CareGiverPhoneNumber.setText(CreateEditRecordActivity.caseReportCareGiver.CareGiverPhoneNumber);
+        txt_CareGiverName.setText(CreateEditCaseReportActivity.caseReportCareGiver.CareGiverName);
+        txt_CareGiverDob.setText(CreateEditCaseReportActivity.caseReportCareGiver.CareGiverDob);
+        txt_CareGiverAddress.setText(CreateEditCaseReportActivity.caseReportCareGiver.CareGiverAddress);
+        txt_CareGiverPhoneNumber.setText(CreateEditCaseReportActivity.caseReportCareGiver.CareGiverPhoneNumber);
 
         for (int i = 0; i < txt_CareGiverSex.getAdapter().getCount(); i++) {
             String val = txt_CareGiverSex.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportCareGiver.CareGiverSex)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportCareGiver.CareGiverSex)) {
                 txt_CareGiverSex.setSelection(i);
             }
         }
@@ -106,21 +105,21 @@ public class CareGiverInformationFragment extends Fragment {
     public static void saveRecord() {
 
         if (!fragment_can_save) return;
-        CreateEditRecordActivity.caseReportCareGiver.CareGiverName = txt_CareGiverName.getText().toString();
-        CreateEditRecordActivity.caseReportCareGiver.CareGiverDob = txt_CareGiverDob.getText().toString();
-        CreateEditRecordActivity.caseReportCareGiver.CareGiverSex = txt_CareGiverSex.getSelectedItem().toString();
-        CreateEditRecordActivity.caseReportCareGiver.CareGiverAddress = txt_CareGiverAddress.getText().toString();
-        CreateEditRecordActivity.caseReportCareGiver.CareGiverPhoneNumber = txt_CareGiverPhoneNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReportCareGiver.CareGiverName = txt_CareGiverName.getText().toString();
+        CreateEditCaseReportActivity.caseReportCareGiver.CareGiverDob = txt_CareGiverDob.getText().toString();
+        CreateEditCaseReportActivity.caseReportCareGiver.CareGiverSex = txt_CareGiverSex.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportCareGiver.CareGiverAddress = txt_CareGiverAddress.getText().toString();
+        CreateEditCaseReportActivity.caseReportCareGiver.CareGiverPhoneNumber = txt_CareGiverPhoneNumber.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                    db.caseReportCareGiverDao().update(CreateEditRecordActivity.caseReportCareGiver);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
+                    db.caseReportCareGiverDao().update(CreateEditCaseReportActivity.caseReportCareGiver);
                 }
             });
             t.start();

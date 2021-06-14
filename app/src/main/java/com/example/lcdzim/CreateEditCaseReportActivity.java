@@ -41,7 +41,7 @@ import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-public class CreateEditRecordActivity extends AppCompatActivity {
+public class CreateEditCaseReportActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
@@ -178,8 +178,12 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                 Toast.makeText(this, "Record Saved", Toast.LENGTH_LONG).show();
                 break;
             case R.id.open_justification_reports:
-                Intent showListJustificationReports = new Intent(CreateEditRecordActivity.context, ListJustificationReportsActivity.class);
+                Intent showListJustificationReports = new Intent(CreateEditCaseReportActivity.context, ListJustificationReportsActivity.class);
                 startActivity(showListJustificationReports);
+                break;
+            case R.id.open_payments_to_beneficiaries:
+                Intent showListPaymentsToBeneficiaries = new Intent(CreateEditCaseReportActivity.context, ListPaymentsToBeneficiariesActivity.class);
+                startActivity(showListPaymentsToBeneficiaries);
                 break;
             default:
                 break;
@@ -246,11 +250,11 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                 .asString()
                 .setCallback((e, result) -> {
                     if (e != null) {
-                        Toast.makeText(CreateEditRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateEditCaseReportActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
                         Log.e("kzzex", e.getMessage());
                     }
                     if (result == null) {
-                        Toast.makeText(CreateEditRecordActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateEditCaseReportActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
                         Log.e("kzzex", "result is null");
                     } else {
                         try {
@@ -268,9 +272,9 @@ public class CreateEditRecordActivity extends AppCompatActivity {
                                 });
                                 t.start();
                                 t.join();
-                                Toast.makeText(CreateEditRecordActivity.this, "Record Uploaded", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateEditCaseReportActivity.this, "Record Uploaded", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(CreateEditRecordActivity.this, "Error: " + msg, Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateEditCaseReportActivity.this, "Error: " + msg, Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception ex) {
                             Log.e("kzzex", ex.getMessage());

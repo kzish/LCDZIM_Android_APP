@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".CreateEditCaseReportActivity">
+    tools:context=".ListJustificationReportsActivity">
 
     <androidx.cardview.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,10 +25,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt_CaseNumber"
+                android:id="@+id/txt_Date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Case Number"
+                android:text="Date..."
                 android:textColor="#F00"
                 android:textSize="10dp"
                 android:layout_margin="5dp"
@@ -48,11 +48,11 @@
 
 
                 <TextView
-                    android:id="@+id/txt_ReferredByNameAndInstitution"
+                    android:id="@+id/txt_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="Referred By (Name &amp; Institution)"
+                    android:text="Name..."
                     android:textColor="#000"
                     android:textSize="10dp"
                     android:textStyle="bold" />
@@ -62,6 +62,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     android:src="@drawable/ic_baseline_done_all_24" />
 
             </LinearLayout>
@@ -78,10 +79,10 @@
                 tools:layout_editor_absoluteY="84dp">
 
                 <TextView
-                    android:id="@+id/txt_PoliceStation"
+                    android:id="@+id/txt_IdNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Police Station"
+                    android:text="Id Number..."
                     android:textColor="#000"
                     android:textSize="10dp"
                     android:textStyle="bold" />
@@ -102,24 +103,14 @@
                 tools:layout_editor_absoluteY="84dp">
 
                 <TextView
-                    android:id="@+id/txt_CrRef"
+                    android:id="@+id/txt_Total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="C.R. Ref"
-                    android:textColor="#000"
+                    android:text="Total"
+                    android:textColor="#00F"
                     android:textSize="10dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_Date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Date Compiled"
-                    android:textColor="#000"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
             </LinearLayout>
         </LinearLayout>

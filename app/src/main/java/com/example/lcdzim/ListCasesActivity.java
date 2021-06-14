@@ -6,34 +6,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.CaseReportAdapter;
-import CaseReportFragments.BasicInformationFragment;
-import CaseReportFragments.CareGiverInformationFragment;
-import CaseReportFragments.ClientInformationFragment;
-import CaseReportFragments.DescriptionOfCaseFragment;
-import CaseReportFragments.NeedsAssesmentFragment;
-import CaseReportFragments.NextOfKinFragment;
-import CaseReportFragments.PGSInformationFragment;
 import Database.AppDatabase;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
@@ -148,7 +133,7 @@ public class ListCasesActivity extends AppCompatActivity {
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
                             db.caseReportCareGiverDao().insert(new CaseReportCareGiver(case_id));
                             db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
-                            CreateEditRecordActivity.case_id = case_id;
+                            CreateEditCaseReportActivity.case_id = case_id;
                             db = null;
                         }
                     });
@@ -159,7 +144,7 @@ public class ListCasesActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(ListCasesActivity.this, CreateEditRecordActivity.class);
+                Intent intent = new Intent(ListCasesActivity.this, CreateEditCaseReportActivity.class);
                 startActivity(intent);
 
                 break;

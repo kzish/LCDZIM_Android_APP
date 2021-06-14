@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import java.util.List;
@@ -114,8 +114,8 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateEditRecordActivity.case_id = caseReport.Id;
-                Intent intent = new Intent(context, CreateEditRecordActivity.class);
+                CreateEditCaseReportActivity.case_id = caseReport.Id;
+                Intent intent = new Intent(context, CreateEditCaseReportActivity.class);
                 context.startActivity(intent);
             }
         });

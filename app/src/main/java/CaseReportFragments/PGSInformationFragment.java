@@ -1,7 +1,6 @@
 package CaseReportFragments;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,11 +13,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.lcdzim.CreateEditRecordActivity;
+import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import Database.AppDatabase;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class PGSInformationFragment extends Fragment {
 
@@ -78,18 +76,18 @@ public class PGSInformationFragment extends Fragment {
             }
         });
 
-        txt_Name.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Name);
-        txt_Age.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Age + "");
-        txt_Address.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Address);
-        txt_PhoneNumber.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber);
-        txt_Email.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Email);
-        txt_Occupation.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Occupation);
-        txt_Employer.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Employer);
-        txt_MaritalStatusOtherSpecify.setText(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify);
+        txt_Name.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Name);
+        txt_Age.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Age + "");
+        txt_Address.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Address);
+        txt_PhoneNumber.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber);
+        txt_Email.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Email);
+        txt_Occupation.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Occupation);
+        txt_Employer.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Employer);
+        txt_MaritalStatusOtherSpecify.setText(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify);
 
         for (int i = 0; i < txt_MaritalStatus.getAdapter().getCount(); i++) {
             String val = txt_MaritalStatus.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus)) {
                 txt_MaritalStatus.setSelection(i);
             }
         }
@@ -100,25 +98,25 @@ public class PGSInformationFragment extends Fragment {
 
     public static void saveRecord() {
         if(!fragment_can_save)return;
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Name = txt_Name.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Age = Integer.parseInt(txt_Age.getText().toString());
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Address = txt_Address.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber = txt_PhoneNumber.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Email = txt_Email.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Occupation = txt_Occupation.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.Employer = txt_Employer.getText().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus = txt_MaritalStatus.getSelectedItem().toString();
-        CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify = txt_MaritalStatusOtherSpecify.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Name = txt_Name.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Age = Integer.parseInt(txt_Age.getText().toString());
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Address = txt_Address.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.PhoneNumber = txt_PhoneNumber.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Email = txt_Email.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Occupation = txt_Occupation.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Employer = txt_Employer.getText().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus = txt_MaritalStatus.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify = txt_MaritalStatusOtherSpecify.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditRecordActivity.context);
+        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
             pd.setTitle("Saving...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditRecordActivity.context);
-                    db.caseReportParentsGuardiansSpousesInformationDao().update(CreateEditRecordActivity.caseReportParentsGuardiansSpousesInformation);
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
+                    db.caseReportParentsGuardiansSpousesInformationDao().update(CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation);
                 }
             });
             t.start();

@@ -4,30 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateEditCaseReportActivity">
+    tools:context=".CreateEditPaymentsToBeneficiaryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="20dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="57dp"
-            android:background="#000"
-            android:gravity="center_vertical"
+            android:background="#ffffff"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Parent's Guardian's Spouse's Information"
-                android:textColor="#fff"
-                android:textSize="30dp"
+                android:text="Date"
+                android:textColor="#000"
+                android:textSize="10dp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/txt_Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="#4d51f8"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:height="57dp"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -53,8 +77,8 @@
                 android:id="@+id/txt_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:height="57dp"
+                android:ems="10"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -73,136 +97,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Age"
+                android:text="ID Number"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_Age"
+                android:id="@+id/txt_IdNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:height="57dp"
-                android:inputType="number"
-                android:textColor="#4d51f8" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ececec"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="84dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:textColor="#000"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_Address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:ems="10"
-                android:gravity="top|left"
-                android:hint="Address"
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:minLines="6"
-                android:textColor="#4d51f8" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="84dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:textColor="#000"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_PhoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:height="57dp"
-                android:inputType="phone"
-                android:textColor="#4d51f8" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ececec"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="84dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textColor="#000"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:height="57dp"
-                android:inputType="textEmailAddress"
-                android:textColor="#4d51f8" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="84dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Occupation"
-                android:textColor="#000"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_Occupation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:height="57dp"
                 android:inputType="textPersonName"
                 android:textColor="#4d51f8" />
         </LinearLayout>
@@ -221,25 +126,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Employer"
+                android:text="Bus Fare"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_Employer"
+                android:id="@+id/txt_BusFare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:height="57dp"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textColor="#4d51f8" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
+            android:layout_height="wrap_content"
+            android:background="#fff"
             android:orientation="vertical"
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
@@ -250,34 +155,192 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Marital Status"
+                android:text="BreakFast"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/txt_MaritalStatus"
+            <EditText
+                android:id="@+id/txt_BreakFast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
                 android:ems="10"
-                android:minHeight="57dp"
-                android:entries="@array/array_marital_status"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textColor="#4d51f8" />
 
-            <EditText
-                android:id="@+id/txt_MaritalStatusOtherSpecify"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
+                android:text="Lunch"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_Lunch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:gravity="top|left"
-                android:hint="Other Marital Status Please Specify..."
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:minLines="6"
-                android:visibility="invisible"
+                android:inputType="numberDecimal"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dinner"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_Dinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accomodation"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_Accomodation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Per Diem"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_PerDiem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_Other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textColor="#4d51f8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="84dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Expense Code"
+                android:textColor="#000"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_ExpenseCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
                 android:textColor="#4d51f8" />
 
         </LinearLayout>

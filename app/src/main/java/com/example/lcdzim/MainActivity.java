@@ -18,8 +18,6 @@ import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-import static com.example.lcdzim.CreateEditRecordActivity.case_id;
-
 public class MainActivity extends AppCompatActivity {
 
     ImageView img_add_record;
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));
                             db.caseReportCareGiverDao().insert(new CaseReportCareGiver(case_id));
                             db.caseReportParentsGuardiansSpousesInformationDao().insert(new CaseReportParentsGuardiansSpousesInformation(case_id));
-                            CreateEditRecordActivity.case_id = case_id;
+                            CreateEditCaseReportActivity.case_id = case_id;
                         }
                     });
                     t.start();
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(MainActivity.this, CreateEditRecordActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateEditCaseReportActivity.class);
                 startActivity(intent);
             }
         });

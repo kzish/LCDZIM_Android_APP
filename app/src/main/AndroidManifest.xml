@@ -13,7 +13,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".CreateEditJustificationReportActivity"></activity>
+        <activity android:name=".CreateEditPaymentsToBeneficiaryActivity"></activity>
+        <activity android:name=".ListPaymentsToBeneficiariesActivity" />
+        <activity android:name=".CreateEditJustificationReportActivity" />
         <activity android:name=".ListJustificationReportsActivity" />
         <activity
             android:name=".ListCasesActivity"
@@ -25,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateEditRecordActivity"
+            android:name=".CreateEditCaseReportActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity" />
     </application>

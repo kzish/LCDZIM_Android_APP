@@ -20,16 +20,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.CaseReportJustificationReportAdapter;
+import Adapters.CaseReportPaymentsToBeneficiariesAdapter;
 import Database.AppDatabase;
 import Models.CaseReport;
 import Models.CaseReportJustificationReportForAttendedCases;
+import Models.CaseReportPaymentsToBeneficiaries;
 
-public class ListJustificationReportsActivity extends AppCompatActivity {
+public class ListPaymentsToBeneficiariesActivity extends AppCompatActivity {
 
     public static RecyclerView list_case_reports;
-    public static List<CaseReportJustificationReportForAttendedCases> caseReportJustificationReportForAttendedCasess;
+    public static List<CaseReportPaymentsToBeneficiaries> caseReportPaymentsToBeneficiariess;
     ProgressDialog pd;
-    public static CaseReportJustificationReportAdapter adapter;
+    public static CaseReportPaymentsToBeneficiariesAdapter adapter;
     Toolbar toolbar;
     LinearLayout ll_empty;
     TextView txt_CaseNumber;
@@ -39,7 +41,7 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_justification_reports);
+        setContentView(R.layout.activity_list_payments_to_beneficiaries);
         pd =  new ProgressDialog(this);
         txt_CaseNumber  = (TextView)findViewById(R.id.txt_CaseNumber);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,14 +71,14 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
             Log.e("kzzex",ex.getMessage());
         }
         txt_CaseNumber.setText(toolbar_title);
-        getSupportActionBar().setTitle("Justification Reports");
+        getSupportActionBar().setTitle("Payments to Beneficiaries");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        caseReportJustificationReportForAttendedCasess = new ArrayList<>();
+        caseReportPaymentsToBeneficiariess = new ArrayList<>();
         pd = new ProgressDialog(this);
         pd.setTitle("Loading...");
         pd.show();
@@ -85,14 +87,14 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    List<CaseReportJustificationReportForAttendedCases> _caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAllByCaseId(CreateEditCaseReportActivity.case_id);
-                    for (CaseReportJustificationReportForAttendedCases caseReportJustificationReportForAttendedCases :_caseReportJustificationReportForAttendedCases
+                    List<CaseReportPaymentsToBeneficiaries> _caseReportPaymentsToBeneficiaries = db.caseReportPaymentsToBeneficiariesDao().findAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    for (CaseReportPaymentsToBeneficiaries caseReportPaymentsToBeneficiaries :_caseReportPaymentsToBeneficiaries
                     ) {
-                        if (!caseReportJustificationReportForAttendedCases.SavedAtLeastOnce) {
+                        if (!caseReportPaymentsToBeneficiaries.SavedAtLeastOnce) {
                             //remove this case report, so that no blanks are showing up
-                            db.caseReportJustificationReportForAttendedCasesDao().delete(db.caseReportJustificationReportForAttendedCasesDao().findById(caseReportJustificationReportForAttendedCases._Id));
+                            db.caseReportPaymentsToBeneficiariesDao().delete(db.caseReportPaymentsToBeneficiariesDao().findById(caseReportPaymentsToBeneficiaries._Id));
                         } else {
-                            caseReportJustificationReportForAttendedCasess.add(caseReportJustificationReportForAttendedCases);
+                            caseReportPaymentsToBeneficiariess.add(caseReportPaymentsToBeneficiaries);
                         }
                     }
                 }
@@ -105,13 +107,13 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
         }
         pd.hide();
 
-        if(caseReportJustificationReportForAttendedCasess.size()==0){
+        if(caseReportPaymentsToBeneficiariess.size()==0){
             ll_empty.setVisibility(View.VISIBLE);
         }else {
             ll_empty.setVisibility(View.GONE);
         }
 
-        adapter = new CaseReportJustificationReportAdapter(caseReportJustificationReportForAttendedCasess, this);
+        adapter = new CaseReportPaymentsToBeneficiariesAdapter(caseReportPaymentsToBeneficiariess, this);
         list_case_reports = (RecyclerView) findViewById(R.id.list_case_reports);
         list_case_reports.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         list_case_reports.setHasFixedSize(true);
@@ -123,14 +125,14 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_case_report_justification_records_menu, menu);
+        getMenuInflater().inflate(R.menu.list_case_report_payments_to_beneficiaries_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.create_case_report_justification_report:
+            case R.id.create_case_report_payment_to_beneficiary:
 
                 pd.setTitle("Loading...");
                 pd.show();
@@ -140,8 +142,9 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
-                            CaseReportJustificationReportForAttendedCases caseReportJustificationReportForAttendedCases = new CaseReportJustificationReportForAttendedCases(CreateEditCaseReportActivity.case_id);
-                            created_item_id = db.caseReportJustificationReportForAttendedCasesDao().insert(caseReportJustificationReportForAttendedCases);
+                            CaseReportPaymentsToBeneficiaries caseReportPaymentsToBeneficiaries = new CaseReportPaymentsToBeneficiaries(CreateEditCaseReportActivity.case_id);
+                            created_item_id = db.caseReportPaymentsToBeneficiariesDao().insert(caseReportPaymentsToBeneficiaries);
+                            db=null;
                         }
                     });
                     t.start();
@@ -151,7 +154,7 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
                 }
                 pd.hide();
 
-                Intent intent = new Intent(ListJustificationReportsActivity.this, CreateEditJustificationReportActivity.class);
+                Intent intent = new Intent(ListPaymentsToBeneficiariesActivity.this, CreateEditPaymentsToBeneficiaryActivity.class);
                 intent.putExtra("created_item_id",created_item_id);
                 startActivity(intent);
                 break;
@@ -161,5 +164,4 @@ public class ListJustificationReportsActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }

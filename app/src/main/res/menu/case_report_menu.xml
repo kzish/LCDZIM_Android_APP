@@ -28,5 +28,10 @@
         app:showAsAction="collapseActionView"
         android:title="Payments to Benficiaries">
     </item>
+    <item
+        android:id="@+id/open_case_plans"
+        app:showAsAction="collapseActionView"
+        android:title="Case Plan">
+    </item>
 
 </menu>

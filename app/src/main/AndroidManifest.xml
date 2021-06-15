@@ -13,10 +13,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".CreateEditPaymentsToBeneficiaryActivity"></activity>
+        <activity android:name=".CreateEditCasePlanActivity"></activity>
+        <activity android:name=".CreateEditCaseLogActivity" />
+        <activity android:name=".CreateEditCaseWorkPlanActivity" />
+        <activity android:name=".CreateEditPaymentsToBeneficiaryActivity" />
         <activity android:name=".ListPaymentsToBeneficiariesActivity" />
         <activity android:name=".CreateEditJustificationReportActivity" />
         <activity android:name=".ListJustificationReportsActivity" />
+        <activity android:name=".CreateEditCaseReportActivity" />
         <activity
             android:name=".ListCasesActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -26,10 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CreateEditCaseReportActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

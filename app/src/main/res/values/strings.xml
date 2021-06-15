@@ -66,5 +66,11 @@
         <item>Other</item>
     </string-array>
 
+    <string-array name="array_stage_case_referred">
+        <item>Pre-trial</item>
+        <item>Trial</item>
+        <item>Post-trial</item>
+    </string-array>
+
 
 </resources>

@@ -8,11 +8,17 @@ import androidx.room.Database;
 import androidx.room.TypeConverters;
 
 import Converters.Converters;
+import Dao.CasePlanCaseLogDao;
+import Dao.CasePlanCaseWorkPlanDao;
 import Dao.CaseReportCareGiverDao;
+import Dao.CaseReportCasePlanAndFollowUpDao;
 import Dao.CaseReportJustificationReportForAttendedCasesDao;
 import Dao.CaseReportPaymentsToBeneficiariesDao;
+import Models.CasePlanCaseLog;
+import Models.CasePlanCaseWorkplan;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
+import Models.CaseReportCasePlanAndFollowUp;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportJustificationReportForAttendedCases;
@@ -38,7 +44,10 @@ import Models.CaseReportPaymentsToBeneficiaries;
         CaseReportParentsGuardiansSpousesInformation.class,
         CaseReportJustificationReportForAttendedCases.class,
         CaseReportPaymentsToBeneficiaries.class,
-}, version = 16)
+        CasePlanCaseWorkplan.class,
+        CasePlanCaseLog.class,
+        CaseReportCasePlanAndFollowUp.class,
+}, version = 17)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();
@@ -58,6 +67,12 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportJustificationReportForAttendedCasesDao caseReportJustificationReportForAttendedCasesDao();
 
     public abstract CaseReportPaymentsToBeneficiariesDao caseReportPaymentsToBeneficiariesDao();
+
+    public abstract CaseReportCasePlanAndFollowUpDao caseReportCasePlanAndFollowUpDao();
+
+    public abstract CasePlanCaseLogDao casePlanCaseLogDao();
+
+    public abstract CasePlanCaseWorkPlanDao casePlanCaseWorkPlanDao();
 
     private static AppDatabase INSTANCE;
 

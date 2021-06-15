@@ -30,7 +30,7 @@ import CaseReportFragments.DescriptionOfCaseFragment;
 import CaseReportFragments.NeedsAssesmentFragment;
 import CaseReportFragments.NextOfKinFragment;
 import CaseReportFragments.PGSInformationFragment;
-import CaseReportFragments.ViewPagerAdapter;
+import CaseReportFragments.ViewPagerAdapterCaseReport;
 import Database.AppDatabase;
 import Globals.globals;
 import Models.CaseReport;
@@ -44,7 +44,7 @@ import Models.CaseReportParentsGuardiansSpousesInformation;
 public class CreateEditCaseReportActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
+    ViewPagerAdapterCaseReport viewPagerAdapterCaseReport;
     Toolbar toolbar;
 
     public static String case_id;//current case id, always set this before calling this activity
@@ -73,7 +73,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_create_edit_case_report);
         context = this;
 
         pd = new ProgressDialog(this);
@@ -115,14 +115,13 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        viewPagerAdapter = new ViewPagerAdapter(
+        viewPagerAdapterCaseReport = new ViewPagerAdapterCaseReport(
                 getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(viewPagerAdapterCaseReport);
 
         tabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Case Report");
-        db = AppDatabase.getAppDatabase(this);
 
     }
 
@@ -184,6 +183,10 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
             case R.id.open_payments_to_beneficiaries:
                 Intent showListPaymentsToBeneficiaries = new Intent(CreateEditCaseReportActivity.context, ListPaymentsToBeneficiariesActivity.class);
                 startActivity(showListPaymentsToBeneficiaries);
+                break;
+            case R.id.open_case_plans:
+                Intent showListCasePlans = new Intent(CreateEditCaseReportActivity.context, CreateEditCasePlanActivity.class);
+                startActivity(showListCasePlans);
                 break;
             default:
                 break;

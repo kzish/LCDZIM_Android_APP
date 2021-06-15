@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/delete_case_plan"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        app:showAsAction="always"
+        android:title="Delete">
+    </item>
+    <item
+        android:id="@+id/save_case_plan"
+        android:icon="@drawable/ic_baseline_save_24"
+        app:showAsAction="always"
+        android:title="Save">
+    </item>
+
+</menu>

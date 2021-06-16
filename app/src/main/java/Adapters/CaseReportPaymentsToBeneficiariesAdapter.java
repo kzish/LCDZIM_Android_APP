@@ -77,13 +77,20 @@ public class CaseReportPaymentsToBeneficiariesAdapter extends RecyclerView.Adapt
         }
 
         double total = 0;
-        total += caseReportPaymentsToBeneficiaries.BusFare;
-        total += caseReportPaymentsToBeneficiaries.Breakfast;
-        total += caseReportPaymentsToBeneficiaries.Lunch;
-        total += caseReportPaymentsToBeneficiaries.Dinner;
-        total += caseReportPaymentsToBeneficiaries.Accomodation;
-        total += caseReportPaymentsToBeneficiaries.PerDiem;
-        total += caseReportPaymentsToBeneficiaries.Other;
+        if (caseReportPaymentsToBeneficiaries.BusFare != null)
+            total += caseReportPaymentsToBeneficiaries.BusFare;
+        if (caseReportPaymentsToBeneficiaries.Breakfast != null)
+            total += caseReportPaymentsToBeneficiaries.Breakfast;
+        if (caseReportPaymentsToBeneficiaries.Lunch != null)
+            total += caseReportPaymentsToBeneficiaries.Lunch;
+        if (caseReportPaymentsToBeneficiaries.Dinner != null)
+            total += caseReportPaymentsToBeneficiaries.Dinner;
+        if (caseReportPaymentsToBeneficiaries.Accomodation != null)
+            total += caseReportPaymentsToBeneficiaries.Accomodation;
+        if (caseReportPaymentsToBeneficiaries.PerDiem != null)
+            total += caseReportPaymentsToBeneficiaries.PerDiem;
+        if (caseReportPaymentsToBeneficiaries.Other != null)
+            total += caseReportPaymentsToBeneficiaries.Other;
 
         viewHolder.txt_Total.setText(String.format("%,.2f", total));
 

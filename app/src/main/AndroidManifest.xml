@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".CreateEditCasePlanActivity"></activity>
-        <activity android:name=".CreateEditCaseLogActivity" />
+        <activity
+            android:name=".CreateEditCaseLogActivity"
+            android:theme="@style/NoTitleDialog" />
         <activity
             android:name=".CreateEditCaseWorkPlanActivity"
             android:theme="@style/NoTitleDialog" />

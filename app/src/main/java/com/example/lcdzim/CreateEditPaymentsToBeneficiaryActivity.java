@@ -224,13 +224,20 @@ public class CreateEditPaymentsToBeneficiaryActivity extends AppCompatActivity {
                             caseReportPaymentsToBeneficiaries.Date = txt_Date.getText().toString();
                             caseReportPaymentsToBeneficiaries.Name = txt_Name.getText().toString();
                             caseReportPaymentsToBeneficiaries.IdNumber = txt_IdNumber.getText().toString();
-                            caseReportPaymentsToBeneficiaries.BusFare = Double.parseDouble(txt_BusFare.getText().toString());
-                            caseReportPaymentsToBeneficiaries.Breakfast = Double.parseDouble(txt_BreakFast.getText().toString());
-                            caseReportPaymentsToBeneficiaries.Lunch = Double.parseDouble(txt_Lunch.getText().toString());
-                            caseReportPaymentsToBeneficiaries.Dinner = Double.parseDouble(txt_Dinner.getText().toString());
-                            caseReportPaymentsToBeneficiaries.Accomodation = Double.parseDouble(txt_Accomodation.getText().toString());
-                            caseReportPaymentsToBeneficiaries.PerDiem = Double.parseDouble(txt_PerDiem.getText().toString());
-                            caseReportPaymentsToBeneficiaries.Other = Double.parseDouble(txt_Other.getText().toString());
+                            if (!txt_BusFare.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.BusFare = Double.parseDouble(txt_BusFare.getText().toString());
+                            if (!txt_BreakFast.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.Breakfast = Double.parseDouble(txt_BreakFast.getText().toString());
+                            if (!txt_Lunch.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.Lunch = Double.parseDouble(txt_Lunch.getText().toString());
+                            if (!txt_Dinner.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.Dinner = Double.parseDouble(txt_Dinner.getText().toString());
+                            if (!txt_Accomodation.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.Accomodation = Double.parseDouble(txt_Accomodation.getText().toString());
+                            if (!txt_PerDiem.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.PerDiem = Double.parseDouble(txt_PerDiem.getText().toString());
+                            if (!txt_Other.getText().toString().equals(""))
+                                caseReportPaymentsToBeneficiaries.Other = Double.parseDouble(txt_Other.getText().toString());
                             caseReportPaymentsToBeneficiaries.ExpenseCode = txt_ExpenseCode.getText().toString();
                             caseReportPaymentsToBeneficiaries.CheckedByDate = txt_CheckedByDate.getText().toString();
                             caseReportPaymentsToBeneficiaries.CheckedByName = txt_CheckedByName.getText().toString();

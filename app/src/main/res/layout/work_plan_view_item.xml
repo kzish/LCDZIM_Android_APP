@@ -28,6 +28,8 @@
                 android:weightSum="4">
 
                 <TextView
+                    android:maxLength="50"
+                    android:ellipsize="end"
                     android:id="@+id/txt_Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,6 +64,8 @@
 
 
                 <TextView
+                    android:maxLength="50"
+                    android:ellipsize="end"
                     android:id="@+id/txt_ActionToBeTaken"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,6 +97,8 @@
                 tools:layout_editor_absoluteY="84dp">
 
                 <TextView
+                    android:maxLength="50"
+                    android:ellipsize="end"
                     android:id="@+id/txt_Responsibility"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

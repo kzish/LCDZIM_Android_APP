@@ -28,8 +28,8 @@ public class WorkPlanAdapter extends RecyclerView.Adapter<WorkPlanAdapter.ViewHo
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txt_ActionToBeTaken;
         private final TextView txt_Date;
+        private final TextView txt_ActionToBeTaken;
         private final TextView txt_Responsibility;
         private final CheckBox chk_Done;
         private final CardView card_view;
@@ -37,8 +37,8 @@ public class WorkPlanAdapter extends RecyclerView.Adapter<WorkPlanAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-            txt_ActionToBeTaken = (TextView) view.findViewById(R.id.txt_ActionToBeTaken);
             txt_Date = (TextView) view.findViewById(R.id.txt_Date);
+            txt_ActionToBeTaken = (TextView) view.findViewById(R.id.txt_ActionToBeTaken);
             txt_Responsibility = (TextView) view.findViewById(R.id.txt_Responsibility);
             chk_Done = (CheckBox) view.findViewById(R.id.chk_Done);
             card_view = (CardView) view.findViewById(R.id.card_view);

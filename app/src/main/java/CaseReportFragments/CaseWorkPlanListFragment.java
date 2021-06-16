@@ -89,6 +89,7 @@ public class CaseWorkPlanListFragment extends Fragment {
             }
         });
 
+        loadWorkPlans();
         return view;
     }
 

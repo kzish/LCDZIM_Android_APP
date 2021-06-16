@@ -78,7 +78,6 @@ public class CreateEditCaseWorkPlanActivity extends AppCompatActivity {
                 public void run() {
                     AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseWorkPlanActivity.this);
                     casePlanCaseWorkplan = db.casePlanCaseWorkPlanDao().findById(created_item_id);
-
                 }
             });
             t.start();

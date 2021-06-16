@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".CreateEditCaseReportActivity">
+    tools:context=".ListJustificationReportsActivity">
 
     <androidx.cardview.widget.CardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,25 +15,34 @@
         app:cardBackgroundColor="#fff">
 
 
-
         <LinearLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:maxLength="50"
-                android:ellipsize="end"
-                android:id="@+id/txt_CaseNumber"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Case Number"
-                android:textColor="#F00"
-                android:textSize="10dp"
-                android:layout_margin="5dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:maxLength="50"
+                    android:ellipsize="end"
+                    android:id="@+id/txt_Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3"
+                    android:text="Date..."
+                    android:textColor="#F00"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,11 +60,11 @@
                 <TextView
                     android:maxLength="50"
                     android:ellipsize="end"
-                    android:id="@+id/txt_ReferredByNameAndInstitution"
+                    android:id="@+id/txt_ActionToBeTaken"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="Referred By (Name &amp; Institution)"
+                    android:text="Action to be taken..."
                     android:textColor="#000"
                     android:textSize="10dp"
                     android:textStyle="bold" />
@@ -66,7 +74,8 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_done_all_24" />
+                    android:src="@drawable/ic_baseline_done_all_24"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -84,11 +93,11 @@
                 <TextView
                     android:maxLength="50"
                     android:ellipsize="end"
-                    android:id="@+id/txt_PoliceStation"
+                    android:id="@+id/txt_Outcome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Police Station"
-                    android:textColor="#000"
+                    android:text="Outcome..."
+                    android:textColor="#00F"
                     android:textSize="10dp"
                     android:textStyle="bold" />
 
@@ -97,39 +106,26 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:paddingRight="5dp"
-                android:weightSum="3"
                 tools:layout_editor_absoluteX="142dp"
                 tools:layout_editor_absoluteY="84dp">
 
                 <TextView
                     android:maxLength="50"
                     android:ellipsize="end"
-                    android:id="@+id/txt_CrRef"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txt_AttendingPerson"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="C.R. Ref"
+                    android:text="Attending person..."
                     android:textColor="#000"
                     android:textSize="10dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:maxLength="50"
-                    android:ellipsize="end"
-                    android:id="@+id/txt_Date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Date Compiled"
-                    android:textColor="#000"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>

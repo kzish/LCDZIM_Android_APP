@@ -8,6 +8,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import Models.CasePlanCaseLog;
+import Models.CasePlanCaseLog;
 import Models.CaseReportCasePlanAndFollowUp;
 
 @Dao
@@ -20,10 +21,12 @@ public interface CasePlanCaseLogDao {
     void delete(CasePlanCaseLog item);
     @Query("select * from CasePlanCaseLog where _id = :id")
     CasePlanCaseLog findById(long id);
+    @Query("select * from CasePlanCaseLog where id = :id")
+    CasePlanCaseLog findByKeyId(String id);
     @Query("select * from CasePlanCaseLog")
     List<CasePlanCaseLog> findAll();
-    @Query("select * from CasePlanCaseLog where caseid=:case_plan_id")
-    List<CasePlanCaseLog> findAllByCasePlanId(String case_plan_id);
+    @Query("select * from CasePlanCaseLog where caseid=:case_id")
+    List<CasePlanCaseLog> findAllByCaseId(String case_id);
     @Query("delete from CasePlanCaseLog where caseid=:case_plan_id")
     void deleteAllByCasePlanId(String case_plan_id);
 }

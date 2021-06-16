@@ -177,16 +177,28 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 Toast.makeText(this, "Record Saved", Toast.LENGTH_LONG).show();
                 break;
             case R.id.open_justification_reports:
-                Intent showListJustificationReports = new Intent(CreateEditCaseReportActivity.context, ListJustificationReportsActivity.class);
-                startActivity(showListJustificationReports);
+                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
+                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent showListJustificationReports = new Intent(CreateEditCaseReportActivity.context, ListJustificationReportsActivity.class);
+                    startActivity(showListJustificationReports);
+                }
                 break;
             case R.id.open_payments_to_beneficiaries:
-                Intent showListPaymentsToBeneficiaries = new Intent(CreateEditCaseReportActivity.context, ListPaymentsToBeneficiariesActivity.class);
-                startActivity(showListPaymentsToBeneficiaries);
+                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
+                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent showListPaymentsToBeneficiaries = new Intent(CreateEditCaseReportActivity.context, ListPaymentsToBeneficiariesActivity.class);
+                    startActivity(showListPaymentsToBeneficiaries);
+                }
                 break;
             case R.id.open_case_plans:
-                Intent showListCasePlans = new Intent(CreateEditCaseReportActivity.context, CreateEditCasePlanActivity.class);
-                startActivity(showListCasePlans);
+                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
+                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent showListCasePlans = new Intent(CreateEditCaseReportActivity.context, CreateEditCasePlanActivity.class);
+                    startActivity(showListCasePlans);
+                }
                 break;
             default:
                 break;

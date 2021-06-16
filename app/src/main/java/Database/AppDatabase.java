@@ -47,7 +47,7 @@ import Models.CaseReportPaymentsToBeneficiaries;
         CasePlanCaseWorkplan.class,
         CasePlanCaseLog.class,
         CaseReportCasePlanAndFollowUp.class,
-}, version = 17)
+}, version = 19)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();

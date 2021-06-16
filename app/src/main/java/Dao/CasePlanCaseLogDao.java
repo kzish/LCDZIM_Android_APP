@@ -22,8 +22,8 @@ public interface CasePlanCaseLogDao {
     CasePlanCaseLog findById(long id);
     @Query("select * from CasePlanCaseLog")
     List<CasePlanCaseLog> findAll();
-    @Query("select * from CasePlanCaseLog where caseplanid=:case_plan_id")
+    @Query("select * from CasePlanCaseLog where caseid=:case_plan_id")
     List<CasePlanCaseLog> findAllByCasePlanId(String case_plan_id);
-    @Query("delete from CasePlanCaseLog where caseplanid=:case_plan_id")
+    @Query("delete from CasePlanCaseLog where caseid=:case_plan_id")
     void deleteAllByCasePlanId(String case_plan_id);
 }

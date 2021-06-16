@@ -19,11 +19,13 @@ public interface CasePlanCaseWorkPlanDao {
     @Delete
     void delete(CasePlanCaseWorkplan item);
     @Query("select * from CasePlanCaseWorkplan where _id = :id")
-    CasePlanCaseLog findById(long id);
+    CasePlanCaseWorkplan findById(long id);
+    @Query("select * from CasePlanCaseWorkplan where id = :id")
+    CasePlanCaseWorkplan findByKeyId(String id);
     @Query("select * from CasePlanCaseWorkplan")
     List<CasePlanCaseWorkplan> findAll();
-    @Query("select * from CasePlanCaseWorkplan where caseplanid=:case_plan_id")
-    List<CasePlanCaseWorkplan> findAllByCasePlanId(String case_plan_id);
-    @Query("delete from CasePlanCaseWorkplan where caseplanid=:case_plan_id")
+    @Query("select * from CasePlanCaseWorkplan where caseid=:case_id")
+    List<CasePlanCaseWorkplan> findAllByCaseId(String case_id);
+    @Query("delete from CasePlanCaseWorkplan where caseid=:case_plan_id")
     void deleteAllByCasePlanId(String case_plan_id);
 }

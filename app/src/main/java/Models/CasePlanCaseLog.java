@@ -12,8 +12,8 @@ public class CasePlanCaseLog {
         Id = UUID.randomUUID().toString();
     }
 
-    public CasePlanCaseLog(String casePlanId) {
-        CasePlanId = casePlanId;
+    public CasePlanCaseLog(String caseId) {
+        CaseId = caseId;
         Id = UUID.randomUUID().toString();
     }
 
@@ -21,9 +21,10 @@ public class CasePlanCaseLog {
     @NonNull
     public long _Id;//db identity column
     public String Id;//shared guid id client and server
-    public String CasePlanId;
+    public String CaseId;
     public String Date;
     public String ActionTakenActivity;
     public String Outcome;
     public String AttendingPerson;
+    public boolean SavedAtLeastOnce;
 }

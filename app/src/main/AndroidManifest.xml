@@ -15,7 +15,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".CreateEditCasePlanActivity"></activity>
         <activity android:name=".CreateEditCaseLogActivity" />
-        <activity android:name=".CreateEditCaseWorkPlanActivity" />
+        <activity
+            android:name=".CreateEditCaseWorkPlanActivity"
+            android:theme="@style/NoTitleDialog" />
         <activity android:name=".CreateEditPaymentsToBeneficiaryActivity" />
         <activity android:name=".ListPaymentsToBeneficiariesActivity" />
         <activity android:name=".CreateEditJustificationReportActivity" />

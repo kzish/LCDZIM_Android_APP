@@ -24,4 +24,6 @@ public interface CaseReportJustificationReportForAttendedCasesDao {
     List<CaseReportJustificationReportForAttendedCases> findAll();
     @Query("select * from casereportjustificationreportforattendedcases where caseid=:case_id")
     List<CaseReportJustificationReportForAttendedCases> findAllByCaseId(String case_id);
+    @Query("delete from CaseReportJustificationReportForAttendedCases where caseid=:case_id")
+    void deleteAllByCaseId(String case_id);
 }

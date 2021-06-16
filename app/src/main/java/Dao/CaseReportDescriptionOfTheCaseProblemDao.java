@@ -19,4 +19,6 @@ public interface CaseReportDescriptionOfTheCaseProblemDao {
     void delete(CaseReportDescriptionOfTheCaseProblem item);
     @Query("select * from casereportdescriptionofthecaseproblem where caseid = :case_id")
     CaseReportDescriptionOfTheCaseProblem findByCaseId(String case_id);
+    @Query("delete from CaseReportDescriptionOfTheCaseProblem where caseid=:case_id")
+    void deleteAllByCaseId(String case_id);
 }

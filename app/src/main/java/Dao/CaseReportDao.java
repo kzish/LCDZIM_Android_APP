@@ -24,4 +24,6 @@ public interface CaseReportDao {
     CaseReport findById(long Id);
     @Query("select * from casereport")
     List<CaseReport> findAll();
+    @Query("delete from CaseReport where id=:case_id")
+    void deleteAllByCaseId(String case_id);
 }

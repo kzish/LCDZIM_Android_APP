@@ -107,8 +107,8 @@ public class CreateEditCasePlanActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AppDatabase db = AppDatabase.getAppDatabase(CreateEditCasePlanActivity.this);
-                            db.casePlanCaseLogDao().deleteAllByCasePlanId(caseReportCasePlanAndFollowUp.CaseId);
-                            db.casePlanCaseWorkPlanDao().deleteAllByCasePlanId(caseReportCasePlanAndFollowUp.CaseId);
+                            db.casePlanCaseLogDao().deleteAllByCaseId(caseReportCasePlanAndFollowUp.CaseId);
+                            db.casePlanCaseWorkPlanDao().deleteAllByCaseId(caseReportCasePlanAndFollowUp.CaseId);
                             db.caseReportCasePlanAndFollowUpDao().delete(caseReportCasePlanAndFollowUp);
                             db = null;
                         }

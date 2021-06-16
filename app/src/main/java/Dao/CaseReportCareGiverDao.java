@@ -22,4 +22,6 @@ public interface CaseReportCareGiverDao {
     CaseReportCareGiver findByCaseId(String case_id);
     @Query("select * from casereportcaregiver")
     List<CaseReportCareGiver> findAll();
+    @Query("delete from CaseReportCareGiver where caseid=:case_id")
+    void deleteAllByCaseId(String case_id);
 }

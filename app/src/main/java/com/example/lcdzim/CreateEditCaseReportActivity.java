@@ -23,6 +23,8 @@ import com.koushikdutta.ion.Ion;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import CaseReportFragments.BasicInformationFragment;
 import CaseReportFragments.CareGiverInformationFragment;
 import CaseReportFragments.ClientInformationFragment;
@@ -33,13 +35,18 @@ import CaseReportFragments.PGSInformationFragment;
 import CaseReportFragments.ViewPagerAdapterCaseReport;
 import Database.AppDatabase;
 import Globals.globals;
+import Models.CasePlanCaseLog;
+import Models.CasePlanCaseWorkplan;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
+import Models.CaseReportCasePlanAndFollowUp;
 import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
+import Models.CaseReportJustificationReportForAttendedCases;
 import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
+import Models.CaseReportPaymentsToBeneficiaries;
 
 public class CreateEditCaseReportActivity extends AppCompatActivity {
     TabLayout tabLayout;
@@ -60,13 +67,18 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
     public static CaseReportNeedsAssesment caseReportNeedsAssesment;
     public static CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation;
 
+    String __casePlanCaseLog;
+    String __casePlanCaseWorkplan;
     String __caseReport;
+    String __caseReportCareGiver;
+    String __caseReportCasePlanAndFollowUp;
     String __caseReportClientInformation;
     String __caseReportDescriptionOfTheCaseProblem;
+    String __caseReportJustificationReportForAttendedCases;
     String __caseReportNeedsAssesment;
     String __caseReportNextOfKin;
-    String __caseReportCareGiver;
     String __caseReportParentsGuardiansSpousesInformation;
+    String __caseReportPaymentsToBeneficiaries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,25 +189,25 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 Toast.makeText(this, "Record Saved", Toast.LENGTH_LONG).show();
                 break;
             case R.id.open_justification_reports:
-                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
-                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
-                }else {
+                if (caseReport.CaseNumber == null || caseReport.CaseNumber.equals("")) {
+                    Toast.makeText(this, "No Case Number - Save Case Number first", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent showListJustificationReports = new Intent(CreateEditCaseReportActivity.context, ListJustificationReportsActivity.class);
                     startActivity(showListJustificationReports);
                 }
                 break;
             case R.id.open_payments_to_beneficiaries:
-                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
-                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
-                }else {
+                if (caseReport.CaseNumber == null || caseReport.CaseNumber.equals("")) {
+                    Toast.makeText(this, "No Case Number - Save Case Number first", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent showListPaymentsToBeneficiaries = new Intent(CreateEditCaseReportActivity.context, ListPaymentsToBeneficiariesActivity.class);
                     startActivity(showListPaymentsToBeneficiaries);
                 }
                 break;
             case R.id.open_case_plans:
-                if(caseReport.CaseNumber==null || caseReport.CaseNumber.equals("")){
-                    Toast.makeText(this,"No Case Number - Save Case Number first",Toast.LENGTH_SHORT).show();
-                }else {
+                if (caseReport.CaseNumber == null || caseReport.CaseNumber.equals("")) {
+                    Toast.makeText(this, "No Case Number - Save Case Number first", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent showListCasePlans = new Intent(CreateEditCaseReportActivity.context, CreateEditCasePlanActivity.class);
                     startActivity(showListCasePlans);
                 }
@@ -207,7 +219,9 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
     }
 
     private void upLoadRecord() {
-        //ansure save first then upload
+        //ensure save first then upload
+        //upload entire object and children
+
         BasicInformationFragment.saveRecord();
         ClientInformationFragment.saveRecord();
         DescriptionOfCaseFragment.saveRecord();
@@ -222,6 +236,11 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 public void run() {
                     try {
                         //pull fresh from db
+                        List<CasePlanCaseLog> casePlanCaseLog = db.casePlanCaseLogDao().findAllByCaseId(case_id);
+                        List<CasePlanCaseWorkplan> casePlanCaseWorkplan = db.casePlanCaseWorkPlanDao().findAllByCaseId(case_id);
+                        CaseReportCasePlanAndFollowUp caseReportCasePlanAndFollowUp = db.caseReportCasePlanAndFollowUpDao().findByCaseId(case_id);
+                        List<CaseReportJustificationReportForAttendedCases> caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAllByCaseId(case_id);
+                        List<CaseReportPaymentsToBeneficiaries> caseReportPaymentsToBeneficiaries = db.caseReportPaymentsToBeneficiariesDao().findAllByCaseId(case_id);
                         caseReport = db.caseReportDao().findByCaseId(case_id);
                         caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
                         caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
@@ -230,15 +249,21 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                         caseReportCareGiver = db.caseReportCareGiverDao().findByCaseId(case_id);
                         caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
 
+
                         ObjectMapper jsonMapper = new ObjectMapper();
 
+                        __casePlanCaseLog = jsonMapper.writeValueAsString(casePlanCaseLog);
+                        __casePlanCaseWorkplan = jsonMapper.writeValueAsString(casePlanCaseWorkplan);
                         __caseReport = jsonMapper.writeValueAsString(caseReport);
+                        __caseReportCareGiver = jsonMapper.writeValueAsString(caseReportCareGiver);
+                        __caseReportCasePlanAndFollowUp = jsonMapper.writeValueAsString(caseReportCasePlanAndFollowUp);
                         __caseReportClientInformation = jsonMapper.writeValueAsString(caseReportClientInformation);
                         __caseReportDescriptionOfTheCaseProblem = jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem);
+                        __caseReportJustificationReportForAttendedCases = jsonMapper.writeValueAsString(caseReportJustificationReportForAttendedCases);
                         __caseReportNeedsAssesment = jsonMapper.writeValueAsString(caseReportNeedsAssesment);
                         __caseReportNextOfKin = jsonMapper.writeValueAsString(caseReportNextOfKin);
-                        __caseReportCareGiver = jsonMapper.writeValueAsString(caseReportCareGiver);
                         __caseReportParentsGuardiansSpousesInformation = jsonMapper.writeValueAsString(caseReportParentsGuardiansSpousesInformation);
+                        __caseReportPaymentsToBeneficiaries = jsonMapper.writeValueAsString(caseReportPaymentsToBeneficiaries);
 
                     } catch (Exception ex) {
                         Log.e("kzzex", ex.getMessage());
@@ -255,13 +280,18 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
         pd.show();
         Ion.with(context)
                 .load("POST", globals.api_end_point + "/mobile_api/v1/UpdateCaseReport")
+                .setBodyParameter("__casePlanCaseLog", __casePlanCaseLog)
+                .setBodyParameter("__casePlanCaseWorkplan", __casePlanCaseWorkplan)
                 .setBodyParameter("__caseReport", __caseReport)
+                .setBodyParameter("__caseReportCareGiver", __caseReportCareGiver)
+                .setBodyParameter("__caseReportCasePlanAndFollowUp", __caseReportCasePlanAndFollowUp)
                 .setBodyParameter("__caseReportClientInformation", __caseReportClientInformation)
                 .setBodyParameter("__caseReportDescriptionOfTheCaseProblem", __caseReportDescriptionOfTheCaseProblem)
+                .setBodyParameter("__caseReportJustificationReportForAttendedCases", __caseReportJustificationReportForAttendedCases)
                 .setBodyParameter("__caseReportNeedsAssesment", __caseReportNeedsAssesment)
                 .setBodyParameter("__caseReportNextOfKin", __caseReportNextOfKin)
-                .setBodyParameter("__caseReportCareGiver", __caseReportCareGiver)
                 .setBodyParameter("__caseReportParentsGuardiansSpousesInformation", __caseReportParentsGuardiansSpousesInformation)
+                .setBodyParameter("__caseReportPaymentsToBeneficiaries", __caseReportPaymentsToBeneficiaries)
                 .asString()
                 .setCallback((e, result) -> {
                     if (e != null) {
@@ -301,39 +331,27 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
 
     private void deleteRecord() {
         try {
+            //delete record and children
             pd.setTitle("Please wait...");
             pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    CaseReportClientInformation caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
-                    if (caseReportClientInformation != null) {
-                        db.caseReportClientInformationDao().delete(caseReportClientInformation);
-                    }
-
-                    CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
-                    if (caseReportDescriptionOfTheCaseProblem != null) {
-                        db.caseReportDescriptionOfTheCaseProblemDao().delete(caseReportDescriptionOfTheCaseProblem);
-                    }
-                    CaseReportNeedsAssesment caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
-                    if (caseReportNeedsAssesment != null) {
-                        db.caseReportNeedsAssesmentDao().delete(caseReportNeedsAssesment);
-                    }
-
-                    CaseReportNextOfKin caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
-                    if (caseReportNextOfKin != null) {
-                        db.caseReportNextOfKinDao().delete(caseReportNextOfKin);
-                    }
-
-                    CaseReportParentsGuardiansSpousesInformation caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
-                    if (caseReportParentsGuardiansSpousesInformation != null) {
-                        db.caseReportParentsGuardiansSpousesInformationDao().delete(caseReportParentsGuardiansSpousesInformation);
-                    }
-
-                    CaseReport caseReport = db.caseReportDao().findByCaseId(case_id);
-                    if (caseReport != null) {
-                        db.caseReportDao().delete(db.caseReportDao().findByCaseId(case_id));
-                    }
+                    //delete all items related to this case report
+                    AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.this);
+                    db.casePlanCaseLogDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.casePlanCaseWorkPlanDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportCareGiverDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportCasePlanAndFollowUpDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportClientInformationDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportDescriptionOfTheCaseProblemDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportJustificationReportForAttendedCasesDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportNeedsAssesmentDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportNextOfKinDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportParentsGuardiansSpousesInformationDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db.caseReportPaymentsToBeneficiariesDao().deleteAllByCaseId(CreateEditCaseReportActivity.case_id);
+                    db = null;
                 }
             });
             t.start();

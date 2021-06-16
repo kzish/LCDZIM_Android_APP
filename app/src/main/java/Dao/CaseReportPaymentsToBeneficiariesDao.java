@@ -25,4 +25,6 @@ public interface CaseReportPaymentsToBeneficiariesDao {
     List<CaseReportPaymentsToBeneficiaries> findAll();
     @Query("select * from CaseReportPaymentsToBeneficiaries where caseid=:case_id")
     List<CaseReportPaymentsToBeneficiaries> findAllByCaseId(String case_id);
+    @Query("delete from CaseReportPaymentsToBeneficiaries where caseid=:case_id")
+    void deleteAllByCaseId(String case_id);
 }

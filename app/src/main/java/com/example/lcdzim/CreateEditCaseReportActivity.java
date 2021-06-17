@@ -27,7 +27,7 @@ import java.util.List;
 
 import CaseReportFragments.BasicInformationFragment;
 import CaseReportFragments.CareGiverInformationFragment;
-import CaseReportFragments.ClientInformationFragment;
+import CaseReportFragments.BeneficiaryInformationFragment;
 import CaseReportFragments.DescriptionOfCaseFragment;
 import CaseReportFragments.NeedsAssesmentFragment;
 import CaseReportFragments.NextOfKinFragment;
@@ -180,7 +180,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 break;
             case R.id.save_case_report:
                 BasicInformationFragment.saveRecord();
-                ClientInformationFragment.saveRecord();
+                BeneficiaryInformationFragment.saveRecord();
                 DescriptionOfCaseFragment.saveRecord();
                 NeedsAssesmentFragment.saveRecord();
                 NextOfKinFragment.saveRecord();
@@ -223,7 +223,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
         //upload entire object and children
 
         BasicInformationFragment.saveRecord();
-        ClientInformationFragment.saveRecord();
+        BeneficiaryInformationFragment.saveRecord();
         DescriptionOfCaseFragment.saveRecord();
         NeedsAssesmentFragment.saveRecord();
         NextOfKinFragment.saveRecord();
@@ -296,7 +296,9 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 .setCallback((e, result) -> {
                     if (e != null) {
                         Toast.makeText(CreateEditCaseReportActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
-                        Log.e("kzzex", e.getMessage());
+                        //Log.e("kzzex", e.getMessage());
+                        pd.hide();
+                        return;
                     }
                     if (result == null) {
                         Toast.makeText(CreateEditCaseReportActivity.this, "Error occurred", Toast.LENGTH_LONG).show();

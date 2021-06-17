@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateEditCaseReportActivity">
+    tools:context="CaseReportFragments.BeneficiaryInformationFragment"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name of Client"
+                android:text="Name of Beneficiary"
                 android:textColor="#000"
                 android:textSize="10dp"
                 android:textStyle="bold" />
@@ -88,35 +89,6 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:inputType="textPersonName"
-                android:textColor="#4d51f8" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ececec"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="84dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Age"
-                android:textColor="#000"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_Age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:height="57dp"
-                android:ems="10"
-                android:inputType="number"
                 android:textColor="#4d51f8" />
         </LinearLayout>
 

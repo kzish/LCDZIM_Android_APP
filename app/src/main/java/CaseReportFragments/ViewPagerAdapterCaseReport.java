@@ -19,7 +19,7 @@ public class ViewPagerAdapterCaseReport extends FragmentPagerAdapter {
         if (position == 0)
             fragment = new BasicInformationFragment();
         else if (position == 1)
-            fragment = new ClientInformationFragment();//renamed to beneficiary
+            fragment = new BeneficiaryInformationFragment();//renamed to beneficiary
         else if (position == 2)
             fragment = new PGSInformationFragment();
         else if (position == 3)

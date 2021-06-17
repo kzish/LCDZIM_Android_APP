@@ -27,15 +27,15 @@ import java.util.Locale;
 
 import Database.AppDatabase;
 
-public class ClientInformationFragment extends Fragment {
+public class BeneficiaryInformationFragment extends Fragment {
 
     public static boolean fragment_can_save; //is this fragment active yet?
 
-    public ClientInformationFragment() {
+    public BeneficiaryInformationFragment() {
     }
 
-    public static ClientInformationFragment newInstance(String param1, String param2) {
-        ClientInformationFragment fragment = new ClientInformationFragment();
+    public static BeneficiaryInformationFragment newInstance(String param1, String param2) {
+        BeneficiaryInformationFragment fragment = new BeneficiaryInformationFragment();
         return fragment;
     }
 
@@ -46,7 +46,6 @@ public class ClientInformationFragment extends Fragment {
 
     static EditText txt_NameOfClient;
     static EditText txt_Dob;
-    static EditText txt_Age;
     static Spinner txt_Sex;
     static Spinner txt_LevelOfEducation;
     static EditText txt_ClientsAddress;
@@ -113,7 +112,6 @@ public class ClientInformationFragment extends Fragment {
         //
         txt_NameOfClient = (EditText) view.findViewById(R.id.txt_NameOfClient);
         txt_Dob = (EditText) view.findViewById(R.id.txt_Dob);
-        txt_Age = (EditText) view.findViewById(R.id.txt_Age);
         txt_Sex = (Spinner) view.findViewById(R.id.txt_Sex);
         txt_LevelOfEducation = (Spinner) view.findViewById(R.id.txt_LevelOfEducation);
         txt_ClientsAddress = (EditText) view.findViewById(R.id.txt_ClientsAddress);
@@ -180,7 +178,6 @@ public class ClientInformationFragment extends Fragment {
 
         txt_NameOfClient.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
         txt_Dob.setText(CreateEditCaseReportActivity.caseReportClientInformation.Dob);
-        txt_Age.setText(CreateEditCaseReportActivity.caseReportClientInformation.Age + "");
 
         txt_ClientsAddress.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
         txt_PhoneNumberHome.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
@@ -227,7 +224,6 @@ public class ClientInformationFragment extends Fragment {
         if(!fragment_can_save)return;
         CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
         CreateEditCaseReportActivity.caseReportClientInformation.Dob = txt_Dob.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.Age = Integer.parseInt(txt_Age.getText().toString());
         CreateEditCaseReportActivity.caseReportClientInformation.Sex = txt_Sex.getSelectedItem().toString();
         CreateEditCaseReportActivity.caseReportClientInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
         CreateEditCaseReportActivity.caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();

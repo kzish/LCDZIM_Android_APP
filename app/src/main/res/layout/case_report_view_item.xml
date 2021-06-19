@@ -36,6 +36,18 @@
                 android:layout_margin="5dp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:maxLength="50"
+                android:ellipsize="end"
+                android:id="@+id/txt_BeneficiaryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Beneficiary Name"
+                android:textColor="#00F"
+                android:textSize="10dp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

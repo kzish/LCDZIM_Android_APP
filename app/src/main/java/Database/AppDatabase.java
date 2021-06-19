@@ -17,16 +17,16 @@ import Dao.CaseReportPaymentsToBeneficiariesDao;
 import Models.CasePlanCaseLog;
 import Models.CasePlanCaseWorkplan;
 import Models.CaseReport;
+import Models.CaseReportBeneficiaryInformation;
 import Models.CaseReportCareGiver;
 import Models.CaseReportCasePlanAndFollowUp;
-import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportJustificationReportForAttendedCases;
 import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
 import Models.CaseReportParentsGuardiansSpousesInformation;
 
-import Dao.CaseReportClientInformationDao;
+import Dao.CaseReportBeneficiaryInformationDao;
 import Dao.CaseReportDao;
 import Dao.CaseReportDescriptionOfTheCaseProblemDao;
 import Dao.CaseReportNeedsAssesmentDao;
@@ -36,7 +36,7 @@ import Models.CaseReportPaymentsToBeneficiaries;
 
 @Database(entities = {
         CaseReport.class,
-        CaseReportClientInformation.class,
+        CaseReportBeneficiaryInformation.class,
         CaseReportDescriptionOfTheCaseProblem.class,
         CaseReportNeedsAssesment.class,
         CaseReportNextOfKin.class,
@@ -47,12 +47,12 @@ import Models.CaseReportPaymentsToBeneficiaries;
         CasePlanCaseWorkplan.class,
         CasePlanCaseLog.class,
         CaseReportCasePlanAndFollowUp.class,
-}, version = 19)
+}, version = 21)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CaseReportDao caseReportDao();
 
-    public abstract CaseReportClientInformationDao caseReportClientInformationDao();
+    public abstract CaseReportBeneficiaryInformationDao caseReportClientInformationDao();
 
     public abstract CaseReportDescriptionOfTheCaseProblemDao caseReportDescriptionOfTheCaseProblemDao();
 

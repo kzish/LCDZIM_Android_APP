@@ -5,8 +5,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import Models.CaseReport;
-import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 
 @Dao

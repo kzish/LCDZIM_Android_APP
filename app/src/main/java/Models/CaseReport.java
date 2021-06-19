@@ -31,4 +31,7 @@ public class CaseReport {
     public String DateCompiled;
     public boolean SavedAtLeastOnce;//saved at least once then wont be deleted
     public boolean Uploaded;//is this case uploaded or not
+
+    //search fields prefix with underscore
+    public String _beneficiary_name;
 }

@@ -1,7 +1,6 @@
 package CaseReportFragments;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +18,7 @@ import android.widget.Spinner;
 import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
+import java.io.CharArrayReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -176,18 +176,18 @@ public class BeneficiaryInformationFragment extends Fragment {
         //
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
 
-        txt_NameOfClient.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
-        txt_Dob.setText(CreateEditCaseReportActivity.caseReportClientInformation.Dob);
+        txt_NameOfClient.setText(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.NameOfClient);
+        txt_Dob.setText(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.Dob);
 
-        txt_ClientsAddress.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
-        txt_PhoneNumberHome.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
-        txt_Mobile.setText(CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient);
+        txt_ClientsAddress.setText(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.NameOfClient);
+        txt_PhoneNumberHome.setText(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.NameOfClient);
+        txt_Mobile.setText(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.NameOfClient);
         try {
-            chk_disability_hi.setChecked(CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability.contains("hi"));
-            chk_disability_mr.setChecked(CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability.contains("mr"));
-            chk_disability_vi.setChecked(CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability.contains("vi"));
-            chk_disability_physical.setChecked(CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability.contains("physical"));
-            chk_disability_cosmetic.setChecked(CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability.contains("cosmetic"));
+            chk_disability_hi.setChecked(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability.contains("hi"));
+            chk_disability_mr.setChecked(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability.contains("mr"));
+            chk_disability_vi.setChecked(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability.contains("vi"));
+            chk_disability_physical.setChecked(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability.contains("physical"));
+            chk_disability_cosmetic.setChecked(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability.contains("cosmetic"));
 
             if (chk_disability_hi.isChecked() && !chosen_disability_items.contains("hi"))
                 chosen_disability_items.add("hi");
@@ -206,13 +206,13 @@ public class BeneficiaryInformationFragment extends Fragment {
 
         for (int i = 0; i < txt_Sex.getAdapter().getCount(); i++) {
             String val = txt_Sex.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditCaseReportActivity.caseReportClientInformation.Sex)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.Sex)) {
                 txt_Sex.setSelection(i);
             }
         }
         for (int i = 0; i < txt_LevelOfEducation.getAdapter().getCount(); i++) {
             String val = txt_LevelOfEducation.getAdapter().getItem(i).toString();
-            if (val.equals(CreateEditCaseReportActivity.caseReportClientInformation.LevelOfEducation)) {
+            if (val.equals(CreateEditCaseReportActivity.caseReportBeneficiaryInformation.LevelOfEducation)) {
                 txt_LevelOfEducation.setSelection(i);
             }
         }
@@ -222,20 +222,21 @@ public class BeneficiaryInformationFragment extends Fragment {
 
     public static void saveRecord() {
         if(!fragment_can_save)return;
-        CreateEditCaseReportActivity.caseReportClientInformation.NameOfClient = txt_NameOfClient.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.Dob = txt_Dob.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.Sex = txt_Sex.getSelectedItem().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.Mobile = txt_Mobile.getText().toString();
-        CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability = "";//clear old and save
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.NameOfClient = txt_NameOfClient.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.Dob = txt_Dob.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.Sex = txt_Sex.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.LevelOfEducation = txt_LevelOfEducation.getSelectedItem().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.ClientsAddress = txt_ClientsAddress.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.PhoneNumberHome = txt_PhoneNumberHome.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.Mobile = txt_Mobile.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability = "";//clear old and save
+
         for (String item : chosen_disability_items
         ) {
-            CreateEditCaseReportActivity.caseReportClientInformation.DescriptionOfDisability += (item + ",");
+            CreateEditCaseReportActivity.caseReportBeneficiaryInformation.DescriptionOfDisability += (item + ",");
 
         }
-        CreateEditCaseReportActivity.caseReportClientInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
+        CreateEditCaseReportActivity.caseReportBeneficiaryInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
 
         try {
             CreateEditCaseReportActivity.pd.setTitle("Saving...");
@@ -244,7 +245,11 @@ public class BeneficiaryInformationFragment extends Fragment {
                 @Override
                 public void run() {
                     AppDatabase db = AppDatabase.getAppDatabase(CreateEditCaseReportActivity.context);
-                    db.caseReportClientInformationDao().update(CreateEditCaseReportActivity.caseReportClientInformation);
+                    db.caseReportClientInformationDao().update(CreateEditCaseReportActivity.caseReportBeneficiaryInformation);
+
+                    //update search fields in caseReport
+                    CreateEditCaseReportActivity.caseReport._beneficiary_name = txt_NameOfClient.getText().toString();
+                    db.caseReportDao().update(CreateEditCaseReportActivity.caseReport);
                 }
             });
             t.start();

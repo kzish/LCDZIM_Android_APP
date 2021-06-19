@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,21 +17,12 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import Database.AppDatabase;
-import Models.CaseReport;
-import Models.CaseReportCareGiver;
-import Models.CaseReportClientInformation;
-import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportJustificationReportForAttendedCases;
-import Models.CaseReportNeedsAssesment;
-import Models.CaseReportNextOfKin;
-import Models.CaseReportParentsGuardiansSpousesInformation;
 
 public class CreateEditJustificationReportActivity extends AppCompatActivity {
 

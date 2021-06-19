@@ -17,6 +17,14 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <EditText
+        android:layout_margin="10dp"
+        android:id="@+id/txt_search"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:drawableRight="@drawable/ic_baseline_search_24"
+        android:hint="search: CaseNumber or beneficiary name" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_case_reports"
         android:layout_width="match_parent"

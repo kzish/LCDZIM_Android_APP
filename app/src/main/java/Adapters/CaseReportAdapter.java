@@ -2,6 +2,7 @@ package Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +17,22 @@ import com.example.lcdzim.CreateEditCaseReportActivity;
 import com.example.lcdzim.R;
 
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
+import Database.AppDatabase;
 import Models.CaseReport;
+import Models.CaseReportBeneficiaryInformation;
 
 public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.ViewHolder> {
 
     public static List<CaseReport> caseReports;
     private Context context;
+    AppDatabase db;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txt_Date;
         private final TextView txt_CaseNumber;
+        private final TextView txt_BeneficiaryName;
         private final TextView txt_CrRef;
         private final TextView txt_PoliceStation;
         private final TextView txt_ReferredByNameAndInstitution;
@@ -34,12 +40,14 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
         private final LinearLayout lv;
         private final ImageView img_uploaded;
 
+
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             txt_Date = (TextView) view.findViewById(R.id.txt_Date);
             txt_CaseNumber = (TextView) view.findViewById(R.id.txt_CaseNumber);
+            txt_BeneficiaryName = (TextView) view.findViewById(R.id.txt_BeneficiaryName);
             txt_CrRef = (TextView) view.findViewById(R.id.txt_CrRef);
             txt_PoliceStation = (TextView) view.findViewById(R.id.txt_PoliceStation);
             txt_ReferredByNameAndInstitution = (TextView) view.findViewById(R.id.txt_ReferredByNameAndInstitution);
@@ -68,6 +76,7 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         CaseReport caseReport = caseReports.get(position);
+
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
@@ -75,6 +84,12 @@ public class CaseReportAdapter extends RecyclerView.Adapter<CaseReportAdapter.Vi
             viewHolder.txt_CaseNumber.setText("Case Number...");
         } else {
             viewHolder.txt_CaseNumber.setText(caseReport.CaseNumber);
+        }
+
+        if (caseReport._beneficiary_name.equals("")) {
+            viewHolder.txt_BeneficiaryName.setText("Beneficiary Name...");
+        } else {
+            viewHolder.txt_BeneficiaryName.setText(caseReport._beneficiary_name);
         }
 
 

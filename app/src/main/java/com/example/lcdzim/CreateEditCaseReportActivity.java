@@ -38,9 +38,9 @@ import Globals.globals;
 import Models.CasePlanCaseLog;
 import Models.CasePlanCaseWorkplan;
 import Models.CaseReport;
+import Models.CaseReportBeneficiaryInformation;
 import Models.CaseReportCareGiver;
 import Models.CaseReportCasePlanAndFollowUp;
-import Models.CaseReportClientInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportJustificationReportForAttendedCases;
 import Models.CaseReportNeedsAssesment;
@@ -60,7 +60,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
     public static ProgressDialog pd;
 
     public static CaseReport caseReport;
-    public static CaseReportClientInformation caseReportClientInformation;
+    public static CaseReportBeneficiaryInformation caseReportBeneficiaryInformation;
     public static CaseReportDescriptionOfTheCaseProblem caseReportDescriptionOfTheCaseProblem;
     public static CaseReportNextOfKin caseReportNextOfKin;
     public static CaseReportCareGiver caseReportCareGiver;
@@ -98,7 +98,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                 public void run() {
                     //pull fresh from db
                     caseReport = db.caseReportDao().findByCaseId(case_id);
-                    caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                    caseReportBeneficiaryInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
                     caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
                     caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
                     caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
@@ -106,7 +106,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                     caseReportParentsGuardiansSpousesInformation = db.caseReportParentsGuardiansSpousesInformationDao().findByCaseId(case_id);
                     if (
                             caseReport == null ||
-                                    caseReportClientInformation == null ||
+                                    caseReportBeneficiaryInformation == null ||
                                     caseReportDescriptionOfTheCaseProblem == null ||
                                     caseReportNeedsAssesment == null ||
                                     caseReportNextOfKin == null ||
@@ -242,7 +242,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                         List<CaseReportJustificationReportForAttendedCases> caseReportJustificationReportForAttendedCases = db.caseReportJustificationReportForAttendedCasesDao().findAllByCaseId(case_id);
                         List<CaseReportPaymentsToBeneficiaries> caseReportPaymentsToBeneficiaries = db.caseReportPaymentsToBeneficiariesDao().findAllByCaseId(case_id);
                         caseReport = db.caseReportDao().findByCaseId(case_id);
-                        caseReportClientInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
+                        caseReportBeneficiaryInformation = db.caseReportClientInformationDao().findByCaseId(case_id);
                         caseReportDescriptionOfTheCaseProblem = db.caseReportDescriptionOfTheCaseProblemDao().findByCaseId(case_id);
                         caseReportNeedsAssesment = db.caseReportNeedsAssesmentDao().findByCaseId(case_id);
                         caseReportNextOfKin = db.caseReportNextOfKinDao().findByCaseId(case_id);
@@ -257,7 +257,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
                         __caseReport = jsonMapper.writeValueAsString(caseReport);
                         __caseReportCareGiver = jsonMapper.writeValueAsString(caseReportCareGiver);
                         __caseReportCasePlanAndFollowUp = jsonMapper.writeValueAsString(caseReportCasePlanAndFollowUp);
-                        __caseReportClientInformation = jsonMapper.writeValueAsString(caseReportClientInformation);
+                        __caseReportClientInformation = jsonMapper.writeValueAsString(caseReportBeneficiaryInformation);
                         __caseReportDescriptionOfTheCaseProblem = jsonMapper.writeValueAsString(caseReportDescriptionOfTheCaseProblem);
                         __caseReportJustificationReportForAttendedCases = jsonMapper.writeValueAsString(caseReportJustificationReportForAttendedCases);
                         __caseReportNeedsAssesment = jsonMapper.writeValueAsString(caseReportNeedsAssesment);

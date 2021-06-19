@@ -8,13 +8,13 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-public class CaseReportClientInformation {
+public class CaseReportBeneficiaryInformation {
 
-    public CaseReportClientInformation() {
+    public CaseReportBeneficiaryInformation() {
         Id = UUID.randomUUID().toString();
     }
 
-    public CaseReportClientInformation(String caseId) {
+    public CaseReportBeneficiaryInformation(String caseId) {
         CaseId = caseId;
         Id = UUID.randomUUID().toString();
     }

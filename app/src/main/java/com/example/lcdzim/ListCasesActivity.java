@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import Adapters.CaseReportAdapter;
 import Database.AppDatabase;
 import Models.CaseReport;
 import Models.CaseReportCareGiver;
-import Models.CaseReportClientInformation;
+import Models.CaseReportBeneficiaryInformation;
 import Models.CaseReportDescriptionOfTheCaseProblem;
 import Models.CaseReportNeedsAssesment;
 import Models.CaseReportNextOfKin;
@@ -36,6 +37,7 @@ public class ListCasesActivity extends AppCompatActivity {
     public static CaseReportAdapter adapter;
     Toolbar toolbar;
     LinearLayout ll_empty;
+    EditText txt_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class ListCasesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_cases);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        txt_search = (EditText) findViewById(R.id.txt_search);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Case Reports");
@@ -52,7 +55,11 @@ public class ListCasesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadCaseReportsList();
 
+    }
+
+    private void loadCaseReportsList() {
         caseReports = new ArrayList<>();
         pd = new ProgressDialog(this);
         pd.setTitle("Loading...");
@@ -89,10 +96,12 @@ public class ListCasesActivity extends AppCompatActivity {
         }
         pd.hide();
 
-        if(caseReports.size()==0){
+        if (caseReports.size() == 0) {
             ll_empty.setVisibility(View.VISIBLE);
-        }else {
+            txt_search.setVisibility(View.GONE);
+        } else {
             ll_empty.setVisibility(View.GONE);
+            txt_search.setVisibility(View.VISIBLE);
         }
 
         adapter = new CaseReportAdapter(caseReports, this);
@@ -127,7 +136,7 @@ public class ListCasesActivity extends AppCompatActivity {
                             long case_report_id = db.caseReportDao().insert(new CaseReport());
                             CaseReport caseReport = db.caseReportDao().findById(case_report_id);
                             String case_id = caseReport.Id;
-                            db.caseReportClientInformationDao().insert(new CaseReportClientInformation(case_id));
+                            db.caseReportClientInformationDao().insert(new CaseReportBeneficiaryInformation(case_id));
                             db.caseReportDescriptionOfTheCaseProblemDao().insert(new CaseReportDescriptionOfTheCaseProblem(case_id));
                             db.caseReportNeedsAssesmentDao().insert(new CaseReportNeedsAssesment(case_id));
                             db.caseReportNextOfKinDao().insert(new CaseReportNextOfKin(case_id));

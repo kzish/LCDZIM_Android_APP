@@ -237,10 +237,9 @@ public class BeneficiaryInformationFragment extends Fragment {
         }
         CreateEditCaseReportActivity.caseReportClientInformation.GiveDetailsOfTheDisability = txt_GiveDetailsOfTheDisability.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -253,7 +252,7 @@ public class BeneficiaryInformationFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity.pd.hide();
         }
 
     }

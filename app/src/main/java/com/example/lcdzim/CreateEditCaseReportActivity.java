@@ -57,7 +57,7 @@ public class CreateEditCaseReportActivity extends AppCompatActivity {
     public static String case_id;//current case id, always set this before calling this activity
     public static Context context;
     AppDatabase db;
-    ProgressDialog pd;
+    public static ProgressDialog pd;
 
     public static CaseReport caseReport;
     public static CaseReportClientInformation caseReportClientInformation;

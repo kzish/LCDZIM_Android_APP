@@ -111,10 +111,9 @@ public class CareGiverInformationFragment extends Fragment {
         CreateEditCaseReportActivity.caseReportCareGiver.CareGiverAddress = txt_CareGiverAddress.getText().toString();
         CreateEditCaseReportActivity.caseReportCareGiver.CareGiverPhoneNumber = txt_CareGiverPhoneNumber.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -127,7 +126,7 @@ public class CareGiverInformationFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity. pd.hide();
         }
     }
 }

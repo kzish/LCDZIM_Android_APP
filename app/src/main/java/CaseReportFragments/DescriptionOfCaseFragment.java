@@ -101,7 +101,7 @@ public class DescriptionOfCaseFragment extends Fragment {
 
     public static void saveRecord() {
 
-        if(!fragment_can_save)return;
+        if (!fragment_can_save) return;
         CreateEditCaseReportActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatus = txt_BeneficiaryStatus.getSelectedItem().toString();
         CreateEditCaseReportActivity.caseReportDescriptionOfTheCaseProblem.BeneficiaryStatusOtherSpecify = txt_BeneficiaryStatusOtherSpecify.getText().toString();
         CreateEditCaseReportActivity.caseReportDescriptionOfTheCaseProblem.RelationshipClientAndAccused = txt_RelationshipClientAndAccused.getText().toString();
@@ -111,10 +111,9 @@ public class DescriptionOfCaseFragment extends Fragment {
         CreateEditCaseReportActivity.caseReportDescriptionOfTheCaseProblem.NatureOfTheMatterCaseOtherSpecify = txt_NatureOfTheMatterCaseOtherSpecify.getText().toString();
         CreateEditCaseReportActivity.caseReportDescriptionOfTheCaseProblem.DetailsOfCaseAndCharge = txt_DetailsOfCaseAndCharge.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -127,7 +126,7 @@ public class DescriptionOfCaseFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity.pd.hide();
         }
     }
 

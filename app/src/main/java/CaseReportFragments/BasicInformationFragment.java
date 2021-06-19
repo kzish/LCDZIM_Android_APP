@@ -51,7 +51,6 @@ public class BasicInformationFragment extends Fragment {
     static EditText txt_ForceNumber;
     static EditText txt_CompiledBy;
     static EditText txt_DateCompiled;
-    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,8 +111,6 @@ public class BasicInformationFragment extends Fragment {
 
         AppDatabase db = AppDatabase.getAppDatabase(getContext());
 
-        progressDialog = new ProgressDialog(getActivity());
-
         //load data into the view
         txt_ReferredByNameAndInstitution.setText(CreateEditCaseReportActivity.caseReport.ReferredByNameAndInstitution);
         txt_CaseNumber.setText(CreateEditCaseReportActivity.caseReport.CaseNumber);
@@ -152,10 +149,9 @@ public class BasicInformationFragment extends Fragment {
         CreateEditCaseReportActivity.caseReport.CompiledBy = txt_CompiledBy.getText().toString();
         CreateEditCaseReportActivity.caseReport.DateCompiled = txt_DateCompiled.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -168,7 +164,7 @@ public class BasicInformationFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity.pd.hide();
         }
     }
 }

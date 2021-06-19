@@ -200,10 +200,9 @@ public class NeedsAssesmentFragment extends Fragment {
         CreateEditCaseReportActivity.caseReportNeedsAssesment.BeneficiaryImmediateConcerns = txt_BeneficiaryImmediateConcerns.getText().toString();
         CreateEditCaseReportActivity.caseReportNeedsAssesment.OtherRelevantIssues = txt_OtherRelevantIssues.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -216,7 +215,7 @@ public class NeedsAssesmentFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity.pd.hide();
         }
     }
 }

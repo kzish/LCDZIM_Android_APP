@@ -97,7 +97,7 @@ public class PGSInformationFragment extends Fragment {
     }
 
     public static void saveRecord() {
-        if(!fragment_can_save)return;
+        if (!fragment_can_save) return;
         CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Name = txt_Name.getText().toString();
         CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Age = Integer.parseInt(txt_Age.getText().toString());
         CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.Address = txt_Address.getText().toString();
@@ -108,10 +108,9 @@ public class PGSInformationFragment extends Fragment {
         CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatus = txt_MaritalStatus.getSelectedItem().toString();
         CreateEditCaseReportActivity.caseReportParentsGuardiansSpousesInformation.MaritalStatusOtherSpecify = txt_MaritalStatusOtherSpecify.getText().toString();
 
-        ProgressDialog pd = new ProgressDialog(CreateEditCaseReportActivity.context);
         try {
-            pd.setTitle("Saving...");
-            pd.show();
+            CreateEditCaseReportActivity.pd.setTitle("Saving...");
+            CreateEditCaseReportActivity.pd.show();
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -124,7 +123,7 @@ public class PGSInformationFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("kzzex", ex.getMessage());
         } finally {
-            pd.hide();
+            CreateEditCaseReportActivity.pd.hide();
         }
     }
 
